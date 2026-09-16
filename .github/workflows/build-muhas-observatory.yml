@@ -5,7 +5,8 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/build-muhas-observatory.yml"
-      - "scripts/build-muhas-observatory.py"
+      - "scripts/build_muhas_observatory.py"
+      - "requirements.txt"
       - "muhas-publications/**"
   workflow_dispatch:
     inputs:
@@ -54,8 +55,9 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+          cache-dependency-path: requirements.txt
       - name: Install export dependency
-        run: python -m pip install --disable-pip-version-check openpyxl==3.1.5
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
       - name: Determine snapshot date and status
         id: meta
         env:
