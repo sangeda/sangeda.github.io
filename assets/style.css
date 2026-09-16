@@ -153,3 +153,41 @@ footer p { margin: 0; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
+
+/* Publications and research-trends page */
+.site-nav.always { display: flex; }
+.pub-hero { padding: 6rem max(20px, calc((100vw - 1180px)/2)) 4rem; background: radial-gradient(circle at 82% 10%, rgba(15,113,108,.14), transparent 34%), #f8f5ec; }
+.pub-hero h1 { max-width: 1000px; }
+.pub-hero .hero-stats { max-width: 900px; margin-top: 3.5rem; }
+.visual-card { overflow: hidden; padding: 1rem; border: 1px solid rgba(23,36,39,.08); border-radius: 24px; background: #f5f7f2; box-shadow: 0 14px 40px rgba(18,45,44,.07); }
+.visual-card img { display: block; width: 100%; height: auto; }
+.trend-grid { display: grid; grid-template-columns: minmax(0, 2.4fr) minmax(260px, .6fr); gap: 1.4rem; margin-top: 1.4rem; }
+.ranked-terms { padding: 1.5rem; border-radius: 22px; color: white; background: var(--dark); }
+.ranked-terms h3 { margin-top: 0; }
+.ranked-terms ol { margin: 0; padding: 0; list-style: none; counter-reset: rank; }
+.ranked-terms li { counter-increment: rank; display: grid; grid-template-columns: 28px 1fr auto; gap: .5rem; padding: .55rem 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+.ranked-terms li::before { content: counter(rank, decimal-leading-zero); color: #70c8be; font-size: .74rem; }
+.ranked-terms strong { color: var(--gold); }
+.method-note { margin: 1.2rem 0 0; color: var(--muted); font-size: .86rem; }
+.pub-controls { display: grid; grid-template-columns: 1fr 180px auto; align-items: end; gap: 1rem; margin-bottom: 2rem; }
+.pub-controls label { color: var(--muted); font-size: .8rem; font-weight: 700; text-transform: uppercase; }
+.pub-controls input, .pub-controls select { display: block; width: 100%; min-height: 48px; margin-top: .35rem; padding: .65rem .8rem; border: 1px solid var(--line); border-radius: 10px; color: var(--ink); background: white; font: inherit; }
+#pub-count { padding-bottom: .75rem; color: var(--teal); font-weight: 800; }
+.publication-catalogue { border-top: 1px solid var(--line); }
+.pub-card { display: grid; grid-template-columns: 72px 1fr; gap: 1.2rem; padding: 1.45rem 0; border-bottom: 1px solid var(--line); }
+.pub-card[hidden] { display: none; }
+.pub-year { color: var(--teal); font-weight: 800; }
+.pub-card h3, .pub-card p { margin: 0; }
+.pub-card h3 { max-width: 900px; font-size: 1.08rem; line-height: 1.4; letter-spacing: -.015em; }
+.pub-card h3 a:hover { color: var(--teal); }
+.pub-authors, .pub-journal { margin-top: .35rem !important; color: var(--muted); font-size: .88rem; }
+.pub-journal { font-style: italic; }
+.source-badges { display: flex; gap: .4rem; margin-top: .7rem; }
+.source-badges span { padding: .2rem .5rem; border-radius: 99px; color: var(--teal); background: var(--teal-pale); font-size: .68rem; font-weight: 800; text-transform: uppercase; }
+
+@media (max-width: 900px) {
+  .site-nav.always { position: static; flex-direction: row; padding: 0; border: 0; background: transparent; }
+  .site-nav.always a:not(.nav-cta) { display: none; }
+  .trend-grid, .pub-controls { grid-template-columns: 1fr; }
+  #pub-count { padding: 0; }
+}
