@@ -1,0 +1,1378 @@
+{
+  "institution": "Muhimbili University of Health and Allied Sciences",
+  "openalex_id": "I154840374",
+  "ror": "027pr6c67",
+  "snapshot": {
+    "snapshot_id": "MUHAS_OPENALEX_1964_2026-09-16_PROVISIONAL_asof_2026-09-16",
+    "snapshot_status": "provisional",
+    "institution_name": "Muhimbili University of Health and Allied Sciences",
+    "alternate_name": "Chuo Kikuu cha Afya na Sayansi Shirikishi Muhimbili",
+    "openalex_id": "I154840374",
+    "ror": "027pr6c67",
+    "period_start": "1964-01-01",
+    "as_of_date": "2026-09-16",
+    "retrieved_at": "2026-09-16T14:17:25+00:00",
+    "works_processed": 9504,
+    "authorship_rows": 77740,
+    "query_filter": "reused raw snapshot",
+    "openalex_reported_count": 9504,
+    "pages_retrieved": null,
+    "raw_path": "muhas_publications_archive/raw/MUHAS_OPENALEX_1964_2026-09-16_PROVISIONAL_asof_2026-09-16.jsonl.gz"
+  },
+  "total_works": 9504,
+  "historical_1964_2025": 8589,
+  "annual": [
+    {
+      "publication_year": 1970,
+      "publications": 3
+    },
+    {
+      "publication_year": 1978,
+      "publications": 2
+    },
+    {
+      "publication_year": 1981,
+      "publications": 2
+    },
+    {
+      "publication_year": 1982,
+      "publications": 2
+    },
+    {
+      "publication_year": 1983,
+      "publications": 2
+    },
+    {
+      "publication_year": 1984,
+      "publications": 3
+    },
+    {
+      "publication_year": 1985,
+      "publications": 3
+    },
+    {
+      "publication_year": 1987,
+      "publications": 4
+    },
+    {
+      "publication_year": 1988,
+      "publications": 3
+    },
+    {
+      "publication_year": 1989,
+      "publications": 4
+    },
+    {
+      "publication_year": 1990,
+      "publications": 22
+    },
+    {
+      "publication_year": 1991,
+      "publications": 14
+    },
+    {
+      "publication_year": 1992,
+      "publications": 30
+    },
+    {
+      "publication_year": 1993,
+      "publications": 31
+    },
+    {
+      "publication_year": 1994,
+      "publications": 40
+    },
+    {
+      "publication_year": 1995,
+      "publications": 37
+    },
+    {
+      "publication_year": 1996,
+      "publications": 40
+    },
+    {
+      "publication_year": 1997,
+      "publications": 37
+    },
+    {
+      "publication_year": 1998,
+      "publications": 27
+    },
+    {
+      "publication_year": 1999,
+      "publications": 33
+    },
+    {
+      "publication_year": 2000,
+      "publications": 81
+    },
+    {
+      "publication_year": 2001,
+      "publications": 94
+    },
+    {
+      "publication_year": 2002,
+      "publications": 85
+    },
+    {
+      "publication_year": 2003,
+      "publications": 68
+    },
+    {
+      "publication_year": 2004,
+      "publications": 111
+    },
+    {
+      "publication_year": 2005,
+      "publications": 116
+    },
+    {
+      "publication_year": 2006,
+      "publications": 143
+    },
+    {
+      "publication_year": 2007,
+      "publications": 175
+    },
+    {
+      "publication_year": 2008,
+      "publications": 168
+    },
+    {
+      "publication_year": 2009,
+      "publications": 193
+    },
+    {
+      "publication_year": 2010,
+      "publications": 189
+    },
+    {
+      "publication_year": 2011,
+      "publications": 238
+    },
+    {
+      "publication_year": 2012,
+      "publications": 248
+    },
+    {
+      "publication_year": 2013,
+      "publications": 263
+    },
+    {
+      "publication_year": 2014,
+      "publications": 267
+    },
+    {
+      "publication_year": 2015,
+      "publications": 237
+    },
+    {
+      "publication_year": 2016,
+      "publications": 255
+    },
+    {
+      "publication_year": 2017,
+      "publications": 286
+    },
+    {
+      "publication_year": 2018,
+      "publications": 287
+    },
+    {
+      "publication_year": 2019,
+      "publications": 401
+    },
+    {
+      "publication_year": 2020,
+      "publications": 607
+    },
+    {
+      "publication_year": 2021,
+      "publications": 579
+    },
+    {
+      "publication_year": 2022,
+      "publications": 635
+    },
+    {
+      "publication_year": 2023,
+      "publications": 758
+    },
+    {
+      "publication_year": 2024,
+      "publications": 783
+    },
+    {
+      "publication_year": 2025,
+      "publications": 983
+    },
+    {
+      "publication_year": 2026,
+      "publications": 915
+    }
+  ],
+  "quarters": [
+    {
+      "fiscal_year": "FY1969/70",
+      "fiscal_quarter": "Q3",
+      "period_end": "1970-03-31",
+      "publications": 3
+    },
+    {
+      "fiscal_year": "FY1977/78",
+      "fiscal_quarter": "Q3",
+      "period_end": "1978-03-31",
+      "publications": 1
+    },
+    {
+      "fiscal_year": "FY1978/79",
+      "fiscal_quarter": "Q1",
+      "period_end": "1978-09-30",
+      "publications": 1
+    },
+    {
+      "fiscal_year": "FY1980/81",
+      "fiscal_quarter": "Q3",
+      "period_end": "1981-03-31",
+      "publications": 2
+    },
+    {
+      "fiscal_year": "FY1981/82",
+      "fiscal_quarter": "Q3",
+      "period_end": "1982-03-31",
+      "publications": 2
+    },
+    {
+      "fiscal_year": "FY1982/83",
+      "fiscal_quarter": "Q4",
+      "period_end": "1983-06-30",
+      "publications": 1
+    },
+    {
+      "fiscal_year": "FY1983/84",
+      "fiscal_quarter": "Q2",
+      "period_end": "1983-12-31",
+      "publications": 1
+    },
+    {
+      "fiscal_year": "FY1983/84",
+      "fiscal_quarter": "Q4",
+      "period_end": "1984-06-30",
+      "publications": 2
+    },
+    {
+      "fiscal_year": "FY1984/85",
+      "fiscal_quarter": "Q2",
+      "period_end": "1984-12-31",
+      "publications": 1
+    },
+    {
+      "fiscal_year": "FY1984/85",
+      "fiscal_quarter": "Q3",
+      "period_end": "1985-03-31",
+      "publications": 1
+    },
+    {
+      "fiscal_year": "FY1984/85",
+      "fiscal_quarter": "Q4",
+      "period_end": "1985-06-30",
+      "publications": 1
+    },
+    {
+      "fiscal_year": "FY1985/86",
+      "fiscal_quarter": "Q2",
+      "period_end": "1985-12-31",
+      "publications": 1
+    },
+    {
+      "fiscal_year": "FY1986/87",
+      "fiscal_quarter": "Q3",
+      "period_end": "1987-03-31",
+      "publications": 1
+    },
+    {
+      "fiscal_year": "FY1987/88",
+      "fiscal_quarter": "Q2",
+      "period_end": "1987-12-31",
+      "publications": 3
+    },
+    {
+      "fiscal_year": "FY1987/88",
+      "fiscal_quarter": "Q3",
+      "period_end": "1988-03-31",
+      "publications": 1
+    },
+    {
+      "fiscal_year": "FY1987/88",
+      "fiscal_quarter": "Q4",
+      "period_end": "1988-06-30",
+      "publications": 2
+    },
+    {
+      "fiscal_year": "FY1988/89",
+      "fiscal_quarter": "Q4",
+      "period_end": "1989-06-30",
+      "publications": 3
+    },
+    {
+      "fiscal_year": "FY1989/90",
+      "fiscal_quarter": "Q1",
+      "period_end": "1989-09-30",
+      "publications": 1
+    },
+    {
+      "fiscal_year": "FY1989/90",
+      "fiscal_quarter": "Q3",
+      "period_end": "1990-03-31",
+      "publications": 8
+    },
+    {
+      "fiscal_year": "FY1989/90",
+      "fiscal_quarter": "Q4",
+      "period_end": "1990-06-30",
+      "publications": 2
+    },
+    {
+      "fiscal_year": "FY1990/91",
+      "fiscal_quarter": "Q1",
+      "period_end": "1990-09-30",
+      "publications": 3
+    },
+    {
+      "fiscal_year": "FY1990/91",
+      "fiscal_quarter": "Q2",
+      "period_end": "1990-12-31",
+      "publications": 9
+    },
+    {
+      "fiscal_year": "FY1990/91",
+      "fiscal_quarter": "Q3",
+      "period_end": "1991-03-31",
+      "publications": 4
+    },
+    {
+      "fiscal_year": "FY1990/91",
+      "fiscal_quarter": "Q4",
+      "period_end": "1991-06-30",
+      "publications": 4
+    },
+    {
+      "fiscal_year": "FY1991/92",
+      "fiscal_quarter": "Q1",
+      "period_end": "1991-09-30",
+      "publications": 3
+    },
+    {
+      "fiscal_year": "FY1991/92",
+      "fiscal_quarter": "Q2",
+      "period_end": "1991-12-31",
+      "publications": 3
+    },
+    {
+      "fiscal_year": "FY1991/92",
+      "fiscal_quarter": "Q3",
+      "period_end": "1992-03-31",
+      "publications": 6
+    },
+    {
+      "fiscal_year": "FY1991/92",
+      "fiscal_quarter": "Q4",
+      "period_end": "1992-06-30",
+      "publications": 9
+    },
+    {
+      "fiscal_year": "FY1992/93",
+      "fiscal_quarter": "Q1",
+      "period_end": "1992-09-30",
+      "publications": 10
+    },
+    {
+      "fiscal_year": "FY1992/93",
+      "fiscal_quarter": "Q2",
+      "period_end": "1992-12-31",
+      "publications": 5
+    },
+    {
+      "fiscal_year": "FY1992/93",
+      "fiscal_quarter": "Q3",
+      "period_end": "1993-03-31",
+      "publications": 13
+    },
+    {
+      "fiscal_year": "FY1992/93",
+      "fiscal_quarter": "Q4",
+      "period_end": "1993-06-30",
+      "publications": 4
+    },
+    {
+      "fiscal_year": "FY1993/94",
+      "fiscal_quarter": "Q1",
+      "period_end": "1993-09-30",
+      "publications": 5
+    },
+    {
+      "fiscal_year": "FY1993/94",
+      "fiscal_quarter": "Q2",
+      "period_end": "1993-12-31",
+      "publications": 9
+    },
+    {
+      "fiscal_year": "FY1993/94",
+      "fiscal_quarter": "Q3",
+      "period_end": "1994-03-31",
+      "publications": 19
+    },
+    {
+      "fiscal_year": "FY1993/94",
+      "fiscal_quarter": "Q4",
+      "period_end": "1994-06-30",
+      "publications": 8
+    },
+    {
+      "fiscal_year": "FY1994/95",
+      "fiscal_quarter": "Q1",
+      "period_end": "1994-09-30",
+      "publications": 7
+    },
+    {
+      "fiscal_year": "FY1994/95",
+      "fiscal_quarter": "Q2",
+      "period_end": "1994-12-31",
+      "publications": 6
+    },
+    {
+      "fiscal_year": "FY1994/95",
+      "fiscal_quarter": "Q3",
+      "period_end": "1995-03-31",
+      "publications": 15
+    },
+    {
+      "fiscal_year": "FY1994/95",
+      "fiscal_quarter": "Q4",
+      "period_end": "1995-06-30",
+      "publications": 4
+    },
+    {
+      "fiscal_year": "FY1995/96",
+      "fiscal_quarter": "Q1",
+      "period_end": "1995-09-30",
+      "publications": 9
+    },
+    {
+      "fiscal_year": "FY1995/96",
+      "fiscal_quarter": "Q2",
+      "period_end": "1995-12-31",
+      "publications": 9
+    },
+    {
+      "fiscal_year": "FY1995/96",
+      "fiscal_quarter": "Q3",
+      "period_end": "1996-03-31",
+      "publications": 11
+    },
+    {
+      "fiscal_year": "FY1995/96",
+      "fiscal_quarter": "Q4",
+      "period_end": "1996-06-30",
+      "publications": 12
+    },
+    {
+      "fiscal_year": "FY1996/97",
+      "fiscal_quarter": "Q1",
+      "period_end": "1996-09-30",
+      "publications": 9
+    },
+    {
+      "fiscal_year": "FY1996/97",
+      "fiscal_quarter": "Q2",
+      "period_end": "1996-12-31",
+      "publications": 8
+    },
+    {
+      "fiscal_year": "FY1996/97",
+      "fiscal_quarter": "Q3",
+      "period_end": "1997-03-31",
+      "publications": 11
+    },
+    {
+      "fiscal_year": "FY1996/97",
+      "fiscal_quarter": "Q4",
+      "period_end": "1997-06-30",
+      "publications": 11
+    },
+    {
+      "fiscal_year": "FY1997/98",
+      "fiscal_quarter": "Q1",
+      "period_end": "1997-09-30",
+      "publications": 7
+    },
+    {
+      "fiscal_year": "FY1997/98",
+      "fiscal_quarter": "Q2",
+      "period_end": "1997-12-31",
+      "publications": 8
+    },
+    {
+      "fiscal_year": "FY1997/98",
+      "fiscal_quarter": "Q3",
+      "period_end": "1998-03-31",
+      "publications": 12
+    },
+    {
+      "fiscal_year": "FY1997/98",
+      "fiscal_quarter": "Q4",
+      "period_end": "1998-06-30",
+      "publications": 6
+    },
+    {
+      "fiscal_year": "FY1998/99",
+      "fiscal_quarter": "Q1",
+      "period_end": "1998-09-30",
+      "publications": 7
+    },
+    {
+      "fiscal_year": "FY1998/99",
+      "fiscal_quarter": "Q2",
+      "period_end": "1998-12-31",
+      "publications": 2
+    },
+    {
+      "fiscal_year": "FY1998/99",
+      "fiscal_quarter": "Q3",
+      "period_end": "1999-03-31",
+      "publications": 11
+    },
+    {
+      "fiscal_year": "FY1998/99",
+      "fiscal_quarter": "Q4",
+      "period_end": "1999-06-30",
+      "publications": 6
+    },
+    {
+      "fiscal_year": "FY1999/00",
+      "fiscal_quarter": "Q1",
+      "period_end": "1999-09-30",
+      "publications": 8
+    },
+    {
+      "fiscal_year": "FY1999/00",
+      "fiscal_quarter": "Q2",
+      "period_end": "1999-12-31",
+      "publications": 8
+    },
+    {
+      "fiscal_year": "FY1999/00",
+      "fiscal_quarter": "Q3",
+      "period_end": "2000-03-31",
+      "publications": 21
+    },
+    {
+      "fiscal_year": "FY1999/00",
+      "fiscal_quarter": "Q4",
+      "period_end": "2000-06-30",
+      "publications": 25
+    },
+    {
+      "fiscal_year": "FY2000/01",
+      "fiscal_quarter": "Q1",
+      "period_end": "2000-09-30",
+      "publications": 18
+    },
+    {
+      "fiscal_year": "FY2000/01",
+      "fiscal_quarter": "Q2",
+      "period_end": "2000-12-31",
+      "publications": 17
+    },
+    {
+      "fiscal_year": "FY2000/01",
+      "fiscal_quarter": "Q3",
+      "period_end": "2001-03-31",
+      "publications": 31
+    },
+    {
+      "fiscal_year": "FY2000/01",
+      "fiscal_quarter": "Q4",
+      "period_end": "2001-06-30",
+      "publications": 15
+    },
+    {
+      "fiscal_year": "FY2001/02",
+      "fiscal_quarter": "Q1",
+      "period_end": "2001-09-30",
+      "publications": 20
+    },
+    {
+      "fiscal_year": "FY2001/02",
+      "fiscal_quarter": "Q2",
+      "period_end": "2001-12-31",
+      "publications": 28
+    },
+    {
+      "fiscal_year": "FY2001/02",
+      "fiscal_quarter": "Q3",
+      "period_end": "2002-03-31",
+      "publications": 21
+    },
+    {
+      "fiscal_year": "FY2001/02",
+      "fiscal_quarter": "Q4",
+      "period_end": "2002-06-30",
+      "publications": 16
+    },
+    {
+      "fiscal_year": "FY2002/03",
+      "fiscal_quarter": "Q1",
+      "period_end": "2002-09-30",
+      "publications": 22
+    },
+    {
+      "fiscal_year": "FY2002/03",
+      "fiscal_quarter": "Q2",
+      "period_end": "2002-12-31",
+      "publications": 26
+    },
+    {
+      "fiscal_year": "FY2002/03",
+      "fiscal_quarter": "Q3",
+      "period_end": "2003-03-31",
+      "publications": 11
+    },
+    {
+      "fiscal_year": "FY2002/03",
+      "fiscal_quarter": "Q4",
+      "period_end": "2003-06-30",
+      "publications": 21
+    },
+    {
+      "fiscal_year": "FY2003/04",
+      "fiscal_quarter": "Q1",
+      "period_end": "2003-09-30",
+      "publications": 20
+    },
+    {
+      "fiscal_year": "FY2003/04",
+      "fiscal_quarter": "Q2",
+      "period_end": "2003-12-31",
+      "publications": 16
+    },
+    {
+      "fiscal_year": "FY2003/04",
+      "fiscal_quarter": "Q3",
+      "period_end": "2004-03-31",
+      "publications": 25
+    },
+    {
+      "fiscal_year": "FY2003/04",
+      "fiscal_quarter": "Q4",
+      "period_end": "2004-06-30",
+      "publications": 30
+    },
+    {
+      "fiscal_year": "FY2004/05",
+      "fiscal_quarter": "Q1",
+      "period_end": "2004-09-30",
+      "publications": 25
+    },
+    {
+      "fiscal_year": "FY2004/05",
+      "fiscal_quarter": "Q2",
+      "period_end": "2004-12-31",
+      "publications": 31
+    },
+    {
+      "fiscal_year": "FY2004/05",
+      "fiscal_quarter": "Q3",
+      "period_end": "2005-03-31",
+      "publications": 27
+    },
+    {
+      "fiscal_year": "FY2004/05",
+      "fiscal_quarter": "Q4",
+      "period_end": "2005-06-30",
+      "publications": 34
+    },
+    {
+      "fiscal_year": "FY2005/06",
+      "fiscal_quarter": "Q1",
+      "period_end": "2005-09-30",
+      "publications": 24
+    },
+    {
+      "fiscal_year": "FY2005/06",
+      "fiscal_quarter": "Q2",
+      "period_end": "2005-12-31",
+      "publications": 31
+    },
+    {
+      "fiscal_year": "FY2005/06",
+      "fiscal_quarter": "Q3",
+      "period_end": "2006-03-31",
+      "publications": 33
+    },
+    {
+      "fiscal_year": "FY2005/06",
+      "fiscal_quarter": "Q4",
+      "period_end": "2006-06-30",
+      "publications": 49
+    },
+    {
+      "fiscal_year": "FY2006/07",
+      "fiscal_quarter": "Q1",
+      "period_end": "2006-09-30",
+      "publications": 28
+    },
+    {
+      "fiscal_year": "FY2006/07",
+      "fiscal_quarter": "Q2",
+      "period_end": "2006-12-31",
+      "publications": 33
+    },
+    {
+      "fiscal_year": "FY2006/07",
+      "fiscal_quarter": "Q3",
+      "period_end": "2007-03-31",
+      "publications": 45
+    },
+    {
+      "fiscal_year": "FY2006/07",
+      "fiscal_quarter": "Q4",
+      "period_end": "2007-06-30",
+      "publications": 54
+    },
+    {
+      "fiscal_year": "FY2007/08",
+      "fiscal_quarter": "Q1",
+      "period_end": "2007-09-30",
+      "publications": 38
+    },
+    {
+      "fiscal_year": "FY2007/08",
+      "fiscal_quarter": "Q2",
+      "period_end": "2007-12-31",
+      "publications": 38
+    },
+    {
+      "fiscal_year": "FY2007/08",
+      "fiscal_quarter": "Q3",
+      "period_end": "2008-03-31",
+      "publications": 44
+    },
+    {
+      "fiscal_year": "FY2007/08",
+      "fiscal_quarter": "Q4",
+      "period_end": "2008-06-30",
+      "publications": 47
+    },
+    {
+      "fiscal_year": "FY2008/09",
+      "fiscal_quarter": "Q1",
+      "period_end": "2008-09-30",
+      "publications": 36
+    },
+    {
+      "fiscal_year": "FY2008/09",
+      "fiscal_quarter": "Q2",
+      "period_end": "2008-12-31",
+      "publications": 41
+    },
+    {
+      "fiscal_year": "FY2008/09",
+      "fiscal_quarter": "Q3",
+      "period_end": "2009-03-31",
+      "publications": 48
+    },
+    {
+      "fiscal_year": "FY2008/09",
+      "fiscal_quarter": "Q4",
+      "period_end": "2009-06-30",
+      "publications": 39
+    },
+    {
+      "fiscal_year": "FY2009/10",
+      "fiscal_quarter": "Q1",
+      "period_end": "2009-09-30",
+      "publications": 56
+    },
+    {
+      "fiscal_year": "FY2009/10",
+      "fiscal_quarter": "Q2",
+      "period_end": "2009-12-31",
+      "publications": 50
+    },
+    {
+      "fiscal_year": "FY2009/10",
+      "fiscal_quarter": "Q3",
+      "period_end": "2010-03-31",
+      "publications": 50
+    },
+    {
+      "fiscal_year": "FY2009/10",
+      "fiscal_quarter": "Q4",
+      "period_end": "2010-06-30",
+      "publications": 68
+    },
+    {
+      "fiscal_year": "FY2010/11",
+      "fiscal_quarter": "Q1",
+      "period_end": "2010-09-30",
+      "publications": 39
+    },
+    {
+      "fiscal_year": "FY2010/11",
+      "fiscal_quarter": "Q2",
+      "period_end": "2010-12-31",
+      "publications": 32
+    },
+    {
+      "fiscal_year": "FY2010/11",
+      "fiscal_quarter": "Q3",
+      "period_end": "2011-03-31",
+      "publications": 75
+    },
+    {
+      "fiscal_year": "FY2010/11",
+      "fiscal_quarter": "Q4",
+      "period_end": "2011-06-30",
+      "publications": 58
+    },
+    {
+      "fiscal_year": "FY2011/12",
+      "fiscal_quarter": "Q1",
+      "period_end": "2011-09-30",
+      "publications": 54
+    },
+    {
+      "fiscal_year": "FY2011/12",
+      "fiscal_quarter": "Q2",
+      "period_end": "2011-12-31",
+      "publications": 51
+    },
+    {
+      "fiscal_year": "FY2011/12",
+      "fiscal_quarter": "Q3",
+      "period_end": "2012-03-31",
+      "publications": 63
+    },
+    {
+      "fiscal_year": "FY2011/12",
+      "fiscal_quarter": "Q4",
+      "period_end": "2012-06-30",
+      "publications": 43
+    },
+    {
+      "fiscal_year": "FY2012/13",
+      "fiscal_quarter": "Q1",
+      "period_end": "2012-09-30",
+      "publications": 75
+    },
+    {
+      "fiscal_year": "FY2012/13",
+      "fiscal_quarter": "Q2",
+      "period_end": "2012-12-31",
+      "publications": 67
+    },
+    {
+      "fiscal_year": "FY2012/13",
+      "fiscal_quarter": "Q3",
+      "period_end": "2013-03-31",
+      "publications": 85
+    },
+    {
+      "fiscal_year": "FY2012/13",
+      "fiscal_quarter": "Q4",
+      "period_end": "2013-06-30",
+      "publications": 61
+    },
+    {
+      "fiscal_year": "FY2013/14",
+      "fiscal_quarter": "Q1",
+      "period_end": "2013-09-30",
+      "publications": 58
+    },
+    {
+      "fiscal_year": "FY2013/14",
+      "fiscal_quarter": "Q2",
+      "period_end": "2013-12-31",
+      "publications": 59
+    },
+    {
+      "fiscal_year": "FY2013/14",
+      "fiscal_quarter": "Q3",
+      "period_end": "2014-03-31",
+      "publications": 77
+    },
+    {
+      "fiscal_year": "FY2013/14",
+      "fiscal_quarter": "Q4",
+      "period_end": "2014-06-30",
+      "publications": 66
+    },
+    {
+      "fiscal_year": "FY2014/15",
+      "fiscal_quarter": "Q1",
+      "period_end": "2014-09-30",
+      "publications": 69
+    },
+    {
+      "fiscal_year": "FY2014/15",
+      "fiscal_quarter": "Q2",
+      "period_end": "2014-12-31",
+      "publications": 55
+    },
+    {
+      "fiscal_year": "FY2014/15",
+      "fiscal_quarter": "Q3",
+      "period_end": "2015-03-31",
+      "publications": 65
+    },
+    {
+      "fiscal_year": "FY2014/15",
+      "fiscal_quarter": "Q4",
+      "period_end": "2015-06-30",
+      "publications": 62
+    },
+    {
+      "fiscal_year": "FY2015/16",
+      "fiscal_quarter": "Q1",
+      "period_end": "2015-09-30",
+      "publications": 43
+    },
+    {
+      "fiscal_year": "FY2015/16",
+      "fiscal_quarter": "Q2",
+      "period_end": "2015-12-31",
+      "publications": 67
+    },
+    {
+      "fiscal_year": "FY2015/16",
+      "fiscal_quarter": "Q3",
+      "period_end": "2016-03-31",
+      "publications": 75
+    },
+    {
+      "fiscal_year": "FY2015/16",
+      "fiscal_quarter": "Q4",
+      "period_end": "2016-06-30",
+      "publications": 53
+    },
+    {
+      "fiscal_year": "FY2016/17",
+      "fiscal_quarter": "Q1",
+      "period_end": "2016-09-30",
+      "publications": 61
+    },
+    {
+      "fiscal_year": "FY2016/17",
+      "fiscal_quarter": "Q2",
+      "period_end": "2016-12-31",
+      "publications": 66
+    },
+    {
+      "fiscal_year": "FY2016/17",
+      "fiscal_quarter": "Q3",
+      "period_end": "2017-03-31",
+      "publications": 94
+    },
+    {
+      "fiscal_year": "FY2016/17",
+      "fiscal_quarter": "Q4",
+      "period_end": "2017-06-30",
+      "publications": 78
+    },
+    {
+      "fiscal_year": "FY2017/18",
+      "fiscal_quarter": "Q1",
+      "period_end": "2017-09-30",
+      "publications": 63
+    },
+    {
+      "fiscal_year": "FY2017/18",
+      "fiscal_quarter": "Q2",
+      "period_end": "2017-12-31",
+      "publications": 51
+    },
+    {
+      "fiscal_year": "FY2017/18",
+      "fiscal_quarter": "Q3",
+      "period_end": "2018-03-31",
+      "publications": 98
+    },
+    {
+      "fiscal_year": "FY2017/18",
+      "fiscal_quarter": "Q4",
+      "period_end": "2018-06-30",
+      "publications": 52
+    },
+    {
+      "fiscal_year": "FY2018/19",
+      "fiscal_quarter": "Q1",
+      "period_end": "2018-09-30",
+      "publications": 69
+    },
+    {
+      "fiscal_year": "FY2018/19",
+      "fiscal_quarter": "Q2",
+      "period_end": "2018-12-31",
+      "publications": 68
+    },
+    {
+      "fiscal_year": "FY2018/19",
+      "fiscal_quarter": "Q3",
+      "period_end": "2019-03-31",
+      "publications": 94
+    },
+    {
+      "fiscal_year": "FY2018/19",
+      "fiscal_quarter": "Q4",
+      "period_end": "2019-06-30",
+      "publications": 77
+    },
+    {
+      "fiscal_year": "FY2019/20",
+      "fiscal_quarter": "Q1",
+      "period_end": "2019-09-30",
+      "publications": 106
+    },
+    {
+      "fiscal_year": "FY2019/20",
+      "fiscal_quarter": "Q2",
+      "period_end": "2019-12-31",
+      "publications": 124
+    },
+    {
+      "fiscal_year": "FY2019/20",
+      "fiscal_quarter": "Q3",
+      "period_end": "2020-03-31",
+      "publications": 171
+    },
+    {
+      "fiscal_year": "FY2019/20",
+      "fiscal_quarter": "Q4",
+      "period_end": "2020-06-30",
+      "publications": 134
+    },
+    {
+      "fiscal_year": "FY2020/21",
+      "fiscal_quarter": "Q1",
+      "period_end": "2020-09-30",
+      "publications": 148
+    },
+    {
+      "fiscal_year": "FY2020/21",
+      "fiscal_quarter": "Q2",
+      "period_end": "2020-12-31",
+      "publications": 154
+    },
+    {
+      "fiscal_year": "FY2020/21",
+      "fiscal_quarter": "Q3",
+      "period_end": "2021-03-31",
+      "publications": 186
+    },
+    {
+      "fiscal_year": "FY2020/21",
+      "fiscal_quarter": "Q4",
+      "period_end": "2021-06-30",
+      "publications": 144
+    },
+    {
+      "fiscal_year": "FY2021/22",
+      "fiscal_quarter": "Q1",
+      "period_end": "2021-09-30",
+      "publications": 142
+    },
+    {
+      "fiscal_year": "FY2021/22",
+      "fiscal_quarter": "Q2",
+      "period_end": "2021-12-31",
+      "publications": 107
+    },
+    {
+      "fiscal_year": "FY2021/22",
+      "fiscal_quarter": "Q3",
+      "period_end": "2022-03-31",
+      "publications": 174
+    },
+    {
+      "fiscal_year": "FY2021/22",
+      "fiscal_quarter": "Q4",
+      "period_end": "2022-06-30",
+      "publications": 143
+    },
+    {
+      "fiscal_year": "FY2022/23",
+      "fiscal_quarter": "Q1",
+      "period_end": "2022-09-30",
+      "publications": 153
+    },
+    {
+      "fiscal_year": "FY2022/23",
+      "fiscal_quarter": "Q2",
+      "period_end": "2022-12-31",
+      "publications": 165
+    },
+    {
+      "fiscal_year": "FY2022/23",
+      "fiscal_quarter": "Q3",
+      "period_end": "2023-03-31",
+      "publications": 225
+    },
+    {
+      "fiscal_year": "FY2022/23",
+      "fiscal_quarter": "Q4",
+      "period_end": "2023-06-30",
+      "publications": 171
+    },
+    {
+      "fiscal_year": "FY2023/24",
+      "fiscal_quarter": "Q1",
+      "period_end": "2023-09-30",
+      "publications": 175
+    },
+    {
+      "fiscal_year": "FY2023/24",
+      "fiscal_quarter": "Q2",
+      "period_end": "2023-12-31",
+      "publications": 187
+    },
+    {
+      "fiscal_year": "FY2023/24",
+      "fiscal_quarter": "Q3",
+      "period_end": "2024-03-31",
+      "publications": 254
+    },
+    {
+      "fiscal_year": "FY2023/24",
+      "fiscal_quarter": "Q4",
+      "period_end": "2024-06-30",
+      "publications": 196
+    },
+    {
+      "fiscal_year": "FY2024/25",
+      "fiscal_quarter": "Q1",
+      "period_end": "2024-09-30",
+      "publications": 171
+    },
+    {
+      "fiscal_year": "FY2024/25",
+      "fiscal_quarter": "Q2",
+      "period_end": "2024-12-31",
+      "publications": 162
+    },
+    {
+      "fiscal_year": "FY2024/25",
+      "fiscal_quarter": "Q3",
+      "period_end": "2025-03-31",
+      "publications": 283
+    },
+    {
+      "fiscal_year": "FY2024/25",
+      "fiscal_quarter": "Q4",
+      "period_end": "2025-06-30",
+      "publications": 226
+    },
+    {
+      "fiscal_year": "FY2025/26",
+      "fiscal_quarter": "Q1",
+      "period_end": "2025-09-30",
+      "publications": 241
+    },
+    {
+      "fiscal_year": "FY2025/26",
+      "fiscal_quarter": "Q2",
+      "period_end": "2025-12-31",
+      "publications": 233
+    },
+    {
+      "fiscal_year": "FY2025/26",
+      "fiscal_quarter": "Q3",
+      "period_end": "2026-03-31",
+      "publications": 415
+    },
+    {
+      "fiscal_year": "FY2025/26",
+      "fiscal_quarter": "Q4",
+      "period_end": "2026-06-30",
+      "publications": 271
+    },
+    {
+      "fiscal_year": "FY2026/27",
+      "fiscal_quarter": "Q1",
+      "period_end": "2026-09-30",
+      "publications": 229
+    }
+  ],
+  "types": [
+    {
+      "work_type": "article",
+      "publications": 8021
+    },
+    {
+      "work_type": "preprint",
+      "publications": 851
+    },
+    {
+      "work_type": "review",
+      "publications": 142
+    },
+    {
+      "work_type": "book-chapter",
+      "publications": 131
+    },
+    {
+      "work_type": "conference-abstract",
+      "publications": 101
+    },
+    {
+      "work_type": "peer-review",
+      "publications": 55
+    },
+    {
+      "work_type": "dataset",
+      "publications": 42
+    },
+    {
+      "work_type": "other",
+      "publications": 41
+    },
+    {
+      "work_type": "conference-paper",
+      "publications": 38
+    },
+    {
+      "work_type": "erratum",
+      "publications": 30
+    },
+    {
+      "work_type": "editorial",
+      "publications": 11
+    },
+    {
+      "work_type": "letter",
+      "publications": 11
+    },
+    {
+      "work_type": "reference-entry",
+      "publications": 9
+    },
+    {
+      "work_type": "software",
+      "publications": 6
+    },
+    {
+      "work_type": "book",
+      "publications": 4
+    }
+  ],
+  "open_access": {
+    "hybrid": 658,
+    "green": 2139,
+    "bronze": 420,
+    "gold": 3445,
+    "closed": 1636,
+    "diamond": 1206
+  },
+  "top_topics": [
+    {
+      "topic": "Global Maternal and Child Health",
+      "publications": 618
+    },
+    {
+      "topic": "HIV/AIDS Research and Interventions",
+      "publications": 421
+    },
+    {
+      "topic": "Malaria Research and Control",
+      "publications": 392
+    },
+    {
+      "topic": "Hemoglobinopathies and Related Disorders",
+      "publications": 236
+    },
+    {
+      "topic": "Child Nutrition and Water Access",
+      "publications": 234
+    },
+    {
+      "topic": "Tuberculosis Research and Epidemiology",
+      "publications": 181
+    },
+    {
+      "topic": "Adolescent Sexual and Reproductive Health",
+      "publications": 155
+    },
+    {
+      "topic": "Global Health and Surgery",
+      "publications": 127
+    },
+    {
+      "topic": "HIV-related health complications and treatments",
+      "publications": 113
+    },
+    {
+      "topic": "Antibiotic Use and Resistance",
+      "publications": 101
+    },
+    {
+      "topic": "Dental Health and Care Utilization",
+      "publications": 98
+    },
+    {
+      "topic": "Trauma and Emergency Care Studies",
+      "publications": 88
+    },
+    {
+      "topic": "HIV Research and Treatment",
+      "publications": 82
+    },
+    {
+      "topic": "Parasites and Host Interactions",
+      "publications": 77
+    },
+    {
+      "topic": "Intimate Partner and Family Violence",
+      "publications": 73
+    },
+    {
+      "topic": "Iron Metabolism and Disorders",
+      "publications": 73
+    },
+    {
+      "topic": "HIV/AIDS drug development and treatment",
+      "publications": 69
+    },
+    {
+      "topic": "Antibiotic Resistance in Bacteria",
+      "publications": 62
+    },
+    {
+      "topic": "Maternal and Perinatal Health Interventions",
+      "publications": 61
+    },
+    {
+      "topic": "Vaccine Coverage and Hesitancy",
+      "publications": 61
+    },
+    {
+      "topic": "Sex work and related issues",
+      "publications": 59
+    },
+    {
+      "topic": "Healthcare Systems and Reforms",
+      "publications": 57
+    },
+    {
+      "topic": "Pharmaceutical Quality and Counterfeiting",
+      "publications": 57
+    },
+    {
+      "topic": "Cervical Cancer and HPV Research",
+      "publications": 57
+    },
+    {
+      "topic": "Diabetic Foot Ulcer Assessment and Management",
+      "publications": 56
+    }
+  ]
+}
