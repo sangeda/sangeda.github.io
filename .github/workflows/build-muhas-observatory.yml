@@ -118,6 +118,9 @@ jobs:
         run: |
           mkdir -p _site
           rsync -a --exclude '.git' --exclude '.github' --exclude '_site' --exclude 'release' --exclude 'muhas_publications_archive' ./ _site/
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
