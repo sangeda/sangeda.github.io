@@ -135,6 +135,32 @@ footer p { margin: 0; }
   .contact { align-items: start; flex-direction: column; }
 }
 
+/* MUHAS Publications Observatory */
+.observatory-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.3rem; }
+.observatory-card { padding: 1.5rem; border: 1px solid rgba(23,36,39,.08); border-radius: 22px; background: white; }
+.observatory-card:last-child { grid-column: 1 / -1; }
+.observatory-card h3 { margin: 0 0 1.2rem; font-size: 1.25rem; }
+.mini-bars { display: grid; gap: .55rem; }
+.mini-bar-row { display: grid; grid-template-columns: 48px 1fr 48px; align-items: center; gap: .7rem; font-size: .8rem; }
+.mini-bar-row i { display: block; min-width: 2px; height: 12px; border-radius: 20px; background: var(--teal); }
+.mini-bar-row strong { text-align: right; }
+.observatory-card table { width: 100%; border-collapse: collapse; font-size: .83rem; }
+.observatory-card th, .observatory-card td { padding: .55rem; border-bottom: 1px solid var(--line); text-align: left; }
+.topic-rank { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .55rem 2rem; margin: 0; padding: 0; list-style: none; counter-reset: topic; }
+.topic-rank li { counter-increment: topic; display: grid; grid-template-columns: 28px 1fr auto; gap: .55rem; padding-bottom: .45rem; border-bottom: 1px solid var(--line); }
+.topic-rank li::before { content: counter(topic, decimal-leading-zero); color: var(--teal); font-size: .72rem; font-weight: 800; }
+.download-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.download-grid a { display: flex; flex-direction: column; min-height: 150px; padding: 1.5rem; border: 1px solid var(--line); border-radius: 18px; background: white; transition: transform .2s, box-shadow .2s; }
+.download-grid a:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.download-grid strong { color: var(--teal); font-family: Manrope, sans-serif; font-size: 1.2rem; }
+.download-grid span { margin-top: .6rem; color: var(--muted); }
+.dark code { color: var(--gold); }
+
+@media (max-width: 720px) {
+  .observatory-grid, .download-grid, .topic-rank { grid-template-columns: 1fr; }
+  .observatory-card:last-child { grid-column: auto; }
+}
+
 @media (max-width: 620px) {
   .brand > span:last-child { display: none; }
   h1 { font-size: clamp(2.7rem, 14vw, 4rem); }
