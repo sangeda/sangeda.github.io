@@ -36,6 +36,7 @@ INSTITUTION_NAME = "Muhimbili University of Health and Allied Sciences"
 INSTITUTION_ALT_NAME = "Chuo Kikuu cha Afya na Sayansi Shirikishi Muhimbili"
 OPENALEX_ID = "I154840374"
 ROR = "027pr6c67"
+PIPELINE_VERSION = "1.0"
 START_DATE = date(1964, 1, 1)
 USER_AGENT = "muhas-publications-observatory/1.0"
 
@@ -407,6 +408,7 @@ def main() -> None:
     annual_rows, quarter_rows, type_rows = summaries(work_rows)
     manifest = {
         "snapshot_id": snapshot_id,
+        "pipeline_version": PIPELINE_VERSION,
         "snapshot_status": args.status,
         "institution_name": INSTITUTION_NAME,
         "alternate_name": INSTITUTION_ALT_NAME,
