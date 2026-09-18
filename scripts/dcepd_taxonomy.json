@@ -1,0 +1,902 @@
+{
+  "version": 1,
+  "description": "Title-based editorial search categories; original titles retained. No inference of eligibility or accreditation.",
+  "courses": {
+    "2": {
+      "source_title": "Research Mentoring",
+      "display_title": "Research Mentoring",
+      "category": "Education, Mentorship & Simulation",
+      "tags": [
+        "research supervision",
+        "mentorship"
+      ]
+    },
+    "3": {
+      "source_title": "Basics of Teaching and Assessing in Competency Based Education",
+      "display_title": "Basics of Teaching and Assessing in Competency Based Education",
+      "category": "Education, Mentorship & Simulation",
+      "tags": [
+        "competency based education",
+        "assessment"
+      ]
+    },
+    "4": {
+      "source_title": "Micro Computer Applications",
+      "display_title": "Micro Computer Applications",
+      "category": "Digital Health, Data Science & Informatics",
+      "tags": [
+        "computer literacy",
+        "office applications"
+      ]
+    },
+    "5": {
+      "source_title": "Micro Computer Applications",
+      "display_title": "Micro Computer Applications",
+      "category": "Digital Health, Data Science & Informatics",
+      "tags": [
+        "computer literacy",
+        "office applications"
+      ]
+    },
+    "6": {
+      "source_title": "Introduction to Computer",
+      "display_title": "Introduction to Computer",
+      "category": "Digital Health, Data Science & Informatics",
+      "tags": [
+        "computer literacy"
+      ]
+    },
+    "12": {
+      "source_title": "Systematic Reviews and Meta-Analysis",
+      "display_title": "Systematic Reviews and Meta-Analysis",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "evidence synthesis",
+        "systematic reviews",
+        "meta analysis"
+      ]
+    },
+    "13": {
+      "source_title": "Scientific writing and communication",
+      "display_title": "Scientific writing and communication",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "academic writing",
+        "research communication"
+      ]
+    },
+    "14": {
+      "source_title": "Use of Evidence based on Database in Clinical Nursing",
+      "display_title": "Use of Evidence based on Database in Clinical Nursing",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "evidence based practice",
+        "nursing"
+      ]
+    },
+    "15": {
+      "source_title": "Open acces and artificial intelligence and improving health research and academicpublishing life cycle",
+      "display_title": "Open access and artificial intelligence and improving health research and academic publishing life cycle",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "AI",
+        "artificial intelligence",
+        "open access",
+        "academic publishing"
+      ]
+    },
+    "17": {
+      "source_title": "Strategies for discovery and utilization for shcolary content to enhance academic integrity and scientific writting",
+      "display_title": "Strategies for discovery and utilization for scholarly content to enhance academic integrity and scientific writing",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "information literacy",
+        "academic integrity",
+        "scientific writing"
+      ]
+    },
+    "18": {
+      "source_title": "Open acces, open data, open science and predatory",
+      "display_title": "Open access, open data, open science and predatory",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "open science",
+        "open access",
+        "open data",
+        "predatory publishing"
+      ]
+    },
+    "19": {
+      "source_title": "Training on Traditional and Herbal Medicine Development Level I",
+      "display_title": "Training on Traditional and Herbal Medicine Development Level I",
+      "category": "Traditional Medicine & Natural Products",
+      "tags": [
+        "herbal medicine",
+        "level I"
+      ]
+    },
+    "20": {
+      "source_title": "Quality Control and Regulations governing Medicinal Plants and finished herbal products (Herbal Medicine Development Level III)",
+      "display_title": "Quality Control and Regulations governing Medicinal Plants and finished herbal products (Herbal Medicine Development Level III)",
+      "category": "Traditional Medicine & Natural Products",
+      "tags": [
+        "quality control",
+        "regulation",
+        "herbal products",
+        "level III"
+      ]
+    },
+    "23": {
+      "source_title": "Basic Critical and Emergency Care course for Health Care Proffessionals",
+      "display_title": "Basic Critical and Emergency Care course for Health Care Professionals",
+      "category": "Emergency, Critical Care & Patient Safety",
+      "tags": [
+        "emergency care",
+        "critical care"
+      ]
+    },
+    "24": {
+      "source_title": "Substance Use Disoders and Addiction",
+      "display_title": "Substance Use Disorders and Addiction",
+      "category": "Mental Health, Rehabilitation & Wellbeing",
+      "tags": [
+        "mental health",
+        "addiction",
+        "substance use disorders"
+      ]
+    },
+    "27": {
+      "source_title": "Teaching Methodology for Education and Health care Pofessionals",
+      "display_title": "Teaching Methodology for Education and Health care Professionals",
+      "category": "Education, Mentorship & Simulation",
+      "tags": [
+        "teaching methods",
+        "health professions education"
+      ]
+    },
+    "28": {
+      "source_title": "Clinical Teaching and Simulation Lab Tech",
+      "display_title": "Clinical Teaching and Simulation Lab Tech",
+      "category": "Education, Mentorship & Simulation",
+      "tags": [
+        "clinical teaching",
+        "simulation"
+      ]
+    },
+    "29": {
+      "source_title": "Clinical Pharmacokinetics",
+      "display_title": "Clinical Pharmacokinetics",
+      "category": "Pharmacy, Medicines & Supply Chains",
+      "tags": [
+        "pharmacokinetics"
+      ]
+    },
+    "35": {
+      "source_title": "Grants writing and Research adminstration Workshop",
+      "display_title": "Grants writing and Research adminstration Workshop",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "grant writing",
+        "research administration"
+      ]
+    },
+    "36": {
+      "source_title": "Basic Mortuary Technicians",
+      "display_title": "Basic Mortuary Technicians",
+      "category": "Laboratory Sciences, Genomics & Biotechnology",
+      "tags": [
+        "mortuary practice"
+      ]
+    },
+    "37": {
+      "source_title": "Essentials of Project Management short course",
+      "display_title": "Essentials of Project Management short course",
+      "category": "Health Leadership, Management & Financing",
+      "tags": [
+        "project management"
+      ]
+    },
+    "38": {
+      "source_title": "Multidisciplinary management of Sickle Cell disease; a short course for health care workers",
+      "display_title": "Multidisciplinary management of Sickle Cell disease; a short course for health care workers",
+      "category": "Clinical Care & Diagnostics",
+      "tags": [
+        "SCD",
+        "sickle cell disease"
+      ]
+    },
+    "39": {
+      "source_title": "Clinical Diagnosis Rare Disease",
+      "display_title": "Clinical Diagnosis Rare Disease",
+      "category": "Clinical Care & Diagnostics",
+      "tags": [
+        "rare diseases",
+        "diagnosis"
+      ]
+    },
+    "40": {
+      "source_title": "Trainers of Trainers short course for use Universal Anesthesia machine",
+      "display_title": "Trainers of Trainers short course for use Universal Anesthesia machine",
+      "category": "Emergency, Critical Care & Patient Safety",
+      "tags": [
+        "anaesthesia",
+        "anesthesia",
+        "training of trainers"
+      ]
+    },
+    "41": {
+      "source_title": "Short course on Universal Anesthesia machine",
+      "display_title": "Short course on Universal Anesthesia machine",
+      "category": "Emergency, Critical Care & Patient Safety",
+      "tags": [
+        "anaesthesia",
+        "anesthesia"
+      ]
+    },
+    "42": {
+      "source_title": "Advanced Life Support",
+      "display_title": "Advanced Life Support",
+      "category": "Emergency, Critical Care & Patient Safety",
+      "tags": [
+        "ALS",
+        "resuscitation"
+      ]
+    },
+    "43": {
+      "source_title": "Basics of Emergency Care",
+      "display_title": "Basics of Emergency Care",
+      "category": "Emergency, Critical Care & Patient Safety",
+      "tags": [
+        "emergency care"
+      ]
+    },
+    "44": {
+      "source_title": "Pediatric Emergency Care",
+      "display_title": "Pediatric Emergency Care",
+      "category": "Maternal, Newborn & Child Health",
+      "tags": [
+        "paediatric",
+        "pediatric",
+        "emergency care"
+      ]
+    },
+    "45": {
+      "source_title": "Basic ambulance Provider",
+      "display_title": "Basic ambulance Provider",
+      "category": "Emergency, Critical Care & Patient Safety",
+      "tags": [
+        "prehospital care",
+        "ambulance"
+      ]
+    },
+    "46": {
+      "source_title": "Basic Ambulance attendant",
+      "display_title": "Basic Ambulance attendant",
+      "category": "Emergency, Critical Care & Patient Safety",
+      "tags": [
+        "prehospital care",
+        "ambulance"
+      ]
+    },
+    "47": {
+      "source_title": "Advances in Hematology",
+      "display_title": "Advances in Hematology",
+      "category": "Clinical Care & Diagnostics",
+      "tags": [
+        "haematology",
+        "hematology"
+      ]
+    },
+    "49": {
+      "source_title": "Introduction to Biosafety Cabinet",
+      "display_title": "Introduction to Biosafety Cabinet",
+      "category": "Laboratory Sciences, Genomics & Biotechnology",
+      "tags": [
+        "biosafety",
+        "laboratory safety"
+      ]
+    },
+    "50": {
+      "source_title": "Virtual and Individualized Training For African Laboratory Leaders Course",
+      "display_title": "Virtual and Individualized Training For African Laboratory Leaders Course",
+      "category": "Laboratory Sciences, Genomics & Biotechnology",
+      "tags": [
+        "laboratory leadership",
+        "online training"
+      ]
+    },
+    "53": {
+      "source_title": "Basic Echocardiography",
+      "display_title": "Basic Echocardiography",
+      "category": "Clinical Care & Diagnostics",
+      "tags": [
+        "echocardiography",
+        "cardiac ultrasound"
+      ]
+    },
+    "54": {
+      "source_title": "Transacranial Doppler (TCD) Training",
+      "display_title": "Transcranial Doppler (TCD) Training",
+      "category": "Clinical Care & Diagnostics",
+      "tags": [
+        "transcranial Doppler",
+        "TCD",
+        "ultrasound"
+      ]
+    },
+    "55": {
+      "source_title": "Introductory Course in Palliative care",
+      "display_title": "Introductory Course in Palliative care",
+      "category": "Clinical Care & Diagnostics",
+      "tags": [
+        "palliative care"
+      ]
+    },
+    "56": {
+      "source_title": "Certificate in Cytotechnology",
+      "display_title": "Certificate in Cytotechnology",
+      "category": "Laboratory Sciences, Genomics & Biotechnology",
+      "tags": [
+        "cytology",
+        "cytotechnology"
+      ]
+    },
+    "57": {
+      "source_title": "Management of sore throat, acute rheumatic fever and heart disease in primary health care",
+      "display_title": "Management of sore throat, acute rheumatic fever and heart disease in primary health care",
+      "category": "Clinical Care & Diagnostics",
+      "tags": [
+        "rheumatic heart disease",
+        "primary care"
+      ]
+    },
+    "58": {
+      "source_title": "Practical Electrocardiography",
+      "display_title": "Practical Electrocardiography",
+      "category": "Clinical Care & Diagnostics",
+      "tags": [
+        "ECG",
+        "electrocardiography"
+      ]
+    },
+    "59": {
+      "source_title": "Pharmacovigilance and Vigilance for Healthcare Professionals",
+      "display_title": "Pharmacovigilance and Vigilance for Healthcare Professionals",
+      "category": "Pharmacy, Medicines & Supply Chains",
+      "tags": [
+        "pharmacovigilance",
+        "medicine safety"
+      ]
+    },
+    "61": {
+      "source_title": "Policy Briefs Development",
+      "display_title": "Policy Briefs Development",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "policy briefs"
+      ]
+    },
+    "62": {
+      "source_title": "Analyitical Method Development and Method Validation",
+      "display_title": "Analytical Method Development and Method Validation",
+      "category": "Pharmacy, Medicines & Supply Chains",
+      "tags": [
+        "analytical methods",
+        "method validation"
+      ]
+    },
+    "64": {
+      "source_title": "Introduction on approaches to clinical Research designing, Operational planning, conducting and reporting during drug development",
+      "display_title": "Introduction on approaches to clinical Research designing, Operational planning, conducting and reporting during drug development",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "clinical research",
+        "drug development"
+      ]
+    },
+    "66": {
+      "source_title": "Health System Strengthening",
+      "display_title": "Health System Strengthening",
+      "category": "Health Leadership, Management & Financing",
+      "tags": [
+        "health systems"
+      ]
+    },
+    "67": {
+      "source_title": "Risk communication and Community engagement",
+      "display_title": "Risk communication and Community engagement",
+      "category": "Public Health, One Health & Environment",
+      "tags": [
+        "RCCE",
+        "risk communication",
+        "community engagement"
+      ]
+    },
+    "68": {
+      "source_title": "Implementation Science for Health",
+      "display_title": "Implementation Science for Health",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "implementation research",
+        "implementation science"
+      ]
+    },
+    "70": {
+      "source_title": "Introduction Course in Palliative Care For in-Service Health Care Professionals (ICPC)",
+      "display_title": "Introduction Course in Palliative Care For in-Service Health Care Professionals (ICPC)",
+      "category": "Clinical Care & Diagnostics",
+      "tags": [
+        "palliative care"
+      ]
+    },
+    "72": {
+      "source_title": "Research Ethics",
+      "display_title": "Research Ethics",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "research ethics"
+      ]
+    },
+    "73": {
+      "source_title": "Responsible Conduct Research",
+      "display_title": "Responsible Conduct Research",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "research integrity",
+        "responsible conduct"
+      ]
+    },
+    "74": {
+      "source_title": "Hospital Management For Health care Professionals (HMHP)",
+      "display_title": "Hospital Management For Health care Professionals (HMHP)",
+      "category": "Health Leadership, Management & Financing",
+      "tags": [
+        "hospital management"
+      ]
+    },
+    "75": {
+      "source_title": "Basic Qualitative Research",
+      "display_title": "Basic Qualitative Research",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "qualitative methods"
+      ]
+    },
+    "76": {
+      "source_title": "Policy Briefs",
+      "display_title": "Policy Briefs",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "policy briefs"
+      ]
+    },
+    "77": {
+      "source_title": "Advanced Qualitative Research Methods",
+      "display_title": "Advanced Qualitative Research Methods",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "qualitative methods",
+        "advanced"
+      ]
+    },
+    "78": {
+      "source_title": "Applied Economic evaluation of Healthcare and Interventions (SPHSS)",
+      "display_title": "Applied Economic evaluation of Healthcare and Interventions (SPHSS)",
+      "category": "Health Leadership, Management & Financing",
+      "tags": [
+        "health economics",
+        "economic evaluation"
+      ]
+    },
+    "79": {
+      "source_title": "Computer Programming for Health Solutions Online Course",
+      "display_title": "Computer Programming for Health Solutions Online Course",
+      "category": "Digital Health, Data Science & Informatics",
+      "tags": [
+        "programming",
+        "digital health",
+        "online"
+      ]
+    },
+    "80": {
+      "source_title": "Logistic Regression analysis (SPHSS)",
+      "display_title": "Logistic Regression analysis (SPHSS)",
+      "category": "Digital Health, Data Science & Informatics",
+      "tags": [
+        "regression",
+        "statistics"
+      ]
+    },
+    "82": {
+      "source_title": "Basic Microscopy: the diagnosis of Malaria and other parasitic infections",
+      "display_title": "Basic Microscopy: the diagnosis of Malaria and other parasitic infections",
+      "category": "Laboratory Sciences, Genomics & Biotechnology",
+      "tags": [
+        "malaria",
+        "microscopy",
+        "parasitology"
+      ]
+    },
+    "85": {
+      "source_title": "Management and Leadership for Malaria Elimination",
+      "display_title": "Management and Leadership for Malaria Elimination",
+      "category": "Public Health, One Health & Environment",
+      "tags": [
+        "malaria elimination",
+        "leadership"
+      ]
+    },
+    "86": {
+      "source_title": "Values based Leadreship Development",
+      "display_title": "Values based Leadership Development",
+      "category": "Health Leadership, Management & Financing",
+      "tags": [
+        "leadership"
+      ]
+    },
+    "87": {
+      "source_title": "Demographic Health Survey and Complex Survey Analysis",
+      "display_title": "Demographic Health Survey and Complex Survey Analysis",
+      "category": "Digital Health, Data Science & Informatics",
+      "tags": [
+        "DHS",
+        "survey analysis",
+        "statistics"
+      ]
+    },
+    "88": {
+      "source_title": "Phylosophy of Science in Research",
+      "display_title": "Philosophy of Science in Research",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "philosophy of science"
+      ]
+    },
+    "89": {
+      "source_title": "Traditional Medicine Development Systemetic Review and Meta analysis",
+      "display_title": "Traditional Medicine Development Systematic Review and Meta analysis",
+      "category": "Traditional Medicine & Natural Products",
+      "tags": [
+        "herbal medicine",
+        "systematic reviews",
+        "meta analysis"
+      ]
+    },
+    "90": {
+      "source_title": "Mentorship Training",
+      "display_title": "Mentorship Training",
+      "category": "Education, Mentorship & Simulation",
+      "tags": [
+        "mentorship"
+      ]
+    },
+    "92": {
+      "source_title": "Essentials Maralia Microscopy Compitence bilding for Reseachers",
+      "display_title": "Essentials Malaria Microscopy Competence Building for Researchers",
+      "category": "Laboratory Sciences, Genomics & Biotechnology",
+      "tags": [
+        "malaria",
+        "microscopy"
+      ]
+    },
+    "93": {
+      "source_title": "Research in Children Under five years",
+      "display_title": "Research in Children Under five years",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "paediatric research",
+        "child health"
+      ]
+    },
+    "94": {
+      "source_title": "Mentorship Workshop",
+      "display_title": "Mentorship Workshop",
+      "category": "Education, Mentorship & Simulation",
+      "tags": [
+        "mentorship"
+      ]
+    },
+    "97": {
+      "source_title": "Awareness on Screening, Prevention and Control of Hepatitis B and C for the people at high risk areas",
+      "display_title": "Awareness on Screening, Prevention and Control of Hepatitis B and C for the people at high risk areas",
+      "category": "Public Health, One Health & Environment",
+      "tags": [
+        "hepatitis B",
+        "hepatitis C",
+        "screening"
+      ]
+    },
+    "105": {
+      "source_title": "Traditional Medicine Developmen Training Level II",
+      "display_title": "Traditional Medicine Development Training Level II",
+      "category": "Traditional Medicine & Natural Products",
+      "tags": [
+        "herbal medicine",
+        "level II"
+      ]
+    },
+    "108": {
+      "source_title": "Introduction to Health Data Analytics",
+      "display_title": "Introduction to Health Data Analytics",
+      "category": "Digital Health, Data Science & Informatics",
+      "tags": [
+        "DHA",
+        "digital health",
+        "health data analytics"
+      ]
+    },
+    "114": {
+      "source_title": "Disaster and Emergency Response",
+      "display_title": "Disaster and Emergency Response",
+      "category": "Emergency, Critical Care & Patient Safety",
+      "tags": [
+        "disaster response",
+        "emergency preparedness"
+      ]
+    },
+    "115": {
+      "source_title": "Vaccines Clinical Trial appliction assessment",
+      "display_title": "Vaccines Clinical Trial application assessment",
+      "category": "Pharmacy, Medicines & Supply Chains",
+      "tags": [
+        "vaccines",
+        "clinical trials",
+        "regulatory assessment"
+      ]
+    },
+    "116": {
+      "source_title": "Clinical Investigation of Medical device and In-Vitro Diagnostic assessment",
+      "display_title": "Clinical Investigation of Medical device and In-Vitro Diagnostic assessment",
+      "category": "Pharmacy, Medicines & Supply Chains",
+      "tags": [
+        "medical devices",
+        "IVD",
+        "regulatory assessment"
+      ]
+    },
+    "119": {
+      "source_title": "PHILOSOPHY OF SCIENCE IN RESEARCH",
+      "display_title": "Philosophy of science in research",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "philosophy of science"
+      ]
+    },
+    "120": {
+      "source_title": "Postgragraduate Supervision Course",
+      "display_title": "Postgraduate Supervision Course",
+      "category": "Education, Mentorship & Simulation",
+      "tags": [
+        "postgraduate supervision"
+      ]
+    },
+    "121": {
+      "source_title": "Oral Radiology",
+      "display_title": "Oral Radiology",
+      "category": "Clinical Care & Diagnostics",
+      "tags": [
+        "dentistry",
+        "radiology"
+      ]
+    },
+    "122": {
+      "source_title": "HAEMODIALYSIS COURSE FOR HEALTH CARE PROVIDERS",
+      "display_title": "Haemodialysis course for health care providers",
+      "category": "Clinical Care & Diagnostics",
+      "tags": [
+        "dialysis",
+        "renal care"
+      ]
+    },
+    "126": {
+      "source_title": "Advanced Omics Data Science Methods Aplication",
+      "display_title": "Advanced Omics Data Science Methods Application",
+      "category": "Laboratory Sciences, Genomics & Biotechnology",
+      "tags": [
+        "omics",
+        "bioinformatics",
+        "data science"
+      ]
+    },
+    "127": {
+      "source_title": "Consultancy Proposal Writing",
+      "display_title": "Consultancy Proposal Writing",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "consultancy",
+        "proposal writing"
+      ]
+    },
+    "128": {
+      "source_title": "Advanced Research Data Analysis",
+      "display_title": "Advanced Research Data Analysis",
+      "category": "Digital Health, Data Science & Informatics",
+      "tags": [
+        "data analysis",
+        "statistics",
+        "advanced"
+      ]
+    },
+    "129": {
+      "source_title": "Weight Loss Short Course For Healthcare, Fitness And Wellness Professional",
+      "display_title": "Weight Loss Short Course For Healthcare, Fitness And Wellness Professional",
+      "category": "Mental Health, Rehabilitation & Wellbeing",
+      "tags": [
+        "weight management",
+        "fitness",
+        "wellness"
+      ]
+    },
+    "131": {
+      "source_title": "INNOVATION AND ENTREPRENEURSHIP IN HEALTH CARE",
+      "display_title": "Innovation and entrepreneurship in health care",
+      "category": "Health Leadership, Management & Financing",
+      "tags": [
+        "innovation",
+        "entrepreneurship"
+      ]
+    },
+    "132": {
+      "source_title": "Grant Writing Essentials: A Professional Development Course",
+      "display_title": "Grant Writing Essentials: A Professional Development Course",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "grant writing",
+        "funding proposals"
+      ]
+    },
+    "136": {
+      "source_title": "GOOD CLINICAL PRACTICE",
+      "display_title": "Good clinical practice",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "GCP",
+        "good clinical practice"
+      ]
+    },
+    "137": {
+      "source_title": "SAFE PREHOSPITAL NEONATAL TRANSFER",
+      "display_title": "Safe prehospital neonatal transfer",
+      "category": "Maternal, Newborn & Child Health",
+      "tags": [
+        "neonatal care",
+        "newborn",
+        "prehospital transfer"
+      ]
+    },
+    "141": {
+      "source_title": "INTERMEDIATE PARAMEDICS",
+      "display_title": "Intermediate paramedics",
+      "category": "Emergency, Critical Care & Patient Safety",
+      "tags": [
+        "paramedics",
+        "prehospital care"
+      ]
+    },
+    "148": {
+      "source_title": "ESSENTIAL EMERGENCY AND CRITICAL CARE",
+      "display_title": "Essential emergency and critical care",
+      "category": "Emergency, Critical Care & Patient Safety",
+      "tags": [
+        "EECC",
+        "emergency care",
+        "critical care"
+      ]
+    },
+    "161": {
+      "source_title": "Production of Personal Care and Household Products",
+      "display_title": "Production of Personal Care and Household Products",
+      "category": "Pharmacy, Medicines & Supply Chains",
+      "tags": [
+        "manufacturing",
+        "personal care",
+        "household products"
+      ]
+    },
+    "180": {
+      "source_title": "Ìntroduction to R for Data Analysis",
+      "display_title": "Introduction to R for Data Analysis",
+      "category": "Digital Health, Data Science & Informatics",
+      "tags": [
+        "R programming",
+        "statistics",
+        "data analysis"
+      ]
+    },
+    "190": {
+      "source_title": "Introduction to Implementation Science in Health",
+      "display_title": "Introduction to Implementation Science in Health",
+      "category": "Research Methods, Evidence & Scientific Writing",
+      "tags": [
+        "implementation science",
+        "implementation research"
+      ]
+    }
+  },
+  "keyword_rules": [
+    {
+      "pattern": "\\br\\b.*data analysis",
+      "tags": [
+        "R programming",
+        "statistics"
+      ]
+    },
+    {
+      "pattern": "\\bantimicrobial|\\bantibiotic",
+      "tags": [
+        "AMR",
+        "antimicrobial resistance",
+        "antibiotics"
+      ]
+    },
+    {
+      "pattern": "artificial intelligence",
+      "tags": [
+        "AI",
+        "artificial intelligence"
+      ]
+    },
+    {
+      "pattern": "linux",
+      "tags": [
+        "Linux",
+        "data science"
+      ]
+    },
+    {
+      "pattern": "health data analytics",
+      "tags": [
+        "digital health",
+        "data analysis"
+      ]
+    },
+    {
+      "pattern": "forecast|supply planning",
+      "tags": [
+        "quantification",
+        "forecasting",
+        "supply chain"
+      ]
+    },
+    {
+      "pattern": "inventory|logistics",
+      "tags": [
+        "inventory control",
+        "health commodities",
+        "supply chain"
+      ]
+    },
+    {
+      "pattern": "pharmacovigilance",
+      "tags": [
+        "medicine safety"
+      ]
+    },
+    {
+      "pattern": "systematic review|meta analysis",
+      "tags": [
+        "evidence synthesis"
+      ]
+    },
+    {
+      "pattern": "ultrasound|pocus",
+      "tags": [
+        "ultrasound",
+        "POCUS"
+      ]
+    },
+    {
+      "pattern": "qualitative",
+      "tags": [
+        "qualitative methods"
+      ]
+    },
+    {
+      "pattern": "paediatric|pediatric",
+      "tags": [
+        "paediatric",
+        "pediatric"
+      ]
+    }
+  ]
+}

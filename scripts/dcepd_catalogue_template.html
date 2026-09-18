@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MUHAS Short Courses | DCEPD Catalogue</title>
+<meta name="description" content="Find MUHAS short courses by topic, keyword or organising school. Explore continuing education and apply through the official MUHAS REDCap application system.">
+<link rel="canonical" href="https://sangeda.github.io/dcepd-courses/">
+<link rel="stylesheet" href="catalogue.css"><script src="catalogue.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#catalogue">Skip to courses</a>
+<header><div class="header-inner"><a class="brand" href="./"><b>MUHAS</b><span>Continuing Education &amp;<br>Professional Development</span></a><nav aria-label="Main"><a href="#catalogue">Find a course</a><a href="#how-to-apply">How to apply</a><a href="../">Prof. Sangeda’s site ↗</a></nav></div></header>
+<main>
+<section class="hero"><div class="hero-copy"><p class="eyebrow">DCEPD · SHORT COURSE CATALOGUE</p><h1>Your next step<br>in professional learning.</h1><p class="lead">Explore short courses from Muhimbili University of Health and Allied Sciences. Find a subject, explore the course details and apply through the official application system.</p><a class="hero-link" href="#catalogue">Explore the catalogue <span aria-hidden="true">↓</span></a></div><aside class="hero-aside"><span class="big-number">{{COUNT}}</span><p>listed course records</p><div class="hero-stat"><strong>{{CATEGORY_COUNT}}</strong><span>subject categories</span></div><div class="hero-stat"><strong>{{SCHOOL_COUNT}}</strong><span>organising schools, institutes<br>and directorates</span></div><p class="hero-note">Learning across clinical practice,<br>research and health systems.</p></aside></section>
+<section id="catalogue" class="catalogue"><div class="section-heading"><div><p class="eyebrow">EXPLORE YOUR OPTIONS</p><h2>Find a course</h2></div><p class="scope">Listing does not confirm an open intake.<br>Confirm availability and dates with DCEPD.</p></div>
+<form id="filters" role="search"><div class="search-field"><label for="query">Search courses</label><input id="query" type="search" placeholder="Try data analysis, GCP, palliative care…" autocomplete="off"></div><div><label for="category">Subject</label><select id="category"><option value="">All subjects</option>{{CATEGORY_OPTIONS}}</select></div><div><label for="school">Organising unit</label><select id="school"><option value="">All schools &amp; units</option>{{SCHOOL_OPTIONS}}</select></div><button type="reset">Clear</button></form>
+<div class="results-bar"><p id="result-count" role="status" aria-live="polite">{{COUNT}} courses</p><p>Browse A–Z · Search titles, codes and keywords</p></div>
+<noscript><p>All courses are listed below. Enable JavaScript to use search and filters.</p></noscript>
+<p id="no-results" hidden>No courses match these filters. Try a broader keyword or clear the filters.</p>
+<div class="course-grid">{{CARDS}}</div>
+</section>
+<section id="how-to-apply" class="application"><div><p class="eyebrow">OFFICIAL APPLICATION ROUTE</p><h2>Ready to apply?</h2><p>All MUHAS short-course applications are submitted through the official REDCap system.</p><a class="apply large" href="https://utafiti.muhas.ac.tz/surveys/?s=RCJLANHXKKMKXC7W">Open application form ↗</a></div><ol><li><strong>Choose your course</strong><span>Note its title and course code in this catalogue.</span></li><li><strong>Complete the REDCap form</strong><span>Select the corresponding course and provide the requested information.</span></li><li><strong>Look out for your notification</strong><span>The DCEPD Short Course Coordinator supports selection. Applicants are notified by email through REDCap.</span></li></ol></section>
+<section class="source-note"><p>{{REFRESH_LABEL}}: <strong>{{SOURCE_AT}}</strong></p><p>Source: {{SOURCE}}. Includes courses marked “Public Catalogue = Yes”. Subject categories and keywords support discovery; course details remain subject to confirmation.</p></section>
+</main><footer><strong>MUHAS · DCEPD</strong><span>Continuing Education and Professional Development</span><a href="https://muhas.ac.tz/">MUHAS website ↗</a></footer>
+</body></html>
