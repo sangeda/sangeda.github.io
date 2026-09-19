@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'dcepd-courses/**'
+      - 'dcepd-dashboard/**'
       - 'scripts/*dcepd*'
       - 'scripts/build_site_seo.py'
       - 'index.html'
@@ -50,13 +51,21 @@ jobs:
         env:
           REDCAP_PROJECT75_TOKEN: ${{ secrets.REDCAP_PROJECT75_TOKEN }}
         run: python scripts/update_dcepd_catalogue.py
+      - name: Refresh aggregate DCEPD dashboard from both projects
+        env:
+          REDCAP_PROJECT75_TOKEN: ${{ secrets.REDCAP_PROJECT75_TOKEN }}
+          REDCAP_PROJECT79_TOKEN: ${{ secrets.REDCAP_PROJECT79_TOKEN }}
+        run: python scripts/build_dcepd_dashboard.py
+      - name: Validate dashboard aggregation and public output
+        run: python -m unittest discover -s tests -p 'test_dcepd_dashboard.py'
       - name: Validate catalogue isolation and inclusion
         run: python -m unittest discover -s tests -p 'test_dcepd_catalogue.py'
       - name: Commit successful public catalogue refresh
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add dcepd-courses/catalogue.json dcepd-courses/index.html index.html publications.html muhas-publications/index.html sitemap.xml robots.txt
+          python scripts/build_site_seo.py
+          git add dcepd-dashboard/index.html dcepd-dashboard/summary.json dcepd-courses/catalogue.json dcepd-courses/index.html index.html publications.html muhas-publications/index.html sitemap.xml robots.txt
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh public DCEPD course catalogue'
             git pull --rebase origin main

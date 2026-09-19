@@ -8,6 +8,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BASE = 'https://sangeda.github.io/'
 PAGES = {
+    'dcepd-dashboard/index.html': ('dcepd-dashboard/', 'MUHAS DCEPD Dashboard | Course Delivery, Attendance & Applications',
+        'Explore MUHAS continuing education activity by fiscal year, quarter, school and course. Recorded training attendance and separate application demand from REDCap.'),
     'index.html': ('', 'Prof. Raphael Z. Sangeda | MUHAS Research, Leadership & Mentorship',
         'Academic profile of Prof. Raphael Zozimus Sangeda at MUHAS: research in bioinformatics, HIV and AMR, academic leadership, teaching, mentorship and publications.'),
     'publications.html': ('publications.html', 'Raphael Sangeda Publications & Research Trends | MUHAS',
@@ -36,7 +38,7 @@ def optimise_site():
         f'<a href="{BASE}{url}">{label}</a>' for url,label in [
             ('','Academic profile'),('#research','Research'),('#leadership','Leadership'),('#mentorship','Mentorship'),
             ('publications.html','Publications and trends'),('muhas-publications/','MUHAS Publications Observatory'),
-            ('dcepd-courses/','MUHAS DCEPD courses')])+'</nav><!-- SITE-DIRECTORY END -->'
+            ('dcepd-courses/','MUHAS DCEPD courses'),('dcepd-dashboard/','DCEPD activity dashboard')])+'</nav><!-- SITE-DIRECTORY END -->'
     for path,(route,title,description) in PAGES.items():
         file=ROOT/path
         if not file.exists():continue
