@@ -149,6 +149,8 @@ def main():
     taxonomy = json.loads((ROOT/'scripts/dcepd_taxonomy.json').read_text())
     data = build(records, source, stamp, taxonomy)
     save(data)
+    from build_site_seo import optimise_site
+    optimise_site()
     print(f"Published catalogue contains {data['count']} listed master-course records.")
 
 if __name__ == '__main__':

@@ -6,7 +6,15 @@ on:
     paths:
       - 'dcepd-courses/**'
       - 'scripts/*dcepd*'
+      - 'scripts/build_site_seo.py'
+      - 'index.html'
+      - 'robots.txt'
+      - 'sitemap.xml'
       - '.github/workflows/update-dcepd-catalogue.yml'
+  workflow_run:
+    workflows: ['Update publication catalogue']
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
     inputs:
       refresh_api:
@@ -28,6 +36,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -47,7 +56,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add dcepd-courses/catalogue.json dcepd-courses/index.html
+          git add dcepd-courses/catalogue.json dcepd-courses/index.html index.html publications.html muhas-publications/index.html sitemap.xml robots.txt
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh public DCEPD course catalogue'
             git pull --rebase origin main

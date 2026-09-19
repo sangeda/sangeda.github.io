@@ -22,6 +22,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add publications.html data/publications.json assets/publication_wordcloud.svg assets/publication_trends.svg
+          git add publications.html data/publications.json assets/publication_wordcloud.svg assets/publication_trends.svg index.html muhas-publications/index.html dcepd-courses/index.html sitemap.xml robots.txt
           git diff --cached --quiet || git commit -m "Update publication catalogue"
           git push
+

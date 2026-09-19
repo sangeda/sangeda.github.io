@@ -63,13 +63,16 @@ def main():
         annual, quarters, types = observatory.summaries(works)
         observatory.build_dashboard(works, annual, quarters, types, manifest)
         observatory.DATA.joinpath('snapshot_manifest.json').write_text(json.dumps(manifest, indent=2))
+    from build_site_seo import optimise_site
+    optimise_site()
     stage = ROOT/'_site'
     stage.mkdir(exist_ok=True)
     for directory in ['assets', 'data', 'muhas-publications', 'dcepd-courses']:
         shutil.copytree(ROOT/directory, stage/directory, dirs_exist_ok=True)
-    for file in [*ROOT.glob('*.html'), ROOT/'.nojekyll']:
+    for file in [*ROOT.glob('*.html'), ROOT/'.nojekyll', ROOT/'robots.txt', ROOT/'sitemap.xml']:
         shutil.copy2(file, stage/file.name)
     print('Staged catalogue and existing Observatory release:', release['tag_name'])
 
 if __name__ == '__main__':
     main()
+
