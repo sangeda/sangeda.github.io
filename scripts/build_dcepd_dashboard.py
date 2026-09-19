@@ -133,6 +133,11 @@ def render(data,management=False):
     text=(ROOT/'scripts/dcepd_dashboard_template.html').read_text()
     title='DCEPD management review' if management else 'MUHAS DCEPD activity dashboard'
     payload=json.dumps(data,ensure_ascii=False).replace('<','\\u003c')
+    boundary=ROOT/'dcepd-dashboard/boundaries/tanzania-regions.geojson'
+    if boundary.exists():
+        geo=boundary.read_text().replace('<','\\u003c')
+        mapjs=(ROOT/'scripts/dcepd_map.js').read_text()
+        text=text.replace('</body>','<script id="map-boundaries" type="application/json">'+geo+'</script><script>'+mapjs+'</script></body>')
     return text.replace('{{TITLE}}',title).replace('{{ACCESS}}','Local management review · not published' if management else 'Public aggregate reporting').replace('{{DATA}}',payload).replace('{{STAMP}}',html.escape(data['metadata']['source_at'])).replace('{{SOURCE}}',html.escape(data['metadata']['source'])).replace('{{REGISTRY_COUNT}}',str(data['metadata']['registered_courses']))
 
 def main():

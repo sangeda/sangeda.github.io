@@ -1,0 +1,33 @@
+{
+  "source_file": "tza_admbnda_adm1_20181019",
+  "source_zip_sha256": "89f4fc450adaa02127de5c1576d7c9c730e57100b5c590dee38e0c49c5b87c18",
+  "boundary_date": "2018-10-19",
+  "coordinate_reference_system": "EPSG:4326",
+  "regions": 31,
+  "geometry_repairs": [
+    {
+      "region": "Arusha",
+      "relative_area_change": 3.692310958005891e-15
+    },
+    {
+      "region": "Kilimanjaro",
+      "relative_area_change": 3.3091311519544514e-15
+    },
+    {
+      "region": "Pwani",
+      "relative_area_change": 2.3794961311749582e-15
+    },
+    {
+      "region": "Singida",
+      "relative_area_change": 1.0080990533443028e-15
+    }
+  ],
+  "simplification_tolerance_degrees": 0.004,
+  "source_description": "User-supplied shapefile; accompanying ArcGIS XML records OCHA FIS processing on 19 October 2018.",
+  "licence": "Matching HDX COD-AB Tanzania dataset: Creative Commons Attribution for Intergovernmental Organisations (CC BY-IGO)",
+  "source_url": "https://data.humdata.org/dataset/cod-ab-tza",
+  "name_crosswalk": {
+    "Dar-es-salaam": "Dar es Salaam"
+  },
+  "use": "Regional applicant counts; not individual locations. Historical boundary reference, not a claim of current legal boundaries."
+}
