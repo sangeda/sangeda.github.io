@@ -2,11 +2,11 @@
   "metadata": {
     "schema_version": 1,
     "source": "Project 75 and Project 79 APIs",
-    "source_at": "2026-09-19T09:22:09+00:00",
+    "source_at": "2026-09-19T12:20:23+00:00",
     "as_of": "2026-09-19",
     "registered_courses": 194,
     "listed_courses": 89,
-    "application_records": 866,
+    "application_records": 867,
     "notes": "Attendance is recorded attendances, not unique people or completion. Runs are assigned by start date; application periods use application date. Missing counts stay unknown. Application cells below 5 are withheld; geography covers the whole snapshot."
   },
   "courses": [
@@ -5783,7 +5783,7 @@
       "year": "2026",
       "fy": "2026/27",
       "quarter": "Q1",
-      "applications": 118,
+      "applications": 119,
       "withheld": false
     },
     {
@@ -5932,7 +5932,7 @@
     },
     {
       "location": "Mbeya",
-      "applications": 21
+      "applications": 22
     },
     {
       "location": "Tanga",
