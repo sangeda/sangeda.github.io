@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BASE = 'https://sangeda.github.io/'
 PAGES = {
+    'bpharm-projects/index.html': ('bpharm-projects/', 'MUHAS BPharm Research Projects | Year, Supervisor & Topic', 'Search recovered MUHAS Bachelor of Pharmacy research projects by title, keyword, completion year and supervisor.'),
     'dcepd-dashboard/index.html': ('dcepd-dashboard/', 'MUHAS DCEPD Dashboard | Course Delivery, Attendance & Applications',
         'Explore MUHAS continuing education activity by fiscal year, quarter, school and course. Recorded training attendance and separate application demand from REDCap.'),
     'index.html': ('', 'Prof. Raphael Z. Sangeda | MUHAS Research, Leadership & Mentorship',
@@ -38,7 +39,7 @@ def optimise_site():
         f'<a href="{BASE}{url}">{label}</a>' for url,label in [
             ('','Academic profile'),('#research','Research'),('#leadership','Leadership'),('#mentorship','Mentorship'),
             ('publications.html','Publications and trends'),('muhas-publications/','MUHAS Publications Observatory'),
-            ('dcepd-courses/','MUHAS DCEPD courses'),('dcepd-dashboard/','DCEPD activity dashboard')])+'</nav><!-- SITE-DIRECTORY END -->'
+            ('bpharm-projects/','BPharm research projects'),('dcepd-courses/','MUHAS DCEPD courses'),('dcepd-dashboard/','DCEPD activity dashboard')])+'</nav><!-- SITE-DIRECTORY END -->'
     for path,(route,title,description) in PAGES.items():
         file=ROOT/path
         if not file.exists():continue
@@ -85,6 +86,7 @@ def optimise_site():
         file.write_text(text,encoding='utf-8')
     urls=''.join(f'<url><loc>{BASE}{route}</loc></url>' for route,_,_ in PAGES.values())
     (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+urls+'</urlset>\n')
-    (ROOT/'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: '+BASE+'sitemap.xml\n')
+    (ROOT/'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: '+BASE+'sitemap.xml\nSitemap: '+BASE+'bpharm-projects/sitemap.xml\n')
 
 if __name__=='__main__': optimise_site()
+

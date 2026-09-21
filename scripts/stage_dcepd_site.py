@@ -63,11 +63,13 @@ def main():
         annual, quarters, types = observatory.summaries(works)
         observatory.build_dashboard(works, annual, quarters, types, manifest)
         observatory.DATA.joinpath('snapshot_manifest.json').write_text(json.dumps(manifest, indent=2))
+    from build_bpharm import main as build_bpharm
+    build_bpharm()
     from build_site_seo import optimise_site
     optimise_site()
     stage = ROOT/'_site'
     stage.mkdir(exist_ok=True)
-    for directory in ['assets', 'data', 'muhas-publications', 'dcepd-courses', 'dcepd-dashboard']:
+    for directory in ['assets', 'data', 'muhas-publications', 'dcepd-courses', 'dcepd-dashboard', 'bpharm-projects']:
         shutil.copytree(ROOT/directory, stage/directory, dirs_exist_ok=True)
     for file in [*ROOT.glob('*.html'), ROOT/'.nojekyll', ROOT/'robots.txt', ROOT/'sitemap.xml']:
         shutil.copy2(file, stage/file.name)
@@ -75,4 +77,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
