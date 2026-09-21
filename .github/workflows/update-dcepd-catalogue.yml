@@ -65,7 +65,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           python scripts/build_site_seo.py
-          git add dcepd-dashboard/index.html dcepd-dashboard/summary.json dcepd-courses/catalogue.json dcepd-courses/index.html index.html publications.html muhas-publications/index.html sitemap.xml robots.txt
+          git add bpharm-projects/index.html dcepd-dashboard/index.html dcepd-dashboard/summary.json dcepd-courses/catalogue.json dcepd-courses/index.html index.html publications.html muhas-publications/index.html sitemap.xml robots.txt
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh public DCEPD course catalogue'
             git pull --rebase origin main
