@@ -2,11 +2,11 @@
   "metadata": {
     "schema_version": 1,
     "source": "Project 75 and Project 79 APIs",
-    "source_at": "2026-09-21T11:53:09+00:00",
-    "as_of": "2026-09-21",
+    "source_at": "2026-09-22T06:43:42+00:00",
+    "as_of": "2026-09-22",
     "registered_courses": 195,
     "listed_courses": 89,
-    "application_records": 872,
+    "application_records": 886,
     "notes": "Attendance is recorded attendances, not unique people or completion. Runs are assigned by start date; application periods use application date. Missing counts stay unknown. Application cells below 5 are withheld; geography covers the whole snapshot."
   },
   "courses": [
@@ -5549,7 +5549,7 @@
       "year": "2026",
       "fy": "2026/27",
       "quarter": "Q1",
-      "applications": 27,
+      "applications": 28,
       "withheld": false
     },
     {
@@ -5791,7 +5791,7 @@
       "year": "2026",
       "fy": "2026/27",
       "quarter": "Q1",
-      "applications": 120,
+      "applications": 122,
       "withheld": false
     },
     {
@@ -5813,7 +5813,7 @@
       "year": "2026",
       "fy": "2026/27",
       "quarter": "Q1",
-      "applications": 18,
+      "applications": 19,
       "withheld": false
     },
     {
@@ -5824,7 +5824,7 @@
       "year": "2026",
       "fy": "2026/27",
       "quarter": "Q1",
-      "applications": 25,
+      "applications": 34,
       "withheld": false
     },
     {
@@ -5903,16 +5903,27 @@
       "quarter": "Q1",
       "applications": null,
       "withheld": true
+    },
+    {
+      "course_id": "172",
+      "course": "FINANCING AND FINANCIAL MANAGEMENT IN HEALTH SUPPLY CHAIN",
+      "school": "School of Pharmacy",
+      "department": "Pharmaceutics and Pharmacy Practice",
+      "year": "2026",
+      "fy": "2026/27",
+      "quarter": "Q1",
+      "applications": null,
+      "withheld": true
     }
   ],
   "geography": [
     {
       "location": "Dar es Salaam",
-      "applications": 401
+      "applications": 413
     },
     {
       "location": "Dodoma",
-      "applications": 58
+      "applications": 59
     },
     {
       "location": "Foreigner",
@@ -5963,15 +5974,15 @@
       "applications": 17
     },
     {
+      "location": "Singida",
+      "applications": 16
+    },
+    {
       "location": "Mara",
       "applications": 15
     },
     {
       "location": "Lindi",
-      "applications": 15
-    },
-    {
-      "location": "Singida",
       "applications": 15
     },
     {
