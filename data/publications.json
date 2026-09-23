@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T12:18:25.942369+00:00",
+  "generated_at": "2026-09-23T12:30:55.704214+00:00",
   "orcid": "0000-0002-6574-5308",
   "scope_note": "Records linked to the ORCID iD in ORCID, Crossref, or PubMed; not a definitive bibliography.",
   "source_record_counts_before_deduplication": {
@@ -208,6 +208,120 @@
     {
       "term": "development",
       "count": 5
+    }
+  ],
+  "top_normalized_topics": [
+    {
+      "term": "Sickle cell disease",
+      "count": 43
+    },
+    {
+      "term": "HIV",
+      "count": 33
+    },
+    {
+      "term": "Dar es Salaam",
+      "count": 19
+    },
+    {
+      "term": "Antiretroviral therapy",
+      "count": 15
+    },
+    {
+      "term": "COVID-19",
+      "count": 10
+    },
+    {
+      "term": "Fetal haemoglobin",
+      "count": 9
+    },
+    {
+      "term": "Viral suppression",
+      "count": 8
+    },
+    {
+      "term": "Antibiotic consumption",
+      "count": 7
+    },
+    {
+      "term": "HIV drug resistance",
+      "count": 6
+    },
+    {
+      "term": "Viral load",
+      "count": 5
+    },
+    {
+      "term": "Muhimbili National Hospital",
+      "count": 5
+    },
+    {
+      "term": "Hydroxyurea",
+      "count": 5
+    },
+    {
+      "term": "Medical devices",
+      "count": 5
+    },
+    {
+      "term": "Loss to follow-up",
+      "count": 4
+    },
+    {
+      "term": "Antimicrobial resistance",
+      "count": 4
+    },
+    {
+      "term": "Dolutegravir",
+      "count": 4
+    },
+    {
+      "term": "Genomic medicine",
+      "count": 4
+    },
+    {
+      "term": "Bioinformatics",
+      "count": 4
+    },
+    {
+      "term": "Medication adherence",
+      "count": 3
+    },
+    {
+      "term": "Quality of life",
+      "count": 2
+    },
+    {
+      "term": "Supply chain",
+      "count": 2
+    },
+    {
+      "term": "Machine learning",
+      "count": 1
+    },
+    {
+      "term": "Essential medicines",
+      "count": 1
+    },
+    {
+      "term": "Implementation fidelity",
+      "count": 1
+    },
+    {
+      "term": "Diabetes mellitus",
+      "count": 1
+    },
+    {
+      "term": "Medicinal plants",
+      "count": 1
+    },
+    {
+      "term": "Tuberculosis",
+      "count": 1
+    },
+    {
+      "term": "Antimicrobial activity",
+      "count": 1
     }
   ],
   "topic_trends": {
