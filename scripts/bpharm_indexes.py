@@ -10,6 +10,7 @@ import re
 import unicodedata
 from pathlib import Path
 
+# Supervisor normalization is display/index only; REDCap source values remain unchanged.
 ALIAS_PATH = Path(__file__).with_name("bpharm_supervisor_aliases.json")
 SUPERVISOR_ALIASES = (
     json.loads(ALIAS_PATH.read_text(encoding="utf-8"))
