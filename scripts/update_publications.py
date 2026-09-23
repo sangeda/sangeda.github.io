@@ -337,7 +337,7 @@ def write_trends_svg(trend: dict, path: Path) -> dict:
     return {"years": years, "themes": themes, "counts": {str(y): dict(trend[y]) for y in years}}
 
 
-def publication_card(item: dict) -> str:
+def publication_card(item: dict, record_id: int) -> str:
     authors = item.get("authors", [])
     author_text = ", ".join(authors[:6])
     if len(authors) > 6:
@@ -346,7 +346,7 @@ def publication_card(item: dict) -> str:
     link = item.get("url") or (f"https://doi.org/{item['doi']}" if item.get("doi") else "")
     title = html.escape(item["title"])
     title_html = f'<a href="{html.escape(link)}">{title}</a>' if link else title
-    return f'''<article class="pub-card" data-year="{item.get('year') or ''}" data-search="{html.escape((item['title'] + ' ' + item.get('journal','')).lower())}">
+    return f'''<article class="pub-card" data-record-id="{record_id}" data-year="{item.get('year') or ''}" data-search="{html.escape((item['title'] + ' ' + item.get('journal','')).lower())}">
       <div class="pub-year">{item.get('year') or '—'}</div>
       <div><h3>{title_html}</h3><p class="pub-authors">{html.escape(author_text)}</p>
       <p class="pub-journal">{html.escape(item.get('journal') or 'Source not supplied')}</p><div class="source-badges">{badges}</div></div>
@@ -357,7 +357,7 @@ def write_publications_page(publications: list[dict], terms: Counter, trends: di
     years = [p["year"] for p in publications if p.get("year")]
     recent = sum(1 for year in years if year >= CURRENT_YEAR - 4)
     top_terms = terms.most_common(12)
-    cards = "\n".join(publication_card(item) for item in publications)
+    cards = "\n".join(publication_card(item, i) for i, item in enumerate(publications, start=1))
     option_years = "".join(f'<option value="{year}">{year}</option>' for year in sorted(set(years), reverse=True))
     ranked = "".join(f'<li><span>{html.escape(term)}</span><strong>{count}</strong></li>' for term, count in top_terms)
     page = f'''<!doctype html>
@@ -378,6 +378,7 @@ def write_publications_page(publications: list[dict], terms: Counter, trends: di
 <aside class="ranked-terms"><h3>Most frequent terms</h3><ol>{ranked}</ol></aside></div>
 <p class="method-note">Theme counts use transparent title-keyword rules; a paper may contribute to more than one theme. Word size reflects title frequency, not scientific importance or citation impact.</p></section>
 <section id="catalogue" class="section"><div class="section-heading"><div><p class="section-kicker">Catalogue</p><h2>Browse the indexed works</h2></div><p>For the authoritative researcher-managed record, consult ORCID.</p></div>
+<div class="topic-explorer" aria-labelledby="topic-explorer-title"><div class="topic-explorer-head"><div><p class="section-kicker">Normalized research topics</p><h3 id="topic-explorer-title">Explore by topic</h3><p>Topics combine synonymous title terms into controlled research concepts. Select a topic to filter the indexed works.</p></div><button id="topic-clear" type="button" hidden>Clear topic</button></div><div id="topic-cloud" class="topic-cloud" aria-live="polite"><span class="topic-loading">Loading normalized topics…</span></div><p id="topic-status" class="method-note"></p></div>
 <div class="pub-controls"><label>Search<input id="pub-search" type="search" placeholder="Title or journal"></label><label>Year<select id="pub-year"><option value="">All years</option>{option_years}</select></label><span id="pub-count">{len(publications)} records</span></div>
 <div id="publication-list" class="publication-catalogue">{cards}</div></section></main>
 <footer><p>© {CURRENT_YEAR} Raphael Z. Sangeda</p><p>Automated from public scholarly metadata · <a href="data/publications.json">Download JSON</a></p></footer>
