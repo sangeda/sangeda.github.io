@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source": "data/publications.json titles",
-  "source_updated_at": "2026-09-23T12:30:55.704214+00:00",
+  "source_updated_at": "2026-09-23T12:37:43.630755+00:00",
   "publication_count": 159,
   "concept_count": 33,
   "matched_publications": 117,
