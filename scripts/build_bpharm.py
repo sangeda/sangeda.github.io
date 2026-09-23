@@ -28,6 +28,7 @@ def refresh():
   p={k:clean(r.get(k)) for k in FIELDS}
   if yes(r.get('public_author')):p['student_name']=clean(r.get('student_name'))
   rows.append(p)
+ if not rows:raise ValueError('No Project 224 records are flagged for public catalogue; existing public catalogue preserved')
  return dict(source='REDCap Project 224 public catalogue',as_of=datetime.datetime.now(datetime.timezone.utc).date().isoformat(),records=rows)
 def esc(s):return html.escape(str(s),quote=True)
 def page(title,description,route,body,structured=None):
