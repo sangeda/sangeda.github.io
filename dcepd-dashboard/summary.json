@@ -2,11 +2,11 @@
   "metadata": {
     "schema_version": 1,
     "source": "Project 75 and Project 79 APIs",
-    "source_at": "2026-09-22T06:43:42+00:00",
-    "as_of": "2026-09-22",
+    "source_at": "2026-09-23T06:35:01+00:00",
+    "as_of": "2026-09-23",
     "registered_courses": 195,
     "listed_courses": 89,
-    "application_records": 886,
+    "application_records": 909,
     "notes": "Attendance is recorded attendances, not unique people or completion. Runs are assigned by start date; application periods use application date. Missing counts stay unknown. Application cells below 5 are withheld; geography covers the whole snapshot."
   },
   "courses": [
@@ -5637,7 +5637,7 @@
       "year": "2026",
       "fy": "2026/27",
       "quarter": "Q1",
-      "applications": 20,
+      "applications": 21,
       "withheld": false
     },
     {
@@ -5681,7 +5681,7 @@
       "year": "2026",
       "fy": "2026/27",
       "quarter": "Q1",
-      "applications": 20,
+      "applications": 22,
       "withheld": false
     },
     {
@@ -5791,7 +5791,7 @@
       "year": "2026",
       "fy": "2026/27",
       "quarter": "Q1",
-      "applications": 122,
+      "applications": 123,
       "withheld": false
     },
     {
@@ -5813,7 +5813,7 @@
       "year": "2026",
       "fy": "2026/27",
       "quarter": "Q1",
-      "applications": 19,
+      "applications": 21,
       "withheld": false
     },
     {
@@ -5824,7 +5824,7 @@
       "year": "2026",
       "fy": "2026/27",
       "quarter": "Q1",
-      "applications": 34,
+      "applications": 49,
       "withheld": false
     },
     {
@@ -5914,20 +5914,31 @@
       "quarter": "Q1",
       "applications": null,
       "withheld": true
+    },
+    {
+      "course_id": "165",
+      "course": "FOUNDATIONS OF CYBERSECURITY IN HEALTHCARE",
+      "school": "School of Public Health and Social Sciences",
+      "department": "Epidemiology and Biostatistics",
+      "year": "2026",
+      "fy": "2026/27",
+      "quarter": "Q1",
+      "applications": null,
+      "withheld": true
     }
   ],
   "geography": [
     {
       "location": "Dar es Salaam",
-      "applications": 413
+      "applications": 433
     },
     {
       "location": "Dodoma",
-      "applications": 59
+      "applications": 60
     },
     {
       "location": "Foreigner",
-      "applications": 37
+      "applications": 38
     },
     {
       "location": "Morogoro",
@@ -5987,7 +5998,7 @@
     },
     {
       "location": "Shinyanga",
-      "applications": 13
+      "applications": 14
     },
     {
       "location": "Simiyu",
@@ -6029,7 +6040,7 @@
   "countries": [
     {
       "location": "Uganda",
-      "applications": 10
+      "applications": 11
     },
     {
       "location": "Other small groups (combined)",
