@@ -1,14 +1,122 @@
 {
-  "Antimicrobial resistance": [
-    "antimicrobial resistance",
-    "amr"
+  "Adverse drug reactions": [
+    "adverse drug reactions",
+    "adverse drug reaction",
+    "adr"
+  ],
+  "Antibiotic consumption": [
+    "antibiotic consumption",
+    "antibiotic use",
+    "antibiotic utilisation",
+    "antibiotic utilization"
   ],
   "Antibiotic resistance": [
     "antibiotic resistance"
   ],
+  "Antimicrobial activity": [
+    "antimicrobial activity"
+  ],
+  "Antimicrobial resistance": [
+    "antimicrobial resistance",
+    "amr"
+  ],
   "Antiretroviral therapy": [
     "antiretroviral therapy",
     "antiretroviral treatment"
+  ],
+  "Bioinformatics": [
+    "bioinformatics",
+    "bioinformatic"
+  ],
+  "Community pharmacy": [
+    "community pharmacies",
+    "community pharmacy"
+  ],
+  "COVID-19": [
+    "covid-19",
+    "covid 19",
+    "covid"
+  ],
+  "Dar es Salaam": [
+    "dar es salaam",
+    "dar-es-salaam",
+    "dsm"
+  ],
+  "Diabetes mellitus": [
+    "diabetes mellitus"
+  ],
+  "Dolutegravir": [
+    "dolutegravir",
+    "dtg"
+  ],
+  "Drug interactions": [
+    "drug interactions",
+    "drug interaction"
+  ],
+  "Essential medicines": [
+    "essential medicines",
+    "essential medicine"
+  ],
+  "Fetal haemoglobin": [
+    "fetal haemoglobin",
+    "fetal hemoglobin",
+    "foetal haemoglobin",
+    "foetal hemoglobin",
+    "hbf"
+  ],
+  "Genomic medicine": [
+    "genomic medicine"
+  ],
+  "HIV": [
+    "hiv",
+    "hiv/aids",
+    "human immunodeficiency virus"
+  ],
+  "HIV drug resistance": [
+    "hiv drug resistance",
+    "hiv-1 drug resistance",
+    "hiv resistance"
+  ],
+  "Hydroxyurea": [
+    "hydroxyurea",
+    "hydroxycarbamide"
+  ],
+  "Implementation fidelity": [
+    "implementation fidelity"
+  ],
+  "Loss to follow-up": [
+    "loss to follow-up",
+    "loss to follow up",
+    "ltfu"
+  ],
+  "Machine learning": [
+    "machine learning"
+  ],
+  "Medical devices": [
+    "medical devices",
+    "medical device",
+    "in vitro diagnostic",
+    "in-vitro diagnostic"
+  ],
+  "Medication adherence": [
+    "medication adherence",
+    "drug adherence",
+    "pharmacy refill adherence",
+    "treatment adherence"
+  ],
+  "Medicinal plants": [
+    "medicinal plants",
+    "medicinal plant"
+  ],
+  "Muhimbili National Hospital": [
+    "muhimbili national hospital",
+    "mnh"
+  ],
+  "Public health": [
+    "public health"
+  ],
+  "Quality of life": [
+    "quality of life"
   ],
   "Sickle cell disease": [
     "sickle cell disease",
@@ -16,59 +124,20 @@
     "sickle cell",
     "scd"
   ],
-  "Dar es Salaam": [
-    "dar es salaam",
-    "dar-es-salaam",
-    "dsm"
-  ],
-  "HIV": [
-    "hiv",
-    "hiv/aids",
-    "human immunodeficiency virus"
+  "Supply chain": [
+    "supply chain",
+    "supply-chain"
   ],
   "Tuberculosis": [
     "tuberculosis",
     "tb"
   ],
-  "Diabetes mellitus": [
-    "diabetes mellitus"
+  "Viral load": [
+    "viral load",
+    "hiv viral load"
   ],
-  "Medicinal plants": [
-    "medicinal plants",
-    "medicinal plant"
-  ],
-  "Community pharmacy": [
-    "community pharmacies",
-    "community pharmacy"
-  ],
-  "Medication adherence": [
-    "medication adherence",
-    "drug adherence"
-  ],
-  "Adverse drug reactions": [
-    "adverse drug reactions",
-    "adverse drug reaction",
-    "adr"
-  ],
-  "Drug interactions": [
-    "drug interactions",
-    "drug interaction"
-  ],
-  "Quality of life": [
-    "quality of life"
-  ],
-  "Antimicrobial activity": [
-    "antimicrobial activity"
-  ],
-  "Public health": [
-    "public health"
-  ],
-  "Supply chain": [
-    "supply chain",
-    "supply-chain"
-  ],
-  "Muhimbili National Hospital": [
-    "muhimbili national hospital",
-    "mnh"
+  "Viral suppression": [
+    "viral suppression",
+    "viral load suppression"
   ]
 }
