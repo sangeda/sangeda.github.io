@@ -186,6 +186,8 @@ footer p { margin: 0; }
 .topic-explorer-head h3 { margin: 0 0 .5rem; font-size: 1.35rem; }
 .topic-explorer-head p { margin: 0; color: var(--muted); }
 #topic-clear { flex: 0 0 auto; padding: .65rem .95rem; border: 1px solid var(--teal); border-radius: 999px; color: var(--teal); background: white; font: inherit; font-weight: 700; cursor: pointer; }
+.topic-search-label { display: block; max-width: 420px; margin-top: 1.2rem; color: var(--muted); font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+.topic-search-label input { display: block; width: 100%; min-height: 44px; margin-top: .4rem; padding: .62rem .78rem; border: 1px solid var(--line); border-radius: 10px; color: var(--ink); background: white; font: inherit; text-transform: none; letter-spacing: 0; }
 .topic-cloud { display: flex; flex-wrap: wrap; align-items: baseline; gap: .65rem .75rem; margin-top: 1.25rem; min-height: 54px; }
 .topic-chip { --topic-scale: 1; display: inline-flex; align-items: center; gap: .45rem; padding: .52rem .8rem; border: 1px solid #c9d8d3; border-radius: 999px; color: var(--teal-dark); background: white; font: inherit; font-size: calc(.78rem * var(--topic-scale)); font-weight: 700; line-height: 1.1; cursor: pointer; transition: transform .18s, background .18s, color .18s, border-color .18s; }
 .topic-chip:hover { transform: translateY(-1px); border-color: var(--teal); }
