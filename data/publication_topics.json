@@ -1,0 +1,1585 @@
+{
+  "schema_version": 1,
+  "source": "data/publications.json titles",
+  "source_updated_at": "",
+  "publication_count": 159,
+  "concept_count": 18,
+  "matched_publications": 96,
+  "topic_counts": [
+    {
+      "topic": "Sickle cell disease",
+      "publications": 43
+    },
+    {
+      "topic": "HIV",
+      "publications": 33
+    },
+    {
+      "topic": "Dar es Salaam",
+      "publications": 19
+    },
+    {
+      "topic": "Antiretroviral therapy",
+      "publications": 15
+    },
+    {
+      "topic": "Muhimbili National Hospital",
+      "publications": 5
+    },
+    {
+      "topic": "Antimicrobial resistance",
+      "publications": 4
+    },
+    {
+      "topic": "Quality of life",
+      "publications": 2
+    },
+    {
+      "topic": "Supply chain",
+      "publications": 2
+    },
+    {
+      "topic": "Antimicrobial activity",
+      "publications": 1
+    },
+    {
+      "topic": "Diabetes mellitus",
+      "publications": 1
+    },
+    {
+      "topic": "Medicinal plants",
+      "publications": 1
+    },
+    {
+      "topic": "Tuberculosis",
+      "publications": 1
+    }
+  ],
+  "topics": {
+    "Antimicrobial activity": {
+      "publications": 1,
+      "record_ids": [
+        97
+      ]
+    },
+    "Antimicrobial resistance": {
+      "publications": 4,
+      "record_ids": [
+        2,
+        10,
+        70,
+        129
+      ]
+    },
+    "Antiretroviral therapy": {
+      "publications": 15,
+      "record_ids": [
+        3,
+        5,
+        7,
+        9,
+        17,
+        27,
+        31,
+        61,
+        98,
+        99,
+        100,
+        111,
+        126,
+        140,
+        154
+      ]
+    },
+    "Dar es Salaam": {
+      "publications": 19,
+      "record_ids": [
+        25,
+        30,
+        61,
+        76,
+        78,
+        86,
+        88,
+        89,
+        90,
+        94,
+        98,
+        99,
+        100,
+        110,
+        131,
+        138,
+        147,
+        150,
+        154
+      ]
+    },
+    "Diabetes mellitus": {
+      "publications": 1,
+      "record_ids": [
+        27
+      ]
+    },
+    "HIV": {
+      "publications": 33,
+      "record_ids": [
+        1,
+        4,
+        5,
+        6,
+        8,
+        9,
+        14,
+        16,
+        17,
+        27,
+        30,
+        54,
+        61,
+        71,
+        75,
+        76,
+        78,
+        93,
+        94,
+        95,
+        98,
+        99,
+        100,
+        108,
+        110,
+        111,
+        126,
+        140,
+        147,
+        152,
+        153,
+        154,
+        158
+      ]
+    },
+    "Medicinal plants": {
+      "publications": 1,
+      "record_ids": [
+        37
+      ]
+    },
+    "Muhimbili National Hospital": {
+      "publications": 5,
+      "record_ids": [
+        27,
+        86,
+        141,
+        142,
+        145
+      ]
+    },
+    "Quality of life": {
+      "publications": 2,
+      "record_ids": [
+        12,
+        30
+      ]
+    },
+    "Sickle cell disease": {
+      "publications": 43,
+      "record_ids": [
+        23,
+        24,
+        34,
+        35,
+        38,
+        49,
+        50,
+        52,
+        53,
+        55,
+        57,
+        65,
+        69,
+        73,
+        74,
+        79,
+        80,
+        85,
+        87,
+        91,
+        92,
+        96,
+        101,
+        103,
+        109,
+        115,
+        117,
+        120,
+        121,
+        122,
+        123,
+        124,
+        127,
+        130,
+        131,
+        132,
+        137,
+        139,
+        141,
+        142,
+        143,
+        145,
+        149
+      ]
+    },
+    "Supply chain": {
+      "publications": 2,
+      "record_ids": [
+        83,
+        84
+      ]
+    },
+    "Tuberculosis": {
+      "publications": 1,
+      "record_ids": [
+        72
+      ]
+    }
+  },
+  "records": [
+    {
+      "id": 1,
+      "title": "Utilizing pharmacy refill data to predict loss to follow-up among people living with HIV in Manyara region of Tanzania",
+      "year": 2026,
+      "doi": "10.64898/2026.02.24.26347034",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Urinary tract infections, risk factors and antimicrobial resistance patterns in heart failure patients on sodium-glucose transporter 2 inhibitors: Evidence from Jakaya Kikwete Cardiac Institute in Tanzania",
+      "year": 2026,
+      "doi": "10.1371/journal.pone.0344986",
+      "topics": [
+        "Antimicrobial resistance"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Uptake and predictors of viral load testing and viral suppression among people receiving antiretroviral therapy in mainland Tanzania",
+      "year": 2026,
+      "doi": "10.64898/2026.03.11.26348142",
+      "topics": [
+        "Antiretroviral therapy"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Time to registry discontinuity in Tanzania’s national HIV care registry: a survival analysis of population mobility patterns",
+      "year": 2026,
+      "doi": "10.64898/2026.03.07.26347830",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Time to First-Line Antiretroviral Therapy Failure and Its Predictors among People Living with HIV in Tanzania",
+      "year": 2026,
+      "doi": "10.64898/2026.03.13.26348346",
+      "topics": [
+        "Antiretroviral therapy",
+        "HIV"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Strengthening HIV Programs in Sub‐Saharan Africa Through Implementation Research: A Mixed‐Methods Systematic Review",
+      "year": 2026,
+      "doi": "10.1155/arat/7185732",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Predictors of loss to follow-up among patients receiving antiretroviral therapy in Njombe Region, Tanzania, 2017–2021",
+      "year": 2026,
+      "doi": "10.64898/2026.02.28.26347333",
+      "topics": [
+        "Antiretroviral therapy"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Post-market surveillance of antiretroviral drug quality in Tanzania in the context of rising HIV drug resistance",
+      "year": 2026,
+      "doi": "10.1038/s41598-026-43655-w",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Leveraging Machine Learning Models and Pharmacy Refill Adherence as a Cost-Effective Proxy for Predicting HIV Viral Suppression during Antiretroviral Therapy in Resource-Limited Settings",
+      "year": 2026,
+      "doi": "10.64898/2026.01.05.26343496",
+      "topics": [
+        "Antiretroviral therapy",
+        "HIV"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Isolation and Antimicrobial Resistance of <i>Staphylococcus aureus</i> Associated with Respiratory Devices",
+      "year": 2026,
+      "doi": "10.11648/j.bs.20261201.13",
+      "topics": [
+        "Antimicrobial resistance"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Implementation fidelity and influencing factors of the bottom-up quantification approach for essential medicines in primary health facilities in Tanzania: evidence from four years",
+      "year": 2026,
+      "doi": "10.1186/s42269-026-01477-w",
+      "topics": []
+    },
+    {
+      "id": 12,
+      "title": "Health-related quality of life among COVID-19 survivors 2-years post-acute infection in Tanzania",
+      "year": 2026,
+      "doi": "10.1186/s12982-026-01548-3",
+      "topics": [
+        "Quality of life"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Geospatial analysis of regional variations in antibiotic consumption in Tanzania from 2020 to 2024 using the electronic logistics management information system",
+      "year": 2026,
+      "doi": "10.1017/ash.2025.10276",
+      "topics": []
+    },
+    {
+      "id": 14,
+      "title": "Geographic variation in loss to follow-up from HIV care in Tanzania and its association with pharmacy refill adherence in routine programme data",
+      "year": 2026,
+      "doi": "10.64898/2026.03.04.26347648",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Efficacy of Antibiotics Against <i>Pseudomonas </i><i>a</i><i>eruginosa</i> Isolated from Respiratory Devices in Tanzania",
+      "year": 2026,
+      "doi": "10.11648/j.mhs.20260202.13",
+      "topics": []
+    },
+    {
+      "id": 16,
+      "title": "Comparative 48-Week Viral Load Suppression across Antiretroviral Initiation Regimens: Dolutegravir versus Non-Dolutegravir among People Living with HIV in Tanzania",
+      "year": 2026,
+      "doi": "10.64898/2026.03.19.26348839",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Association of baseline advanced HIV disease and dolutegravir versus non-dolutegravir regimen status with viral load suppression among patients on antiretroviral therapy in Tanzania",
+      "year": 2026,
+      "doi": "10.64898/2026.03.19.26348804",
+      "topics": [
+        "Antiretroviral therapy",
+        "HIV"
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Antibiotic price formulation in Tanzania: evidence from national regulatory import permit data 2010-2016",
+      "year": 2026,
+      "doi": "10.64898/2026.03.05.26347741",
+      "topics": []
+    },
+    {
+      "id": 19,
+      "title": "Utilisation Patterns of Cardiovascular Medicines Among Outpatients at a Tertiary Cardiac Institute in Tanzania (2017-2022)",
+      "year": 2025,
+      "doi": "10.64898/2025.11.30.25341295",
+      "topics": []
+    },
+    {
+      "id": 20,
+      "title": "Trends in antibiotic use among cardiovascular heart disease inpatients at the Jakaya Kikwete Cardiac Institute in Tanzania from 2016 to 2022",
+      "year": 2025,
+      "doi": "10.1017/ash.2025.10241",
+      "topics": []
+    },
+    {
+      "id": 21,
+      "title": "Trends in Antibiotic Use among Cardiovascular Heart Disease Inpatients at the Jakaya Kikwete Cardiac Institute in Tanzania from 2016 to 2022",
+      "year": 2025,
+      "doi": "10.1101/2025.09.24.25336595",
+      "topics": []
+    },
+    {
+      "id": 22,
+      "title": "The importance of funding and investment to strengthen data science in Africa",
+      "year": 2025,
+      "doi": "10.1038/s43856-025-01001-7",
+      "topics": []
+    },
+    {
+      "id": 23,
+      "title": "Strengthening global partnerships for sustainable sickle cell disease care: insights from SickleInAfrica at the 77th United Nations General Assembly and the US-Africa Leaders' Summit.",
+      "year": 2025,
+      "doi": "10.1136/bmjgh-2024-017154",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 24,
+      "title": "Sickle Cell Disease in Africa: SickleInAfrica Registry in Ghana, Nigeria and Tanzania.",
+      "year": 2025,
+      "doi": "10.1002/jha2.70044",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 25,
+      "title": "Seroprevalence and Determinants of SARS-Cov-2 Antibodies Among Healthcare Workers in Dar es Salaam, Tanzania",
+      "year": 2025,
+      "doi": "10.1101/2025.02.12.25322138",
+      "topics": [
+        "Dar es Salaam"
+      ]
+    },
+    {
+      "id": 26,
+      "title": "Regional variations in Antibiotic Consumption in Tanzania: A Geospatial Analysis of eLMIS Data for Targeted Stewardship",
+      "year": 2025,
+      "doi": "10.1101/2025.10.22.25338546",
+      "topics": []
+    },
+    {
+      "id": 27,
+      "title": "Prevalence of Diabetes Mellitus Among People Living With HIV and Receiving Antiretroviral Therapy at Muhimbili National Hospital in Tanzania.",
+      "year": 2025,
+      "doi": "10.7759/cureus.96800",
+      "topics": [
+        "Antiretroviral therapy",
+        "Diabetes mellitus",
+        "HIV",
+        "Muhimbili National Hospital"
+      ]
+    },
+    {
+      "id": 28,
+      "title": "Pharmacoepidemiology of Cardiovascular Medicines Used Among Inpatients at a Tertiary Care Hospital in Tanzania, 2016-2022",
+      "year": 2025,
+      "doi": "10.64898/2025.11.30.25341284",
+      "topics": []
+    },
+    {
+      "id": 29,
+      "title": "Optimising healthcare workforce training and deployment: qualitative experiences from stakeholders in Tanzania",
+      "year": 2025,
+      "doi": "10.1136/bmjopen-2024-092537",
+      "topics": []
+    },
+    {
+      "id": 30,
+      "title": "Impact of HIV-related stigma on quality of life among people with HIV: evidence from Dar es Salaam, Tanzania.",
+      "year": 2025,
+      "doi": "10.1080/09540121.2025.2581203",
+      "topics": [
+        "Dar es Salaam",
+        "HIV",
+        "Quality of life"
+      ]
+    },
+    {
+      "id": 31,
+      "title": "Geospatial Quantification of Antiretroviral Therapy Consumption in Tanzania (2017-2021) Using the WHO Defined Daily Dose Methodology",
+      "year": 2025,
+      "doi": "10.64898/2025.12.06.25341745",
+      "topics": [
+        "Antiretroviral therapy"
+      ]
+    },
+    {
+      "id": 32,
+      "title": "Funding Trends and Gender Disparities in Tanzanian Biomedical Research: Insights From Global Health Funding Databases",
+      "year": 2025,
+      "doi": "10.7759/cureus.94912",
+      "topics": []
+    },
+    {
+      "id": 33,
+      "title": "Factors Influencing Antibiotic Prescribing Decisions among Healthcare Providers in Tanzania: Implications for Antimicrobial Stewardship",
+      "year": 2025,
+      "doi": "10.4314/wc4d6j52",
+      "topics": []
+    },
+    {
+      "id": 34,
+      "title": "FLT1 and other candidate fetal haemoglobin modifying loci in sickle cell disease in African ancestries",
+      "year": 2025,
+      "doi": "10.1038/s41467-025-57413-5",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 35,
+      "title": "Exploring pharmacogenetic factors influencing hydroxyurea response in tanzanian sickle cell disease patients: a genomic medicine approach.",
+      "year": 2025,
+      "doi": "10.1038/s41397-025-00372-3",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 36,
+      "title": "Experience in the adoption of Research Electronic Data Capture (REDCap) as a tool for medical research in Tanzania",
+      "year": 2025,
+      "doi": "10.1101/2025.10.25.25338769",
+      "topics": []
+    },
+    {
+      "id": 37,
+      "title": "Ethnopharmacological survey and literature verification of medicinal plants used to treat peptic ulcer disease by the indigenous people of the Missenyi and Kyerwa districts in Kagera, Tanzania",
+      "year": 2025,
+      "doi": "10.1016/j.ctmp.2025.200238",
+      "topics": [
+        "Medicinal plants"
+      ]
+    },
+    {
+      "id": 38,
+      "title": "Early-life clinical and hematological profiles: a comparative study of children with and without sickle cell disease in the first three years of life.",
+      "year": 2025,
+      "doi": "10.1007/s00277-025-06479-8",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 39,
+      "title": "Diagnosing Burkitt Lymphoma in Sub-Saharan Africa by Sequencing of Circulating Tumor DNA: A Comparative Microcosting Study.",
+      "year": 2025,
+      "doi": "10.1016/j.vhri.2025.101113",
+      "topics": []
+    },
+    {
+      "id": 40,
+      "title": "Challenges of data quality for the management of prostate cancer in Tanzania: A hurdle towards improving the quality of service",
+      "year": 2025,
+      "doi": "10.1371/journal.pgph.0005579",
+      "topics": []
+    },
+    {
+      "id": 41,
+      "title": "Barriers and facilitators to the adoption of multiple first-line therapies for management of uncomplicated malaria in Tanzania: a multi-method qualitative study.",
+      "year": 2025,
+      "doi": "10.1186/s12936-025-05710-1",
+      "topics": []
+    },
+    {
+      "id": 42,
+      "title": "Barriers and Facilitators to the Adoption of Multiple First-Line Therapies for Management of Uncomplicated Malaria in Tanzania: A Multi-Method Qualitative Study",
+      "year": 2025,
+      "doi": "10.21203/rs.3.rs-7711744/v1",
+      "topics": []
+    },
+    {
+      "id": 43,
+      "title": "Antibiotic Consumption Patterns among Outpatients at a Cardiac Tertiary Hospital in Tanzania",
+      "year": 2025,
+      "doi": "10.1101/2025.11.18.25340496",
+      "topics": []
+    },
+    {
+      "id": 44,
+      "title": "A Point Prevalence Survey of antibiotics use patterns at Tanga Regional Referral Hospital in Tanzania",
+      "year": 2025,
+      "doi": "10.1017/ash.2025.10199",
+      "topics": []
+    },
+    {
+      "id": 45,
+      "title": "Utilization Trends of Phosphodiesterase Type-5 Inhibitors for Erectile Dysfunction Between 2019 and 2023 in Tanzania",
+      "year": 2024,
+      "doi": "10.7759/cureus.58419",
+      "topics": []
+    },
+    {
+      "id": 46,
+      "title": "Update on SickleInAfrica: a collaborative and multidimensional approach to conduct research and improve health.",
+      "year": 2024,
+      "doi": "10.1016/s2352-3026(24)00219-9",
+      "topics": []
+    },
+    {
+      "id": 47,
+      "title": "Trends in Utilization of Emergency Contraceptives in Tanzania: A Retrospective Longitudinal Study From 2018 to 2023",
+      "year": 2024,
+      "doi": "10.7759/cureus.57649",
+      "topics": []
+    },
+    {
+      "id": 48,
+      "title": "Towards genomic medicine: a tailored next-generation sequencing panel for hydroxyurea pharmacogenomics in Tanzania.",
+      "year": 2024,
+      "doi": "10.1186/s12920-024-01924-5",
+      "topics": []
+    },
+    {
+      "id": 49,
+      "title": "The genetic dissection of fetal haemoglobin persistence in sickle cell disease in Nigeria",
+      "year": 2024,
+      "doi": "10.1093/hmg/ddae014",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 50,
+      "title": "The epidemiology of very severe anaemia in sickle cell disease in Tanzania: a prospective cohort study",
+      "year": 2024,
+      "doi": "10.1016/j.eclinm.2024.102839",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 51,
+      "title": "Residual cardiopulmonary manifestations following COVID-19: a Tanzanian ambispective study.",
+      "year": 2024,
+      "doi": "10.1136/bmjph-2024-002082",
+      "topics": []
+    },
+    {
+      "id": 52,
+      "title": "Prevalence of Urinary Tract Infections and Antibiogram of Bacteria Isolated From Children With Sickle Cell Disease in Tanzania",
+      "year": 2024,
+      "doi": "10.7759/cureus.58786",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 53,
+      "title": "Improved Biorepository to Support Sickle Cell Disease Genomics and Clinical Research: A Practical Approach to Link Patient Data and Biospecimens from Muhimbili Sickle Cell Program, Tanzania",
+      "year": 2024,
+      "doi": "10.1089/bio.2023.0060",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 54,
+      "title": "Impact of HIV infection on the manifestations and outcomes of COVID-19 in selected tertiary Hospitals in Tanzania",
+      "year": 2024,
+      "doi": "10.21203/rs.3.rs-3503099/v1",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 55,
+      "title": "Hydroxyurea mobile directly observed therapy versus standard monitoring in patients with sickle cell anemia: a phase 2 randomized trial",
+      "year": 2024,
+      "doi": "10.1038/s43856-024-00552-5",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 56,
+      "title": "Good manufacturing practice inspections conducted by Tanzania medicines and medical devices authority: a comparative study of two fiscal years from 2018 to 2020",
+      "year": 2024,
+      "doi": "10.1080/20523211.2024.2399722",
+      "topics": []
+    },
+    {
+      "id": 57,
+      "title": "Exploring Pharmacogenetic Factors Influencing Hydroxyurea Response in Tanzanian Sickle Cell Disease Patients: A Genomic Medicine Approach",
+      "year": 2024,
+      "doi": "10.1101/2024.05.23.595488",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 58,
+      "title": "Comparison of knowledge, attitude, practice and predictors of self-medication with antibiotics among medical and non-medical students in Tanzania",
+      "year": 2024,
+      "doi": "10.3389/fphar.2023.1301561",
+      "topics": []
+    },
+    {
+      "id": 59,
+      "title": "Clinical manifestations and treatment outcomes among hospitalised COVID-19 patients in tertiary hospitals in Tanzania, 2021-2022: a retrospective cohort study",
+      "year": 2024,
+      "doi": "10.1136/bmjph-2023-000881",
+      "topics": []
+    },
+    {
+      "id": 60,
+      "title": "Childhood vaccination trends during 2019 to 2022 in Tanzania and the impact of the COVID-19 pandemic",
+      "year": 2024,
+      "doi": "10.1080/21645515.2024.2356342",
+      "topics": []
+    },
+    {
+      "id": 61,
+      "title": "Barriers and Enablers to Retention in HIV Care and Adherence to Antiretroviral Therapy: Evidence from Dar es Salaam, Tanzania.",
+      "year": 2024,
+      "doi": "10.2147/hiv.s458545",
+      "topics": [
+        "Antiretroviral therapy",
+        "Dar es Salaam",
+        "HIV"
+      ]
+    },
+    {
+      "id": 62,
+      "title": "Assessment of Antibiotics Resistance from Isolates Responsible for UTI in Four Regional Referral Hospitals in Tanzania.",
+      "year": 2024,
+      "doi": "10.1099/acmi.0.000905.v1",
+      "topics": []
+    },
+    {
+      "id": 63,
+      "title": "Assessment of Antibiotics Resistance from Isolates Responsible for UTI in Four Regional Referral Hospitals in Tanzania",
+      "year": 2024,
+      "doi": "10.11648/j.ajls.20241206.18",
+      "topics": []
+    },
+    {
+      "id": 64,
+      "title": "Antibiotic utilization patterns in Tanzania: a retrospective longitudinal study comparing pre- and intra-COVID-19 pandemic era using Tanzania Medicines and Medical Devices Authority data",
+      "year": 2024,
+      "doi": "10.1093/jacamr/dlae081",
+      "topics": []
+    },
+    {
+      "id": 65,
+      "title": "Acceptability, barriers and facilitators of using dried blood spots-point-of-care testing for sickle cell disease in Africa: an implementation science protocol for a multinational qualitative study.",
+      "year": 2024,
+      "doi": "10.1136/bmjopen-2024-089056",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 66,
+      "title": "A Comprehensive Assessment of Quality of Antimalarial Medicines in Mainland Tanzania:Insights from Five Years of Postmarket Surveillance",
+      "year": 2024,
+      "doi": "10.4269/ajtmh.24-0145",
+      "topics": []
+    },
+    {
+      "id": 67,
+      "title": "A 20-year evidence-based experience of the evolving medicine regulation in Zanzibar",
+      "year": 2024,
+      "doi": "10.1080/20523211.2024.2421273",
+      "topics": []
+    },
+    {
+      "id": 68,
+      "title": "Towards Genomic Medicine: A Tailored Next-Generation Sequencing Panel for Hydroxyurea Pharmacogenomics in Tanzania",
+      "year": 2023,
+      "doi": "10.21203/rs.3.rs-3235315/v1",
+      "topics": []
+    },
+    {
+      "id": 69,
+      "title": "The genetic dissection of fetal haemoglobin persistence in sickle cell disease in Nigeria",
+      "year": 2023,
+      "doi": "10.1101/2023.05.16.23289851",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 70,
+      "title": "Prevalence of urinary tract infection and antimicrobial resistance patterns of uropathogens with biofilm forming capacity among outpatients in morogoro, Tanzania: a cross-sectional study",
+      "year": 2023,
+      "doi": "10.1186/s12879-023-08641-x",
+      "topics": [
+        "Antimicrobial resistance"
+      ]
+    },
+    {
+      "id": 71,
+      "title": "Prevalence and Management of Helminthiasis and Virological Outcomes among HIV Co-infected Under-fives: A Case Study of Mwananyamala Hospital, Tanzania",
+      "year": 2023,
+      "doi": "10.9734/ajmah/2023/v21i7831",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 72,
+      "title": "Placement for transformative clinical trial skills to sustain chain reaction-like model of expanding human capital for accelerating development of safe, efficacious, accessible and affordable anti-tuberculosis",
+      "year": 2023,
+      "doi": "10.1136/bmjgh-2023-edc.182",
+      "topics": [
+        "Tuberculosis"
+      ]
+    },
+    {
+      "id": 73,
+      "title": "Infrastructure for bioinformatics applications in Tanzania: Lessons from the Sickle Cell Programme",
+      "year": 2023,
+      "doi": "10.1371/journal.pcbi.1010848",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 74,
+      "title": "Improved biorepository to support sickle cell disease genomics and clinical research: A practical approach to link patient data and biospecimens from Muhimbili Sickle Cell Program, Tanzania",
+      "year": 2023,
+      "doi": "10.1101/2023.01.06.23284272",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 75,
+      "title": "Impact of differentiated service delivery models on retention in HIV care and viral suppression among people living with HIV in sub-Saharan Africa: A systematic review and meta-analysis of randomised controlled trials.",
+      "year": 2023,
+      "doi": "10.1002/rmv.2479",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 76,
+      "title": "High viral suppression and detection of dolutegravir-resistance associated mutations in treatment-experienced Tanzanian adults living with HIV-1 in Dar es Salaam",
+      "year": 2023,
+      "doi": "10.1038/s41598-023-47795-1",
+      "topics": [
+        "Dar es Salaam",
+        "HIV"
+      ]
+    },
+    {
+      "id": 77,
+      "title": "Genetic regulation of fetal hemoglobin across global populations",
+      "year": 2023,
+      "doi": "10.1101/2023.03.24.23287659",
+      "topics": []
+    },
+    {
+      "id": 78,
+      "title": "Factors Associated with Viral Load Suppression and Indicators of Stigma among People Living with HIV in Dar es Salaam Tertiary Hospitals, Tanzania",
+      "year": 2023,
+      "doi": "10.3390/microbiolres14020050",
+      "topics": [
+        "Dar es Salaam",
+        "HIV"
+      ]
+    },
+    {
+      "id": 79,
+      "title": "Editorial: Building capacity for sickle cell disease research and healthcare",
+      "year": 2023,
+      "doi": "10.3389/fgene.2023.1226589",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 80,
+      "title": "Development of the sickle Pan-African research consortium registry in Tanzania: opportunity to harness data science for sickle cell disease",
+      "year": 2023,
+      "doi": "10.3389/frhem.2023.1040720",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 81,
+      "title": "Clinical manifestations and mortality among hospitalized COVID-19 patients in Tanzania, 2021-2022.",
+      "year": 2023,
+      "doi": "10.1101/2023.07.13.23292643",
+      "topics": []
+    },
+    {
+      "id": 82,
+      "title": "Antibiotic Utilisation Patterns in Tanzania: A Retrospective Longitudinal Study Comparing Pre- and Post-COVID-19 Pandemic Using Tanzania Medicines and Medical Devices Authority Data",
+      "year": 2023,
+      "doi": "10.1101/2023.11.27.23299060",
+      "topics": []
+    },
+    {
+      "id": 83,
+      "title": "A Four Years Longitudinal Study of Childhood Vaccination Trends and Supply Chain Resilience in Tanzania amid COVID-19 Pandemic",
+      "year": 2023,
+      "doi": "10.21203/rs.3.rs-3772958/v2",
+      "topics": [
+        "Supply chain"
+      ]
+    },
+    {
+      "id": 84,
+      "title": "A Four Years Longitudinal Study of Childhood Vaccination Trends and Supply Chain Resilience in Tanzania amid COVID-19 Pandemic",
+      "year": 2023,
+      "doi": "10.21203/rs.3.rs-3772958/v1",
+      "topics": [
+        "Supply chain"
+      ]
+    },
+    {
+      "id": 85,
+      "title": "Timing for Foetal Haemoglobin Interventions for Babies with Sickle Cell Disease; Prospective Study on Rate and Pattern of Foetal Haemoglobin Decline in Newborns in Tanzania",
+      "year": 2022,
+      "doi": "10.2139/ssrn.4178062",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 86,
+      "title": "Seasonality and Annual Utilization Patterns of Antibacterials at Muhimbili National Hospital, Dar es Salaam, Tanzania: A 2015 Monthly Survey",
+      "year": 2022,
+      "doi": "10.3389/fitd.2021.768842",
+      "topics": [
+        "Dar es Salaam",
+        "Muhimbili National Hospital"
+      ]
+    },
+    {
+      "id": 87,
+      "title": "Nasopharyngeal Carriage and Antibiogram of Pneumococcal and Other Bacterial Pathogens from Children with Sickle Cell Disease in Tanzania",
+      "year": 2022,
+      "doi": "10.2147/idr.s367873",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 88,
+      "title": "Microbiological Quality of Selected Local and Imported Non-Sterile Pharmaceutical Products in Dar es Salaam, Tanzania",
+      "year": 2022,
+      "doi": "10.2147/idr.s355331",
+      "topics": [
+        "Dar es Salaam"
+      ]
+    },
+    {
+      "id": 89,
+      "title": "Magnitude of Extended-Spectrum Beta-Lactamase-Producing Gram-Negative and Beta-Lactamase-Producing Gram-Positive Pathogens Isolated from Patients in Dar es Salaam, Tanzania: A Cross-Sectional Study",
+      "year": 2022,
+      "doi": "10.7759/cureus.24451",
+      "topics": [
+        "Dar es Salaam"
+      ]
+    },
+    {
+      "id": 90,
+      "title": "Isolation Frequency of Fluconazole-Resistant Candida Species From Cockroaches: A Cross-Sectional Study From a National Hospital in Dar es Salaam, Tanzania",
+      "year": 2022,
+      "doi": "10.7759/cureus.24412",
+      "topics": [
+        "Dar es Salaam"
+      ]
+    },
+    {
+      "id": 91,
+      "title": "Hematological and Biochemical Reference Ranges for the Population with Sickle Cell Disease at Steady State in Tanzania",
+      "year": 2022,
+      "doi": "10.3390/hemato3010007",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 92,
+      "title": "Hematological and Biochemical Reference Ranges for Population With Sickle Cell Disease at Steady-State in Tanzania",
+      "year": 2022,
+      "doi": "10.20944/preprints202112.0207.v2",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 93,
+      "title": "HIV and SARS-CoV-2: the interplay of two wicked problems",
+      "year": 2022,
+      "doi": "10.1136/bmjgh-2022-009105",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 94,
+      "title": "Factors associated with viral load suppression and indicators of stigma among people living with HIV in Dar es Salaam tertiary hospitals, Tanzania",
+      "year": 2022,
+      "doi": "10.1101/2022.09.02.22279535",
+      "topics": [
+        "Dar es Salaam",
+        "HIV"
+      ]
+    },
+    {
+      "id": 95,
+      "title": "Exploring the mechanisms behind HIV drug resistance in sub-Saharan Africa: conceptual mapping of a complex adaptive system based on multi-disciplinary expert insights",
+      "year": 2022,
+      "doi": "10.1186/s12889-022-12738-4",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 96,
+      "title": "Establishing a database for sickle cell disease patient mapping and survival tracking: The sickle pan-african research consortium Nigeria example",
+      "year": 2022,
+      "doi": "10.3389/fgene.2022.1041462",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 97,
+      "title": "Antimicrobial activity and brine shrimp toxicity of propolis collected from various regions of Tanzania",
+      "year": 2022,
+      "doi": "10.31254/phyto.2022.11409",
+      "topics": [
+        "Antimicrobial activity"
+      ]
+    },
+    {
+      "id": 98,
+      "title": "Adherence to Antiretroviral Therapy by Medication Possession Ratio and Virological Suppression among Adolescents and Young Adults Living with HIV in Dar es Salaam, Tanzania",
+      "year": 2022,
+      "doi": "10.3390/tropicalmed7040052",
+      "topics": [
+        "Antiretroviral therapy",
+        "Dar es Salaam",
+        "HIV"
+      ]
+    },
+    {
+      "id": 99,
+      "title": "Adherence to Antiretroviral Therapy and Associated Factors Among People Living With HIV Following the Introduction of Dolutegravir Based Regimens in Dar es Salaam, Tanzania",
+      "year": 2022,
+      "doi": "10.1177/23259582221084543",
+      "topics": [
+        "Antiretroviral therapy",
+        "Dar es Salaam",
+        "HIV"
+      ]
+    },
+    {
+      "id": 100,
+      "title": "Adherence to Antiretroviral Therapy Among HIV-Infected Clients Attending Opioid Treatment Program Clinics in Dar es Salaam, Tanzania",
+      "year": 2022,
+      "doi": "10.7759/cureus.25522",
+      "topics": [
+        "Antiretroviral therapy",
+        "Dar es Salaam",
+        "HIV"
+      ]
+    },
+    {
+      "id": 101,
+      "title": "Utilization of Pneumococcal Vaccine and Penicillin Prophylaxis in Sickle Cell Disease in Three African Countries: Assessment among Healthcare Providers in SickleInAfrica",
+      "year": 2021,
+      "doi": "10.1080/03630269.2021.1954943",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 102,
+      "title": "Utilization Trends of Antiviral and Antifungal Agents for Human Systemic Use in Tanzania From 2010 to 2017 Using the World Health Organization Collaborating Centre for Drug Statistics Methodology",
+      "year": 2021,
+      "doi": "10.3389/fitd.2021.723991",
+      "topics": []
+    },
+    {
+      "id": 103,
+      "title": "Sickle cell disease clinical phenotypes in Nigeria: A preliminary analysis of the Sickle Pan Africa Research Consortium Nigeria database (vol 84, 202438, 2020)",
+      "year": 2021,
+      "doi": "10.1016/j.bcmd.2020.102480",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 104,
+      "title": "Prevalence of urinary tract infections and antibiogram of uropathogens isolated from children under five attending Bagamoyo District Hospital in Tanzania: A cross-sectional study [version 1; peer review: 1 not approved]",
+      "year": 2021,
+      "doi": "10.12688/f1000research.52652.1",
+      "topics": []
+    },
+    {
+      "id": 105,
+      "title": "Predictors of electronic health management information system for improving the quality of care for women and people with disabilities",
+      "year": 2021,
+      "doi": "10.1177/0266666920947147",
+      "topics": []
+    },
+    {
+      "id": 106,
+      "title": "National Antibiotics Utilization Trends for Human Use in Tanzania from 2010 to 2016 Inferred from Tanzania Medicines and Medical Devices Authority Importation Data.",
+      "year": 2021,
+      "doi": "10.3390/antibiotics10101249",
+      "topics": []
+    },
+    {
+      "id": 107,
+      "title": "National Antibiotics Utilization Trends for Human Use in Tanzania from 2010 to 2016 Inferred from Tanzania Medicines and Medical Devices Authority Importation Data",
+      "year": 2021,
+      "doi": "10.20944/preprints202108.0263.v1",
+      "topics": []
+    },
+    {
+      "id": 108,
+      "title": "Identifying mechanisms behind HIV drug resistance in Sub-Saharan Africa: a systems approach",
+      "year": 2021,
+      "doi": "10.21203/rs.3.rs-764469/v1",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 109,
+      "title": "Hematological and Biochemical Reference Ranges for Population With Sickle Cell Disease at Steady-State in Tanzania",
+      "year": 2021,
+      "doi": "10.20944/preprints202112.0207.v1",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 110,
+      "title": "Factors Associated with HIV Drug Resistance in Dar es Salaam, Tanzania: Analysis of a Complex Adaptive System",
+      "year": 2021,
+      "doi": "10.3390/pathogens10121535",
+      "topics": [
+        "Dar es Salaam",
+        "HIV"
+      ]
+    },
+    {
+      "id": 111,
+      "title": "Development of HIV Drug Resistance in a Cohort of Adults on First-Line Antiretroviral Therapy in Tanzania during the Stavudine Era",
+      "year": 2021,
+      "doi": "10.3390/microbiolres12040062",
+      "topics": [
+        "Antiretroviral therapy",
+        "HIV"
+      ]
+    },
+    {
+      "id": 112,
+      "title": "Consumption Trends of Antibiotic for Veterinary Use in Tanzania: A Longitudinal Retrospective Survey From 2010-2017",
+      "year": 2021,
+      "doi": "10.3389/fitd.2021.694082",
+      "topics": []
+    },
+    {
+      "id": 113,
+      "title": "Comparison of Common Adverse Neonatal Outcomes Among Preterm and Term Infants at the National Referral Hospital in Tanzania: A Case-Control Study",
+      "year": 2021,
+      "doi": "10.21203/rs.3.rs-613224/v1",
+      "topics": []
+    },
+    {
+      "id": 114,
+      "title": "A Baseline Evaluation of Bioinformatics Capacity in Tanzania Reveals Areas for Training",
+      "year": 2021,
+      "doi": "10.3389/feduc.2021.665313",
+      "topics": []
+    },
+    {
+      "id": 115,
+      "title": "White Matter Integrity in Tanzanian Children With Sickle Cell Anemia A Diffusion Tensor Imaging Study",
+      "year": 2020,
+      "doi": "10.1161/strokeaha.119.027097",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 116,
+      "title": "SickleInAfrica",
+      "year": 2020,
+      "doi": "10.1016/s2352-3026(20)30006-5",
+      "topics": []
+    },
+    {
+      "id": 117,
+      "title": "Sickle cell disease clinical phenotypes in Nigeria: A preliminary analysis of the Sickle Pan Africa Research Consortium Nigeria database",
+      "year": 2020,
+      "doi": "10.1016/j.bcmd.2020.102438",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 118,
+      "title": "Pharmacists’ knowledge attitude and practice regarding the dispensing of antibiotics without prescription in Tanzania: an explorative cross-sectional study",
+      "year": 2020,
+      "doi": "10.21203/rs.2.17343/v2",
+      "topics": []
+    },
+    {
+      "id": 119,
+      "title": "Pharmacists’ Knowledge, Attitude and Practice Regarding the Dispensing of Antibiotics without Prescription in Tanzania: An Explorative Cross-Sectional Study",
+      "year": 2020,
+      "doi": "10.3390/pharmacy8040238",
+      "topics": []
+    },
+    {
+      "id": 120,
+      "title": "Patterns and patient factors associated with loss to follow-up in the Muhimbili sickle cell cohort, Tanzania",
+      "year": 2020,
+      "doi": "10.21203/rs.3.rs-16167/v3",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 121,
+      "title": "Identifying genetic variants and pathways associated with extreme levels of fetal hemoglobin in sickle cell disease in Tanzania",
+      "year": 2020,
+      "doi": "10.1186/s12881-020-01059-1",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 122,
+      "title": "Identifying genetic variants and pathways associated with extreme levels of fetal hemoglobin in Sickle Cell Disease in Tanzania.",
+      "year": 2020,
+      "doi": "10.21203/rs.2.22041/v3",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 123,
+      "title": "Identifying genetic variants and pathways associated with extreme levels of fetal hemoglobin in Sickle Cell Disease in Tanzania.",
+      "year": 2020,
+      "doi": "10.21203/rs.2.22041/v2",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 124,
+      "title": "F cell numbers are associated with an X-linked genetic polymorphism and correlate with haematological parameters in patients with sickle cell disease",
+      "year": 2020,
+      "doi": "10.1111/bjh.17102",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 125,
+      "title": "Effects of lemon decoction on malaria parasite clearance and selected hematological parameters in Plasmodium berghei ANKA infected mice",
+      "year": 2020,
+      "doi": "10.1186/s12906-020-2820-1",
+      "topics": []
+    },
+    {
+      "id": 126,
+      "title": "Development of HIV drug resistance in a cohort of adults on first-line antiretroviral therapy in Tanzania during the stavudine era",
+      "year": 2020,
+      "doi": "10.21203/rs.3.rs-110477/v1",
+      "topics": [
+        "Antiretroviral therapy",
+        "HIV"
+      ]
+    },
+    {
+      "id": 127,
+      "title": "Cerebral Infarcts and Vasculopathy in Tanzanian Children With Sickle Cell Anemia",
+      "year": 2020,
+      "doi": "10.1016/j.pediatrneurol.2019.12.008",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 128,
+      "title": "Baseline Evaluation of Bioinformatics Capacity in Tanzania",
+      "year": 2020,
+      "doi": "10.21203/rs.3.rs-112131/v1",
+      "topics": []
+    },
+    {
+      "id": 129,
+      "title": "Assessment of Implementation of Antimicrobial Resistance Surveillance and Antimicrobial Stewardship Programs in Tanzanian Health Facilities a Year After Launch of the National Action Plan",
+      "year": 2020,
+      "doi": "10.3389/fpubh.2020.00454",
+      "topics": [
+        "Antimicrobial resistance"
+      ]
+    },
+    {
+      "id": 130,
+      "title": "Adherence patterns among patients receiving healthcare services in the Muhimbili Sickle Cell Cohort, Tanzania",
+      "year": 2020,
+      "doi": "10.21203/rs.3.rs-16167/v1",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 131,
+      "title": "Utilization patterns of malaria chemoprophylaxis among Tanzanian children attending sickle cell clinic in Dar es Salaam tertiary hospitals",
+      "year": 2019,
+      "doi": "10.1186/s12936-019-3029-y",
+      "topics": [
+        "Dar es Salaam",
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 132,
+      "title": "The Sickle Cell Disease Ontology: enabling universal sickle cell-based knowledge representation",
+      "year": 2019,
+      "doi": "10.1093/database/baz118",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 133,
+      "title": "Pharmacists’ knowledge attitude and practice regarding the dispensing of antibiotics without prescription in Tanzania: an explorative cross-sectional study",
+      "year": 2019,
+      "doi": "10.21203/rs.2.17343/v1",
+      "topics": []
+    },
+    {
+      "id": 134,
+      "title": "Pharmacists’ Knowledge Attitude and Practice Regarding the Dispensing of Antibiotics without Prescription in Tanzania: An Explorative Cross-Sectional Study",
+      "year": 2019,
+      "doi": "10.20944/preprints201911.0077.v1",
+      "topics": []
+    },
+    {
+      "id": 135,
+      "title": "Pharmaceuticals imports in Tanzania: Overview of private sector market size, share, growth and projected trends to 2021",
+      "year": 2019,
+      "doi": "10.1371/journal.pone.0220701",
+      "topics": []
+    },
+    {
+      "id": 136,
+      "title": "ICTs and development in developing countries: A systematic review of reviews",
+      "year": 2019,
+      "doi": "10.1002/isd2.12060",
+      "topics": []
+    },
+    {
+      "id": 137,
+      "title": "Establishing a Multi-Country Sickle Cell Disease Registry in Africa: Ethical Considerations",
+      "year": 2019,
+      "doi": "10.3389/fgene.2019.00943",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 138,
+      "title": "A qualitative study exploring basis for antibiotics prescription without microbiological investigations, Dar es Salaam Tanzania",
+      "year": 2019,
+      "doi": "10.21203/rs.2.17566/v1",
+      "topics": [
+        "Dar es Salaam"
+      ]
+    },
+    {
+      "id": 139,
+      "title": "g(HbF) : a genetic model of fetal hemoglobin in sickle cell disease",
+      "year": 2018,
+      "doi": "10.1182/bloodadvances.2017009811",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 140,
+      "title": "Predictors of non adherence to antiretroviral therapy at an urban HIV care and treatment center in Tanzania",
+      "year": 2018,
+      "doi": "10.2147/dhps.s143178",
+      "topics": [
+        "Antiretroviral therapy",
+        "HIV"
+      ]
+    },
+    {
+      "id": 141,
+      "title": "Possible Risk Factors for Severe Anemia in Hospitalized Sickle Cell Patients at Muhimbili National Hospital, Tanzania: Protocol for a Cross-Sectional Study",
+      "year": 2018,
+      "doi": "10.2196/resprot.7349",
+      "topics": [
+        "Muhimbili National Hospital",
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 142,
+      "title": "A ten year review of the sickle cell program in Muhimbili National Hospital, Tanzania",
+      "year": 2018,
+      "doi": "10.1186/s12878-018-0125-0",
+      "topics": [
+        "Muhimbili National Hospital",
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 143,
+      "title": "A common molecular signature of patients with sickle cell disease revealed by microarray meta-analysis and a genome-wide association study",
+      "year": 2018,
+      "doi": "10.1371/journal.pone.0199461",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 144,
+      "title": "Research growth and citation impact of Tanzanian scholars: A 24 years scientometric study",
+      "year": 2017,
+      "doi": "10.5897/ijlis2017.0786",
+      "topics": []
+    },
+    {
+      "id": 145,
+      "title": "Possible Risk Factors for Severe Anemia in Hospitalized Sickle Cell Patients at Muhimbili National Hospital, Tanzania: Protocol for a Cross-Sectional Study (Preprint)",
+      "year": 2017,
+      "doi": "10.2196/preprints.7349",
+      "topics": [
+        "Muhimbili National Hospital",
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 146,
+      "title": "ONLINE VISIBILITY OF PHARMACY RESEARCH IN TANZANIA: A SCIENTOMETRIC STUDY",
+      "year": 2017,
+      "doi": "10.22159/ijpps.2017v9i9.19371",
+      "topics": []
+    },
+    {
+      "id": 147,
+      "title": "Exploring the value and acceptability of peer support in the process of improving adherence to HIV antiretroviral drugs in Tanzania, Dar-es-Salaam",
+      "year": 2017,
+      "doi": "10.11116/tdi2017.1.2",
+      "topics": [
+        "Dar es Salaam",
+        "HIV"
+      ]
+    },
+    {
+      "id": 148,
+      "title": "Antimicrobial susceptibility patterns of Staphylococcus aureus and coagulase negative staphylococci isolated from humans in Nairobi, Kenya",
+      "year": 2017,
+      "doi": "10.5897/ajmr2017.8481",
+      "topics": []
+    },
+    {
+      "id": 149,
+      "title": "Proceedings of a Sickle Cell Disease Ontology workshop - Towards the first comprehensive ontology for Sickle Cell Disease",
+      "year": 2016,
+      "doi": "10.1016/j.atg.2016.03.005",
+      "topics": [
+        "Sickle cell disease"
+      ]
+    },
+    {
+      "id": 150,
+      "title": "Larvicidal activity of essential oils from spices sold at Kariakoo market in Dar es Salaam, Tanzania, against Anopheles gambiae Giles ss and Culex quinquefasciatus Say",
+      "year": 2016,
+      "doi": "10.5455/spatula.20160613034220",
+      "topics": [
+        "Dar es Salaam"
+      ]
+    },
+    {
+      "id": 151,
+      "title": "H3ABioNet, a sustainable pan-African bioinformatics network for human heredity and health in Africa",
+      "year": 2016,
+      "doi": "10.1101/gr.196295.115",
+      "topics": []
+    },
+    {
+      "id": 152,
+      "title": "Pharmacy refill adherence outperforms self-reported methods in predicting HIV therapy outcome in resource-limited settings",
+      "year": 2014,
+      "doi": "10.1186/1471-2458-14-1035",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 153,
+      "title": "HIV-1 fitness landscape models for indinavir treatment pressure using observed evolution in longitudinal sequence data are predictive for treatment failure",
+      "year": 2013,
+      "doi": "10.1016/j.meegid.2013.03.014",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 154,
+      "title": "Gender differences in HIV disease progression and treatment outcomes among HIV patients one year after starting antiretroviral treatment (ART) in Dar es Salaam, Tanzania",
+      "year": 2013,
+      "doi": "10.1186/1471-2458-13-38",
+      "topics": [
+        "Antiretroviral therapy",
+        "Dar es Salaam",
+        "HIV"
+      ]
+    },
+    {
+      "id": 155,
+      "title": "Prevention of tumor cell reimplantation during transurethral resection: the in-vitro antiadhesive and cytotoxic properties of an irrigant containing polyethylene glycol 400",
+      "year": 2010,
+      "doi": "10.1097/cad.0b013e32833a148d",
+      "topics": []
+    },
+    {
+      "id": 156,
+      "title": "A collaborative environment allowing clinical investigations on integrated biomedical databases.",
+      "year": 2009,
+      "doi": "",
+      "topics": []
+    },
+    {
+      "id": 157,
+      "title": "A Collaborative Environment Allowing Clinical Investigations on Integrated Biomedical Databases",
+      "year": 2009,
+      "doi": "10.3233/978-1-60750-027-8-51",
+      "topics": []
+    },
+    {
+      "id": 158,
+      "title": "Modelling the HIV fitness landscape under indinavir treatment pressure using observed",
+      "year": 2008,
+      "doi": "",
+      "topics": [
+        "HIV"
+      ]
+    },
+    {
+      "id": 159,
+      "title": "Mapping Digital and Multi-Omics Evidence on Stress and Cardiometabolic Health Trajectories Among Women in Sub-Saharan Africa: A Scoping Review Protocol",
+      "year": null,
+      "doi": "10.20944/preprints202607.0086.v1",
+      "topics": []
+    }
+  ]
+}
