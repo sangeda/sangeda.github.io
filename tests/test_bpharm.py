@@ -13,7 +13,12 @@ class PublicCatalogue(unittest.TestCase):
    self.assertTrue(p['title'])
    self.assertTrue((ROOT/'bpharm-projects/projects'/f'{p["record_id"]}.html').exists())
  def test_full_title_and_supervisors(self):
-  self.assertIn('antimicrobial resistance',terms('First sentence. Antimicrobial resistance.'))
+  self.assertIn('Antimicrobial resistance',terms('First sentence. Antimicrobial resistance.'))
+  self.assertIn('Sickle cell disease',terms('Sickle cell disease among children'))
+  self.assertNotIn('sickle',terms('Sickle cell disease among children'))
+  self.assertIn('Dar es Salaam',terms('Community pharmacies in DSM'))
+  self.assertNotIn('dsm',terms('Community pharmacies in DSM'))
+  self.assertIn('Antiretroviral therapy',terms('Antiretroviral treatment outcomes'))
   self.assertEqual(terms('malaria malaria').count('malaria'),1)
   sups=supervisors({'supervisor_1':'Dr. Sangeda','supervisor_4':'Prof. Kaale'})
   self.assertEqual(len(sups),2)
