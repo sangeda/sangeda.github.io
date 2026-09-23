@@ -21,6 +21,8 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
+from build_publication_topics import concept_matches, norm as concept_norm
+
 ROOT = Path(__file__).resolve().parents[1]
 ORCID = "0000-0002-6574-5308"
 USER_AGENT = "sangeda-publications-site/1.0"
@@ -256,6 +258,16 @@ def topic_counts(publications: list[dict]) -> tuple[Counter, dict]:
     return terms, trend
 
 
+def normalized_topic_counts(publications: list[dict]) -> Counter:
+    """Count controlled research concepts once per publication title."""
+    concepts = json.loads((ROOT / "scripts/research_concepts.json").read_text(encoding="utf-8"))
+    counts = Counter()
+    for item in publications:
+        for topic in concept_matches(concept_norm(item.get("title", "")), concepts):
+            counts[topic] += 1
+    return counts
+
+
 def write_wordcloud_svg(terms: Counter, path: Path) -> None:
     selected = [(term, count) for term, count in terms.most_common(55) if count >= 2]
     width, height = 1400, 760
@@ -289,8 +301,8 @@ def write_wordcloud_svg(terms: Counter, path: Path) -> None:
             )
     svg = (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img" '
-        f'aria-labelledby="title desc"><title id="title">Publication title word cloud</title>'
-        f'<desc id="desc">Prominent terms across ORCID-linked publication titles.</desc>'
+        f'aria-labelledby="title desc"><title id="title">Normalized publication research-topic word cloud</title>'
+        f'<desc id="desc">Normalized controlled research concepts identified in ORCID-linked publication titles.</desc>'
         f'<rect width="100%" height="100%" rx="28" fill="#f5f7f2"/>'
         f'<g font-family="Arial, sans-serif">{"".join(elements)}</g></svg>'
     )
@@ -375,8 +387,8 @@ def write_publications_page(publications: list[dict], terms: Counter, trends: di
 <section id="trends" class="section tinted"><div class="section-heading"><div><p class="section-kicker">Research signature</p><h2>What the publication titles emphasize</h2></div><p>Term prominence and thematic patterns are calculated from titles. They describe this indexed subset, not citation impact.</p></div>
 <div class="visual-card"><img src="assets/publication_wordcloud.svg" alt="Word cloud of prominent publication-title terms"></div>
 <div class="trend-grid"><div class="visual-card"><img src="assets/publication_trends.svg" alt="Line chart of research-theme publication counts by year"></div>
-<aside class="ranked-terms"><h3>Most frequent terms</h3><ol>{ranked}</ol></aside></div>
-<p class="method-note">Theme counts use transparent title-keyword rules; a paper may contribute to more than one theme. Word size reflects title frequency, not scientific importance or citation impact.</p></section>
+<aside class="ranked-terms"><h3>Most frequent normalized topics</h3><ol>{ranked}</ol></aside></div>
+<p class="method-note">The word cloud and ranked list use normalized controlled concepts from publication titles; synonymous terms are merged. A paper may contribute to more than one concept. Word size reflects the number of indexed works containing the concept, not scientific importance or citation impact.</p></section>
 <section id="catalogue" class="section"><div class="section-heading"><div><p class="section-kicker">Catalogue</p><h2>Browse the indexed works</h2></div><p>For the authoritative researcher-managed record, consult ORCID.</p></div>
 <div class="topic-explorer" aria-labelledby="topic-explorer-title"><div class="topic-explorer-head"><div><p class="section-kicker">Normalized research topics</p><h3 id="topic-explorer-title">Explore by topic</h3><p>Topics combine synonymous title terms into controlled research concepts. Search the cloud or select a topic to filter the indexed works.</p></div><button id="topic-clear" type="button" hidden>Clear topic</button></div><label class="topic-search-label">Find topic<input id="topic-search" type="search" placeholder="e.g. HIV, sickle cell, bioinformatics"></label><div id="topic-cloud" class="topic-cloud" aria-live="polite"><span class="topic-loading">Loading normalized topics…</span></div><p id="topic-status" class="method-note"></p></div>
 <div class="pub-controls"><label>Search<input id="pub-search" type="search" placeholder="Title or journal"></label><label>Year<select id="pub-year"><option value="">All years</option>{option_years}</select></label><span id="pub-count">{len(publications)} records</span></div>
@@ -394,11 +406,12 @@ def main() -> None:
         source_counts[name] = len(items)
         fetched.extend(items)
     publications = merge_records(fetched)
-    terms, trend = topic_counts(publications)
+    raw_terms, trend = topic_counts(publications)
+    normalized_terms = normalized_topic_counts(publications)
     (ROOT / "data").mkdir(exist_ok=True)
     (ROOT / "assets").mkdir(exist_ok=True)
     timestamp = datetime.now(timezone.utc).strftime("%d %B %Y")
-    write_wordcloud_svg(terms, ROOT / "assets/publication_wordcloud.svg")
+    write_wordcloud_svg(normalized_terms, ROOT / "assets/publication_wordcloud.svg")
     trend_payload = write_trends_svg(trend, ROOT / "assets/publication_trends.svg")
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -406,12 +419,13 @@ def main() -> None:
         "scope_note": "Records linked to the ORCID iD in ORCID, Crossref, or PubMed; not a definitive bibliography.",
         "source_record_counts_before_deduplication": source_counts,
         "unique_record_count": len(publications),
-        "top_title_terms": [{"term": term, "count": count} for term, count in terms.most_common(50)],
+        "top_title_terms": [{"term": term, "count": count} for term, count in raw_terms.most_common(50)],
+        "top_normalized_topics": [{"term": term, "count": count} for term, count in normalized_terms.most_common(50)],
         "topic_trends": trend_payload,
         "publications": publications,
     }
     (ROOT / "data/publications.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    write_publications_page(publications, terms, trend_payload, timestamp)
+    write_publications_page(publications, normalized_terms, trend_payload, timestamp)
     print(json.dumps({"sources": source_counts, "unique": len(publications), "years": trend_payload["years"]}))
 
 
