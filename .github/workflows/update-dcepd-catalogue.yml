@@ -1,93 +1,16 @@
-name: Update DCEPD course catalogue
+name: Retired personal DCEPD refresh
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'dcepd-courses/**'
-      - 'dcepd-dashboard/**'
-      - 'scripts/*dcepd*'
-      - 'scripts/build_site_seo.py'
-      - 'index.html'
-      - 'robots.txt'
-      - 'sitemap.xml'
-      - '.github/workflows/update-dcepd-catalogue.yml'
-  workflow_run:
-    workflows: ['Update publication catalogue']
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
-    inputs:
-      refresh_api:
-        description: 'Refresh from Project 75 (requires REDCAP_PROJECT75_TOKEN secret)'
-        type: boolean
-        default: true
-  schedule:
-    # Daily at 04:37 East Africa Time.
-    - cron: '37 1 * * *'
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
-
-concurrency:
-  group: muhas-publications-observatory
-  cancel-in-progress: false
+  contents: read
 
 jobs:
-  build:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+  retired:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: main
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.12'
-      - name: Refresh listed courses from Project 75
-        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.refresh_api)
-        env:
-          REDCAP_PROJECT75_TOKEN: ${{ secrets.REDCAP_PROJECT75_TOKEN }}
-        run: python scripts/update_dcepd_catalogue.py
-      - name: Refresh aggregate DCEPD dashboard from both projects
-        env:
-          REDCAP_PROJECT75_TOKEN: ${{ secrets.REDCAP_PROJECT75_TOKEN }}
-          REDCAP_PROJECT79_TOKEN: ${{ secrets.REDCAP_PROJECT79_TOKEN }}
-        run: python scripts/build_dcepd_dashboard.py
-      - name: Validate dashboard aggregation and public output
-        run: python -m unittest discover -s tests -p 'test_dcepd_dashboard.py'
-      - name: Validate catalogue isolation and inclusion
-        run: python -m unittest discover -s tests -p 'test_dcepd_catalogue.py'
-      - name: Commit successful public catalogue refresh
+      - name: DCEPD moved to standalone repository
         run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          python scripts/build_site_seo.py
-          git add bpharm-projects/index.html dcepd-dashboard/index.html dcepd-dashboard/summary.json dcepd-courses/catalogue.json dcepd-courses/index.html index.html publications.html muhas-publications/index.html sitemap.xml robots.txt
-          if ! git diff --cached --quiet; then
-            git commit -m 'Refresh public DCEPD course catalogue'
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
-      - name: Preserve existing Observatory downloads and stage public site
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          python -m pip install --disable-pip-version-check -r requirements.txt
-          python scripts/stage_dcepd_site.py
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v4
-        with:
-          path: _site
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Publish site
-        id: deployment
-        uses: actions/deploy-pages@v4
+          echo "Personal-site DCEPD refresh retired."
+          echo "Current site: https://muhas-dcepd.github.io/"
