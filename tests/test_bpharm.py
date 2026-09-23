@@ -18,6 +18,6 @@ class PublicCatalogue(unittest.TestCase):
   sups=supervisors({'supervisor_1':'Dr. Sangeda','supervisor_4':'Prof. Kaale'})
   self.assertEqual(len(sups),2)
   self.assertEqual(sups[0]['name'],'Raphael Z. Sangeda')
-  self.assertEqual(sups[0]['search_key'],'raphael z. sangeda')
+  self.assertEqual(sups[0]['search_key'],'raphael z sangeda')
   self.assertEqual(supervisors({'supervisor_1':'prof Kennedy Mwambete'})[0]['name'],'Kennedy Mwambete')
 if __name__=='__main__':unittest.main()
