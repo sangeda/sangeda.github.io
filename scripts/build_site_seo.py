@@ -9,16 +9,13 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE = 'https://sangeda.github.io/'
 PAGES = {
     'bpharm-projects/index.html': ('bpharm-projects/', 'MUHAS BPharm Research Projects | Year, Supervisor & Topic', 'Search recovered MUHAS Bachelor of Pharmacy research projects by title, keyword, completion year and supervisor.'),
-    'dcepd-dashboard/index.html': ('dcepd-dashboard/', 'MUHAS DCEPD Dashboard | Course Delivery, Attendance & Applications',
-        'Explore MUHAS continuing education activity by fiscal year, quarter, school and course. Recorded training attendance and separate application demand from REDCap.'),
     'index.html': ('', 'Prof. Raphael Z. Sangeda | MUHAS Research, Leadership & Mentorship',
         'Academic profile of Prof. Raphael Zozimus Sangeda at MUHAS: research in bioinformatics, HIV and AMR, academic leadership, teaching, mentorship and publications.'),
     'publications.html': ('publications.html', 'Raphael Sangeda Publications & Research Trends | MUHAS',
         'Explore Raphael Z. Sangeda’s indexed publications, research themes and annual trends, with links to ORCID, PubMed and Crossref records.'),
     'muhas-publications/index.html': ('muhas-publications/', 'MUHAS Publications Observatory | Research Output & Collaboration',
         'Explore MUHAS publications using OpenAlex: annual and fiscal-quarter research output, research topics, and downloadable Excel, CSV and SQLite datasets.'),
-    'dcepd-courses/index.html': ('dcepd-courses/', 'MUHAS DCEPD Short Courses | Search Catalogue & Apply',
-        'Search MUHAS continuing education and professional development courses by subject or school, view course details and apply through the official REDCap system.')}
+}
 
 def optimise_site():
     person = {'@type':'Person','@id':BASE+'#person','name':'Raphael Zozimus Sangeda',
@@ -39,7 +36,7 @@ def optimise_site():
         f'<a href="{BASE}{url}">{label}</a>' for url,label in [
             ('','Academic profile'),('#research','Research'),('#leadership','Leadership'),('#mentorship','Mentorship'),
             ('publications.html','Publications and trends'),('muhas-publications/','MUHAS Publications Observatory'),
-            ('bpharm-projects/','BPharm research projects'),('dcepd-courses/','MUHAS DCEPD courses'),('dcepd-dashboard/','DCEPD activity dashboard')])+'</nav><!-- SITE-DIRECTORY END -->'
+            ('bpharm-projects/','BPharm research projects')])+'<a href="https://muhas-dcepd.github.io/">MUHAS DCEPD</a></nav><!-- SITE-DIRECTORY END -->'
     for path,(route,title,description) in PAGES.items():
         file=ROOT/path
         if not file.exists():continue
@@ -58,13 +55,6 @@ def optimise_site():
             graph.append({'@type':'BreadcrumbList','itemListElement':[
                 {'@type':'ListItem','position':1,'name':'Home','item':BASE},
                 {'@type':'ListItem','position':2,'name':title.split('|')[0].strip(),'item':url}]})
-        if route=='dcepd-courses/':
-            data=json.loads((ROOT/'dcepd-courses/catalogue.json').read_text())
-            page['mainEntity']={'@type':'ItemList','numberOfItems':len(data['courses']),
-                'itemListElement':[{'@type':'ListItem','position':i+1,'item':{
-                    '@type':'Course','name':c['title'],'courseCode':c['code'],
-                    'url':url+'#course-'+c['id'],'provider':{'@id':BASE+'#muhas'}}}
-                    for i,c in enumerate(data['courses'])]}
         metadata='\n<!-- SEO START -->\n'+f'<title>{html.escape(title)}</title>\n'
         metadata+=f'<meta name="description" content="{html.escape(description,quote=True)}">\n'
         metadata+=f'<link rel="canonical" href="{url}">\n<meta name="robots" content="index,follow,max-image-preview:large">\n'
