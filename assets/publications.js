@@ -5,6 +5,7 @@ const count = document.querySelector('#pub-count');
 const topicCloud = document.querySelector('#topic-cloud');
 const topicStatus = document.querySelector('#topic-status');
 const topicClear = document.querySelector('#topic-clear');
+const topicSearch = document.querySelector('#topic-search');
 
 let selectedTopic = '';
 let topicRecords = new Map();
@@ -77,6 +78,13 @@ async function loadTopics() {
       button.innerHTML = `<span>${topic}</span><small>${n}</small>`;
       button.addEventListener('click', () => chooseTopic(topic, button));
       topicCloud.appendChild(button);
+    });
+
+    topicSearch?.addEventListener('input', () => {
+      const q = topicSearch.value.trim().toLowerCase();
+      document.querySelectorAll('.topic-chip').forEach((chip) => {
+        chip.hidden = !!q && !chip.dataset.topic.toLowerCase().includes(q);
+      });
     });
 
     if (topicStatus) {
