@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "source": "data/publications.json titles",
-  "source_updated_at": "",
+  "source_updated_at": "2026-09-21T08:57:36.354572+00:00",
   "publication_count": 159,
-  "concept_count": 18,
-  "matched_publications": 96,
+  "concept_count": 33,
+  "matched_publications": 117,
   "topic_counts": [
     {
       "topic": "Sickle cell disease",
@@ -23,12 +23,64 @@
       "publications": 15
     },
     {
+      "topic": "COVID-19",
+      "publications": 10
+    },
+    {
+      "topic": "Fetal haemoglobin",
+      "publications": 9
+    },
+    {
+      "topic": "Viral suppression",
+      "publications": 8
+    },
+    {
+      "topic": "Antibiotic consumption",
+      "publications": 7
+    },
+    {
+      "topic": "HIV drug resistance",
+      "publications": 6
+    },
+    {
+      "topic": "Hydroxyurea",
+      "publications": 5
+    },
+    {
+      "topic": "Medical devices",
+      "publications": 5
+    },
+    {
       "topic": "Muhimbili National Hospital",
+      "publications": 5
+    },
+    {
+      "topic": "Viral load",
       "publications": 5
     },
     {
       "topic": "Antimicrobial resistance",
       "publications": 4
+    },
+    {
+      "topic": "Bioinformatics",
+      "publications": 4
+    },
+    {
+      "topic": "Dolutegravir",
+      "publications": 4
+    },
+    {
+      "topic": "Genomic medicine",
+      "publications": 4
+    },
+    {
+      "topic": "Loss to follow-up",
+      "publications": 4
+    },
+    {
+      "topic": "Medication adherence",
+      "publications": 3
     },
     {
       "topic": "Quality of life",
@@ -47,6 +99,18 @@
       "publications": 1
     },
     {
+      "topic": "Essential medicines",
+      "publications": 1
+    },
+    {
+      "topic": "Implementation fidelity",
+      "publications": 1
+    },
+    {
+      "topic": "Machine learning",
+      "publications": 1
+    },
+    {
       "topic": "Medicinal plants",
       "publications": 1
     },
@@ -56,6 +120,18 @@
     }
   ],
   "topics": {
+    "Antibiotic consumption": {
+      "publications": 7,
+      "record_ids": [
+        13,
+        20,
+        21,
+        26,
+        43,
+        64,
+        82
+      ]
+    },
     "Antimicrobial activity": {
       "publications": 1,
       "record_ids": [
@@ -91,6 +167,30 @@
         154
       ]
     },
+    "Bioinformatics": {
+      "publications": 4,
+      "record_ids": [
+        73,
+        114,
+        128,
+        151
+      ]
+    },
+    "COVID-19": {
+      "publications": 10,
+      "record_ids": [
+        12,
+        51,
+        54,
+        59,
+        60,
+        64,
+        81,
+        82,
+        83,
+        84
+      ]
+    },
     "Dar es Salaam": {
       "publications": 19,
       "record_ids": [
@@ -119,6 +219,44 @@
       "publications": 1,
       "record_ids": [
         27
+      ]
+    },
+    "Dolutegravir": {
+      "publications": 4,
+      "record_ids": [
+        16,
+        17,
+        76,
+        99
+      ]
+    },
+    "Essential medicines": {
+      "publications": 1,
+      "record_ids": [
+        11
+      ]
+    },
+    "Fetal haemoglobin": {
+      "publications": 9,
+      "record_ids": [
+        34,
+        49,
+        69,
+        77,
+        85,
+        121,
+        122,
+        123,
+        139
+      ]
+    },
+    "Genomic medicine": {
+      "publications": 4,
+      "record_ids": [
+        35,
+        48,
+        57,
+        68
       ]
     },
     "HIV": {
@@ -157,6 +295,66 @@
         153,
         154,
         158
+      ]
+    },
+    "HIV drug resistance": {
+      "publications": 6,
+      "record_ids": [
+        8,
+        95,
+        108,
+        110,
+        111,
+        126
+      ]
+    },
+    "Hydroxyurea": {
+      "publications": 5,
+      "record_ids": [
+        35,
+        48,
+        55,
+        57,
+        68
+      ]
+    },
+    "Implementation fidelity": {
+      "publications": 1,
+      "record_ids": [
+        11
+      ]
+    },
+    "Loss to follow-up": {
+      "publications": 4,
+      "record_ids": [
+        1,
+        7,
+        14,
+        120
+      ]
+    },
+    "Machine learning": {
+      "publications": 1,
+      "record_ids": [
+        9
+      ]
+    },
+    "Medical devices": {
+      "publications": 5,
+      "record_ids": [
+        56,
+        64,
+        82,
+        106,
+        107
+      ]
+    },
+    "Medication adherence": {
+      "publications": 3,
+      "record_ids": [
+        9,
+        14,
+        152
       ]
     },
     "Medicinal plants": {
@@ -242,6 +440,29 @@
       "record_ids": [
         72
       ]
+    },
+    "Viral load": {
+      "publications": 5,
+      "record_ids": [
+        3,
+        16,
+        17,
+        78,
+        94
+      ]
+    },
+    "Viral suppression": {
+      "publications": 8,
+      "record_ids": [
+        3,
+        9,
+        16,
+        17,
+        75,
+        76,
+        78,
+        94
+      ]
     }
   },
   "records": [
@@ -251,7 +472,8 @@
       "year": 2026,
       "doi": "10.64898/2026.02.24.26347034",
       "topics": [
-        "HIV"
+        "HIV",
+        "Loss to follow-up"
       ]
     },
     {
@@ -269,7 +491,9 @@
       "year": 2026,
       "doi": "10.64898/2026.03.11.26348142",
       "topics": [
-        "Antiretroviral therapy"
+        "Antiretroviral therapy",
+        "Viral load",
+        "Viral suppression"
       ]
     },
     {
@@ -306,7 +530,8 @@
       "year": 2026,
       "doi": "10.64898/2026.02.28.26347333",
       "topics": [
-        "Antiretroviral therapy"
+        "Antiretroviral therapy",
+        "Loss to follow-up"
       ]
     },
     {
@@ -315,7 +540,8 @@
       "year": 2026,
       "doi": "10.1038/s41598-026-43655-w",
       "topics": [
-        "HIV"
+        "HIV",
+        "HIV drug resistance"
       ]
     },
     {
@@ -325,7 +551,10 @@
       "doi": "10.64898/2026.01.05.26343496",
       "topics": [
         "Antiretroviral therapy",
-        "HIV"
+        "HIV",
+        "Machine learning",
+        "Medication adherence",
+        "Viral suppression"
       ]
     },
     {
@@ -342,7 +571,10 @@
       "title": "Implementation fidelity and influencing factors of the bottom-up quantification approach for essential medicines in primary health facilities in Tanzania: evidence from four years",
       "year": 2026,
       "doi": "10.1186/s42269-026-01477-w",
-      "topics": []
+      "topics": [
+        "Essential medicines",
+        "Implementation fidelity"
+      ]
     },
     {
       "id": 12,
@@ -350,6 +582,7 @@
       "year": 2026,
       "doi": "10.1186/s12982-026-01548-3",
       "topics": [
+        "COVID-19",
         "Quality of life"
       ]
     },
@@ -358,7 +591,9 @@
       "title": "Geospatial analysis of regional variations in antibiotic consumption in Tanzania from 2020 to 2024 using the electronic logistics management information system",
       "year": 2026,
       "doi": "10.1017/ash.2025.10276",
-      "topics": []
+      "topics": [
+        "Antibiotic consumption"
+      ]
     },
     {
       "id": 14,
@@ -366,7 +601,9 @@
       "year": 2026,
       "doi": "10.64898/2026.03.04.26347648",
       "topics": [
-        "HIV"
+        "HIV",
+        "Loss to follow-up",
+        "Medication adherence"
       ]
     },
     {
@@ -382,7 +619,10 @@
       "year": 2026,
       "doi": "10.64898/2026.03.19.26348839",
       "topics": [
-        "HIV"
+        "Dolutegravir",
+        "HIV",
+        "Viral load",
+        "Viral suppression"
       ]
     },
     {
@@ -392,7 +632,10 @@
       "doi": "10.64898/2026.03.19.26348804",
       "topics": [
         "Antiretroviral therapy",
-        "HIV"
+        "Dolutegravir",
+        "HIV",
+        "Viral load",
+        "Viral suppression"
       ]
     },
     {
@@ -414,14 +657,18 @@
       "title": "Trends in antibiotic use among cardiovascular heart disease inpatients at the Jakaya Kikwete Cardiac Institute in Tanzania from 2016 to 2022",
       "year": 2025,
       "doi": "10.1017/ash.2025.10241",
-      "topics": []
+      "topics": [
+        "Antibiotic consumption"
+      ]
     },
     {
       "id": 21,
       "title": "Trends in Antibiotic Use among Cardiovascular Heart Disease Inpatients at the Jakaya Kikwete Cardiac Institute in Tanzania from 2016 to 2022",
       "year": 2025,
       "doi": "10.1101/2025.09.24.25336595",
-      "topics": []
+      "topics": [
+        "Antibiotic consumption"
+      ]
     },
     {
       "id": 22,
@@ -462,7 +709,9 @@
       "title": "Regional variations in Antibiotic Consumption in Tanzania: A Geospatial Analysis of eLMIS Data for Targeted Stewardship",
       "year": 2025,
       "doi": "10.1101/2025.10.22.25338546",
-      "topics": []
+      "topics": [
+        "Antibiotic consumption"
+      ]
     },
     {
       "id": 27,
@@ -530,6 +779,7 @@
       "year": 2025,
       "doi": "10.1038/s41467-025-57413-5",
       "topics": [
+        "Fetal haemoglobin",
         "Sickle cell disease"
       ]
     },
@@ -539,6 +789,8 @@
       "year": 2025,
       "doi": "10.1038/s41397-025-00372-3",
       "topics": [
+        "Genomic medicine",
+        "Hydroxyurea",
         "Sickle cell disease"
       ]
     },
@@ -600,7 +852,9 @@
       "title": "Antibiotic Consumption Patterns among Outpatients at a Cardiac Tertiary Hospital in Tanzania",
       "year": 2025,
       "doi": "10.1101/2025.11.18.25340496",
-      "topics": []
+      "topics": [
+        "Antibiotic consumption"
+      ]
     },
     {
       "id": 44,
@@ -635,7 +889,10 @@
       "title": "Towards genomic medicine: a tailored next-generation sequencing panel for hydroxyurea pharmacogenomics in Tanzania.",
       "year": 2024,
       "doi": "10.1186/s12920-024-01924-5",
-      "topics": []
+      "topics": [
+        "Genomic medicine",
+        "Hydroxyurea"
+      ]
     },
     {
       "id": 49,
@@ -643,6 +900,7 @@
       "year": 2024,
       "doi": "10.1093/hmg/ddae014",
       "topics": [
+        "Fetal haemoglobin",
         "Sickle cell disease"
       ]
     },
@@ -660,7 +918,9 @@
       "title": "Residual cardiopulmonary manifestations following COVID-19: a Tanzanian ambispective study.",
       "year": 2024,
       "doi": "10.1136/bmjph-2024-002082",
-      "topics": []
+      "topics": [
+        "COVID-19"
+      ]
     },
     {
       "id": 52,
@@ -686,6 +946,7 @@
       "year": 2024,
       "doi": "10.21203/rs.3.rs-3503099/v1",
       "topics": [
+        "COVID-19",
         "HIV"
       ]
     },
@@ -695,6 +956,7 @@
       "year": 2024,
       "doi": "10.1038/s43856-024-00552-5",
       "topics": [
+        "Hydroxyurea",
         "Sickle cell disease"
       ]
     },
@@ -703,7 +965,9 @@
       "title": "Good manufacturing practice inspections conducted by Tanzania medicines and medical devices authority: a comparative study of two fiscal years from 2018 to 2020",
       "year": 2024,
       "doi": "10.1080/20523211.2024.2399722",
-      "topics": []
+      "topics": [
+        "Medical devices"
+      ]
     },
     {
       "id": 57,
@@ -711,6 +975,8 @@
       "year": 2024,
       "doi": "10.1101/2024.05.23.595488",
       "topics": [
+        "Genomic medicine",
+        "Hydroxyurea",
         "Sickle cell disease"
       ]
     },
@@ -726,14 +992,18 @@
       "title": "Clinical manifestations and treatment outcomes among hospitalised COVID-19 patients in tertiary hospitals in Tanzania, 2021-2022: a retrospective cohort study",
       "year": 2024,
       "doi": "10.1136/bmjph-2023-000881",
-      "topics": []
+      "topics": [
+        "COVID-19"
+      ]
     },
     {
       "id": 60,
       "title": "Childhood vaccination trends during 2019 to 2022 in Tanzania and the impact of the COVID-19 pandemic",
       "year": 2024,
       "doi": "10.1080/21645515.2024.2356342",
-      "topics": []
+      "topics": [
+        "COVID-19"
+      ]
     },
     {
       "id": 61,
@@ -765,7 +1035,11 @@
       "title": "Antibiotic utilization patterns in Tanzania: a retrospective longitudinal study comparing pre- and intra-COVID-19 pandemic era using Tanzania Medicines and Medical Devices Authority data",
       "year": 2024,
       "doi": "10.1093/jacamr/dlae081",
-      "topics": []
+      "topics": [
+        "Antibiotic consumption",
+        "COVID-19",
+        "Medical devices"
+      ]
     },
     {
       "id": 65,
@@ -795,7 +1069,10 @@
       "title": "Towards Genomic Medicine: A Tailored Next-Generation Sequencing Panel for Hydroxyurea Pharmacogenomics in Tanzania",
       "year": 2023,
       "doi": "10.21203/rs.3.rs-3235315/v1",
-      "topics": []
+      "topics": [
+        "Genomic medicine",
+        "Hydroxyurea"
+      ]
     },
     {
       "id": 69,
@@ -803,6 +1080,7 @@
       "year": 2023,
       "doi": "10.1101/2023.05.16.23289851",
       "topics": [
+        "Fetal haemoglobin",
         "Sickle cell disease"
       ]
     },
@@ -839,6 +1117,7 @@
       "year": 2023,
       "doi": "10.1371/journal.pcbi.1010848",
       "topics": [
+        "Bioinformatics",
         "Sickle cell disease"
       ]
     },
@@ -857,7 +1136,8 @@
       "year": 2023,
       "doi": "10.1002/rmv.2479",
       "topics": [
-        "HIV"
+        "HIV",
+        "Viral suppression"
       ]
     },
     {
@@ -867,7 +1147,9 @@
       "doi": "10.1038/s41598-023-47795-1",
       "topics": [
         "Dar es Salaam",
-        "HIV"
+        "Dolutegravir",
+        "HIV",
+        "Viral suppression"
       ]
     },
     {
@@ -875,7 +1157,9 @@
       "title": "Genetic regulation of fetal hemoglobin across global populations",
       "year": 2023,
       "doi": "10.1101/2023.03.24.23287659",
-      "topics": []
+      "topics": [
+        "Fetal haemoglobin"
+      ]
     },
     {
       "id": 78,
@@ -884,7 +1168,9 @@
       "doi": "10.3390/microbiolres14020050",
       "topics": [
         "Dar es Salaam",
-        "HIV"
+        "HIV",
+        "Viral load",
+        "Viral suppression"
       ]
     },
     {
@@ -910,14 +1196,20 @@
       "title": "Clinical manifestations and mortality among hospitalized COVID-19 patients in Tanzania, 2021-2022.",
       "year": 2023,
       "doi": "10.1101/2023.07.13.23292643",
-      "topics": []
+      "topics": [
+        "COVID-19"
+      ]
     },
     {
       "id": 82,
       "title": "Antibiotic Utilisation Patterns in Tanzania: A Retrospective Longitudinal Study Comparing Pre- and Post-COVID-19 Pandemic Using Tanzania Medicines and Medical Devices Authority Data",
       "year": 2023,
       "doi": "10.1101/2023.11.27.23299060",
-      "topics": []
+      "topics": [
+        "Antibiotic consumption",
+        "COVID-19",
+        "Medical devices"
+      ]
     },
     {
       "id": 83,
@@ -925,6 +1217,7 @@
       "year": 2023,
       "doi": "10.21203/rs.3.rs-3772958/v2",
       "topics": [
+        "COVID-19",
         "Supply chain"
       ]
     },
@@ -934,6 +1227,7 @@
       "year": 2023,
       "doi": "10.21203/rs.3.rs-3772958/v1",
       "topics": [
+        "COVID-19",
         "Supply chain"
       ]
     },
@@ -943,6 +1237,7 @@
       "year": 2022,
       "doi": "10.2139/ssrn.4178062",
       "topics": [
+        "Fetal haemoglobin",
         "Sickle cell disease"
       ]
     },
@@ -1026,7 +1321,9 @@
       "doi": "10.1101/2022.09.02.22279535",
       "topics": [
         "Dar es Salaam",
-        "HIV"
+        "HIV",
+        "Viral load",
+        "Viral suppression"
       ]
     },
     {
@@ -1035,7 +1332,8 @@
       "year": 2022,
       "doi": "10.1186/s12889-022-12738-4",
       "topics": [
-        "HIV"
+        "HIV",
+        "HIV drug resistance"
       ]
     },
     {
@@ -1075,6 +1373,7 @@
       "topics": [
         "Antiretroviral therapy",
         "Dar es Salaam",
+        "Dolutegravir",
         "HIV"
       ]
     },
@@ -1133,14 +1432,18 @@
       "title": "National Antibiotics Utilization Trends for Human Use in Tanzania from 2010 to 2016 Inferred from Tanzania Medicines and Medical Devices Authority Importation Data.",
       "year": 2021,
       "doi": "10.3390/antibiotics10101249",
-      "topics": []
+      "topics": [
+        "Medical devices"
+      ]
     },
     {
       "id": 107,
       "title": "National Antibiotics Utilization Trends for Human Use in Tanzania from 2010 to 2016 Inferred from Tanzania Medicines and Medical Devices Authority Importation Data",
       "year": 2021,
       "doi": "10.20944/preprints202108.0263.v1",
-      "topics": []
+      "topics": [
+        "Medical devices"
+      ]
     },
     {
       "id": 108,
@@ -1148,7 +1451,8 @@
       "year": 2021,
       "doi": "10.21203/rs.3.rs-764469/v1",
       "topics": [
-        "HIV"
+        "HIV",
+        "HIV drug resistance"
       ]
     },
     {
@@ -1167,7 +1471,8 @@
       "doi": "10.3390/pathogens10121535",
       "topics": [
         "Dar es Salaam",
-        "HIV"
+        "HIV",
+        "HIV drug resistance"
       ]
     },
     {
@@ -1177,7 +1482,8 @@
       "doi": "10.3390/microbiolres12040062",
       "topics": [
         "Antiretroviral therapy",
-        "HIV"
+        "HIV",
+        "HIV drug resistance"
       ]
     },
     {
@@ -1199,7 +1505,9 @@
       "title": "A Baseline Evaluation of Bioinformatics Capacity in Tanzania Reveals Areas for Training",
       "year": 2021,
       "doi": "10.3389/feduc.2021.665313",
-      "topics": []
+      "topics": [
+        "Bioinformatics"
+      ]
     },
     {
       "id": 115,
@@ -1246,6 +1554,7 @@
       "year": 2020,
       "doi": "10.21203/rs.3.rs-16167/v3",
       "topics": [
+        "Loss to follow-up",
         "Sickle cell disease"
       ]
     },
@@ -1255,6 +1564,7 @@
       "year": 2020,
       "doi": "10.1186/s12881-020-01059-1",
       "topics": [
+        "Fetal haemoglobin",
         "Sickle cell disease"
       ]
     },
@@ -1264,6 +1574,7 @@
       "year": 2020,
       "doi": "10.21203/rs.2.22041/v3",
       "topics": [
+        "Fetal haemoglobin",
         "Sickle cell disease"
       ]
     },
@@ -1273,6 +1584,7 @@
       "year": 2020,
       "doi": "10.21203/rs.2.22041/v2",
       "topics": [
+        "Fetal haemoglobin",
         "Sickle cell disease"
       ]
     },
@@ -1299,7 +1611,8 @@
       "doi": "10.21203/rs.3.rs-110477/v1",
       "topics": [
         "Antiretroviral therapy",
-        "HIV"
+        "HIV",
+        "HIV drug resistance"
       ]
     },
     {
@@ -1316,7 +1629,9 @@
       "title": "Baseline Evaluation of Bioinformatics Capacity in Tanzania",
       "year": 2020,
       "doi": "10.21203/rs.3.rs-112131/v1",
-      "topics": []
+      "topics": [
+        "Bioinformatics"
+      ]
     },
     {
       "id": 129,
@@ -1407,6 +1722,7 @@
       "year": 2018,
       "doi": "10.1182/bloodadvances.2017009811",
       "topics": [
+        "Fetal haemoglobin",
         "Sickle cell disease"
       ]
     },
@@ -1513,7 +1829,9 @@
       "title": "H3ABioNet, a sustainable pan-African bioinformatics network for human heredity and health in Africa",
       "year": 2016,
       "doi": "10.1101/gr.196295.115",
-      "topics": []
+      "topics": [
+        "Bioinformatics"
+      ]
     },
     {
       "id": 152,
@@ -1521,7 +1839,8 @@
       "year": 2014,
       "doi": "10.1186/1471-2458-14-1035",
       "topics": [
-        "HIV"
+        "HIV",
+        "Medication adherence"
       ]
     },
     {
