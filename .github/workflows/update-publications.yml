@@ -16,9 +16,14 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   update:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -36,4 +41,11 @@ jobs:
           git add publications.html data/publications.json data/publication_topics.json assets/publication_wordcloud.svg assets/publication_trends.svg index.html muhas-publications/index.html sitemap.xml robots.txt
           git diff --cached --quiet || git commit -m "Update publication catalogue"
           git push
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
+      - name: Deploy refreshed publication site
+        id: deployment
+        uses: actions/deploy-pages@v4
 
