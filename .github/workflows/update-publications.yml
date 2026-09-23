@@ -2,6 +2,15 @@ name: Update publication catalogue
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/update_publications.py"
+      - "scripts/build_publication_topics.py"
+      - "scripts/research_concepts.json"
+      - "assets/publications.js"
+      - "assets/style.css"
+      - ".github/workflows/update-publications.yml"
   schedule:
     - cron: "17 3 * * 1"
 
