@@ -12,9 +12,15 @@ from pathlib import Path
 
 # Supervisor normalization is display/index only; REDCap source values remain unchanged.
 ALIAS_PATH = Path(__file__).with_name("bpharm_supervisor_aliases.json")
+CONCEPT_PATH = Path(__file__).with_name("research_concepts.json")
 SUPERVISOR_ALIASES = (
     json.loads(ALIAS_PATH.read_text(encoding="utf-8"))
     if ALIAS_PATH.exists()
+    else {}
+)
+RESEARCH_CONCEPTS = (
+    json.loads(CONCEPT_PATH.read_text(encoding="utf-8"))
+    if CONCEPT_PATH.exists()
     else {}
 )
 
@@ -25,42 +31,52 @@ STOP = set(
     "practice practices".split()
 )
 
-PHRASES = [
-    "antimicrobial resistance",
-    "antibiotic resistance",
-    "medication adherence",
-    "adverse drug reactions",
-    "medicinal plants",
-    "community pharmacies",
-    "drug interactions",
-    "quality of life",
-    "antimicrobial activity",
-    "antiretroviral therapy",
-    "sickle cell",
-    "diabetes mellitus",
-    "public health",
-    "supply chain",
-]
-
-
 def normalized(s):
     return unicodedata.normalize("NFKC", str(s)).casefold().replace("’", "'")
 
 
+def _concept_matches(text):
+    found = set()
+    spans = []
+    pairs = []
+    for canonical, aliases in RESEARCH_CONCEPTS.items():
+        for alias in aliases:
+            pairs.append((canonical, normalized(alias)))
+    for canonical, alias in sorted(pairs, key=lambda x: len(x[1]), reverse=True):
+        pattern = r"(?<![a-z0-9])" + re.escape(alias) + r"(?![a-z0-9])"
+        for match in re.finditer(pattern, text):
+            if any(match.start() < b and match.end() > a for a, b in spans):
+                continue
+            found.add(canonical)
+            spans.append((match.start(), match.end()))
+    return found, spans
+
+
+def _mask_spans(text, spans):
+    chars = list(text)
+    for a, b in spans:
+        chars[a:b] = " " * (b - a)
+    return "".join(chars)
+
+
 def terms(title, curated=""):
     t = normalized(title)
-    words = set(re.findall(r"[a-z][a-z0-9]*(?:[-'][a-z0-9]+)*", t))
+    concepts, spans = _concept_matches(t)
+    residual = _mask_spans(t, spans)
+    words = set(re.findall(r"[a-z][a-z0-9]*(?:[-'][a-z0-9]+)*", residual))
     result = {w for w in words if len(w) > 2 and w not in STOP}
-    result.update(
-        p for p in PHRASES
-        if re.search(r"(?<!\w)" + re.escape(p) + r"(?!\w)", t)
-    )
-    result.update(
-        normalized(k).strip()
-        for k in re.split(r"[;\n]", curated or "")
-        if k.strip()
-    )
-    return sorted(result)
+    result.update(concepts)
+
+    for entry in (
+        k.strip() for k in re.split(r"[;\n]", curated or "") if k.strip()
+    ):
+        matched, _ = _concept_matches(normalized(entry))
+        if matched:
+            result.update(matched)
+        else:
+            result.add(entry.strip())
+
+    return sorted(result, key=lambda x: x.casefold())
 
 
 def supervisor_identity(label):
