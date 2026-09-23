@@ -3,10 +3,10 @@ on:
   workflow_dispatch:
     inputs:
       source:
-        description: 'Use cache while ICT repairs REDCap; select redcap after dictionary and records are imported'
+        description: 'Choose the BPharm catalogue source for this manual run'
         type: choice
         options: [cache, redcap]
-        default: cache
+        default: redcap
   push:
     branches: [main]
     paths: ['bpharm-projects/**', 'scripts/*bpharm*', '.github/workflows/update-bpharm.yml']
@@ -32,7 +32,7 @@ jobs:
       - name: Build public catalogue
         env:
           REDCAP_PROJECT224_TOKEN: ${{ secrets.REDCAP_PROJECT224_TOKEN }}
-          SOURCE: ${{ inputs.source || vars.BPHARM_SOURCE || 'cache' }}
+          SOURCE: ${{ inputs.source || 'redcap' }}
         run: python scripts/build_bpharm.py --source "$SOURCE"
       - name: Validate public output
         run: python -m unittest discover -s tests -p 'test_bpharm.py'
