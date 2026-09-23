@@ -59,7 +59,7 @@ def main():
     out = {
         "schema_version": 1,
         "source": "data/publications.json titles",
-        "source_updated_at": payload.get("updated_at", ""),
+        "source_updated_at": payload.get("generated_at", payload.get("updated_at", "")),
         "publication_count": len(publications),
         "concept_count": len(concepts),
         "matched_publications": sum(1 for r in records if r["topics"]),
