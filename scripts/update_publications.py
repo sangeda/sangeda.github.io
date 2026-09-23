@@ -366,6 +366,7 @@ def publication_card(item: dict, record_id: int) -> str:
 
 
 def write_publications_page(publications: list[dict], terms: Counter, trends: dict, timestamp: str) -> None:
+    asset_version = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
     years = [p["year"] for p in publications if p.get("year")]
     recent = sum(1 for year in years if year >= CURRENT_YEAR - 4)
     top_terms = terms.most_common(12)
@@ -385,8 +386,8 @@ def write_publications_page(publications: list[dict], terms: Counter, trends: di
 <p class="hero-lead">A reproducible catalogue assembled from records linked to ORCID across ORCID, Crossref and PubMed. Updated {html.escape(timestamp)}.</p>
 <div class="hero-stats"><div><strong>{len(publications)}</strong><span>unique indexed records</span></div><div><strong>{recent}</strong><span>published in the latest five years</span></div><div><strong>{min(years) if years else '—'}–{max(years) if years else '—'}</strong><span>publication-year span</span></div></div></section>
 <section id="trends" class="section tinted"><div class="section-heading"><div><p class="section-kicker">Research signature</p><h2>What the publication titles emphasize</h2></div><p>Term prominence and thematic patterns are calculated from titles. They describe this indexed subset, not citation impact.</p></div>
-<div class="visual-card"><img src="assets/publication_wordcloud.svg" alt="Word cloud of prominent publication-title terms"></div>
-<div class="trend-grid"><div class="visual-card"><img src="assets/publication_trends.svg" alt="Line chart of research-theme publication counts by year"></div>
+<div class="visual-card"><img src="assets/publication_wordcloud.svg?v={asset_version}" alt="Normalized word cloud of publication research topics"></div>
+<div class="trend-grid"><div class="visual-card"><img src="assets/publication_trends.svg?v={asset_version}" alt="Line chart of research-theme publication counts by year"></div>
 <aside class="ranked-terms"><h3>Most frequent normalized topics</h3><ol>{ranked}</ol></aside></div>
 <p class="method-note">The word cloud and ranked list use normalized controlled concepts from publication titles; synonymous terms are merged. A paper may contribute to more than one concept. Word size reflects the number of indexed works containing the concept, not scientific importance or citation impact.</p></section>
 <section id="catalogue" class="section"><div class="section-heading"><div><p class="section-kicker">Catalogue</p><h2>Browse the indexed works</h2></div><p>For the authoritative researcher-managed record, consult ORCID.</p></div>
@@ -394,7 +395,7 @@ def write_publications_page(publications: list[dict], terms: Counter, trends: di
 <div class="pub-controls"><label>Search<input id="pub-search" type="search" placeholder="Title or journal"></label><label>Year<select id="pub-year"><option value="">All years</option>{option_years}</select></label><span id="pub-count">{len(publications)} records</span></div>
 <div id="publication-list" class="publication-catalogue">{cards}</div></section></main>
 <footer><p>© {CURRENT_YEAR} Raphael Z. Sangeda</p><p>Automated from public scholarly metadata · <a href="data/publications.json">Download JSON</a></p></footer>
-<script src="assets/publications.js"></script></body></html>'''
+<script src="assets/publications.js?v={asset_version}"></script></body></html>'''
     (ROOT / "publications.html").write_text(page, encoding="utf-8")
 
 
