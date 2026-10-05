@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-28T09:47:36.875341+00:00",
+  "generated_at": "2026-10-05T10:27:21.170681+00:00",
   "orcid": "0000-0002-6574-5308",
   "scope_note": "Records linked to the ORCID iD in ORCID, Crossref, or PubMed; not a definitive bibliography.",
   "source_record_counts_before_deduplication": {
     "ORCID": 154,
-    "Crossref": 75,
-    "PubMed": 28
+    "Crossref": 76,
+    "PubMed": 29
   },
-  "unique_record_count": 159,
+  "unique_record_count": 160,
   "top_title_terms": [
     {
       "term": "sickle cell disease",
@@ -51,6 +51,10 @@
     },
     {
       "term": "antimicrobial resistance",
+      "count": 8
+    },
+    {
+      "term": "fetal haemoglobin",
       "count": 8
     },
     {
@@ -102,6 +106,10 @@
       "count": 6
     },
     {
+      "term": "human",
+      "count": 6
+    },
+    {
       "term": "antibiotic consumption",
       "count": 6
     },
@@ -111,10 +119,6 @@
     },
     {
       "term": "healthcare",
-      "count": 6
-    },
-    {
-      "term": "fetal haemoglobin",
       "count": 6
     },
     {
@@ -202,10 +206,6 @@
       "count": 5
     },
     {
-      "term": "human",
-      "count": 5
-    },
-    {
       "term": "development",
       "count": 5
     }
@@ -228,12 +228,12 @@
       "count": 15
     },
     {
-      "term": "COVID-19",
+      "term": "Fetal haemoglobin",
       "count": 10
     },
     {
-      "term": "Fetal haemoglobin",
-      "count": 9
+      "term": "COVID-19",
+      "count": 10
     },
     {
       "term": "Viral suppression",
@@ -412,7 +412,8 @@
         "AMR and antibiotic use": 6,
         "Infections and microbiology": 3,
         "Health systems and implementation": 2,
-        "Medicines and supply systems": 2
+        "Medicines and supply systems": 2,
+        "Sickle cell and genomics": 1
       }
     }
   },
@@ -656,6 +657,75 @@
       "sources": [
         "Crossref",
         "ORCID"
+      ]
+    },
+    {
+      "title": "Human genetics implicates a BACH2–NRF2 axis in fetal haemoglobin activation",
+      "year": 2026,
+      "journal": "Nature",
+      "doi": "10.1038/s41586-026-11113-2",
+      "pmid": "42816612",
+      "url": "https://doi.org/10.1038/s41586-026-11113-2",
+      "authors": [
+        "Chun-Jie Guo",
+        "Uma P. Arora",
+        "Xiaoheng Cheng",
+        "Wanying Xu",
+        "Liam D. Cato",
+        "Rick Li",
+        "Henry Y. Lu",
+        "Andrew J. Lee",
+        "Fulong Yu",
+        "Gaurav Agarwal",
+        "Peng Lyu",
+        "Tianyi Ye",
+        "Mateusz Antoszewski",
+        "Mariel Wissmann",
+        "Baraka S. Mkumbe",
+        "Supachai Ekwattanakit",
+        "Patrick Deelen",
+        "Liberata Mwita",
+        "Raphael Sangeda",
+        "Thidarat Suksangpleng",
+        "Suchada Riolueang",
+        "Paola G. Bronson",
+        "Dirk S. Paul",
+        "Emily Kawabata",
+        "William J. Astle",
+        "Francois Aguet",
+        "Kristin Ardlie",
+        "Aitzkoa Lopez de Lapuente Portilla",
+        "Guolian Kang",
+        "Yingze Zhang",
+        "Seyed Mehdi Nouraie",
+        "Victor R. Gordeuk",
+        "Mark T. Gladwin",
+        "Melanie E. Garrett",
+        "Allison Ashley-Koch",
+        "Marilyn J. Telen",
+        "Brian Custer",
+        "Shannon Kelly",
+        "Carla Luana Dinardo",
+        "Ester C. Sabino",
+        "Paula Loureiro",
+        "Anna Bárbara Carneiro-Proietti",
+        "Cláudia Maximo",
+        "Adriana Méndez",
+        "Angelika Hammerer-Lercher",
+        "Julie Makani",
+        "Vivien A. Sheehan",
+        "Mitchell J. Weiss",
+        "Lude Franke",
+        "Björn Nilsson",
+        "Adam S. Butterworth",
+        "Vip Viprakasit",
+        "Siana Nkya",
+        "Vijay G. Sankaran"
+      ],
+      "type": "journal-article",
+      "sources": [
+        "Crossref",
+        "PubMed"
       ]
     },
     {
