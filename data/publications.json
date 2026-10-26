@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-19T08:53:45.106569+00:00",
+  "generated_at": "2026-10-26T08:56:07.798022+00:00",
   "orcid": "0000-0002-6574-5308",
   "scope_note": "Records linked to the ORCID iD in ORCID, Crossref, or PubMed; not a definitive bibliography.",
   "source_record_counts_before_deduplication": {
-    "ORCID": 154,
-    "Crossref": 76,
+    "ORCID": 155,
+    "Crossref": 77,
     "PubMed": 29
   },
-  "unique_record_count": 160,
+  "unique_record_count": 161,
   "top_title_terms": [
     {
       "term": "sickle cell disease",
@@ -118,6 +118,10 @@
       "count": 6
     },
     {
+      "term": "disease",
+      "count": 6
+    },
+    {
       "term": "healthcare",
       "count": 6
     },
@@ -159,10 +163,6 @@
     },
     {
       "term": "isolated",
-      "count": 5
-    },
-    {
-      "term": "disease",
       "count": 5
     },
     {
@@ -821,6 +821,35 @@
         "Prosper Njau"
       ],
       "type": "preprint",
+      "sources": [
+        "Crossref",
+        "ORCID"
+      ]
+    },
+    {
+      "title": "Baseline Clearance and Early Troughs Identify Candidates for Early Therapeutic Drug Monitoring During Infliximab Induction in Inflammatory Bowel Disease",
+      "year": 2026,
+      "journal": "Alimentary Pharmacology & Therapeutics",
+      "doi": "10.1111/apt.71062",
+      "pmid": "",
+      "url": "https://doi.org/10.1111/apt.71062",
+      "authors": [
+        "Juma A. Mohamedi",
+        "Yannick Hoffert",
+        "Nick Geukens",
+        "Jean‐François Rahier",
+        "Edouard Louis",
+        "Filip Baert",
+        "Pieter Dewint",
+        "Guy Lambrecht",
+        "Peter Bossuyt",
+        "Raphael Z. Sangeda",
+        "Marc Ferrante",
+        "Denis Franchimont",
+        "Claire Liefferinckx",
+        "Erwin Dreesen"
+      ],
+      "type": "journal-article",
       "sources": [
         "Crossref",
         "ORCID"
