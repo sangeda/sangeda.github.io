@@ -23,19 +23,46 @@ concurrency:
 
 jobs:
   lookup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - name: Fetch every lookups/*.txt list
+      - name: Install title matcher
+        run: python -m pip install --disable-pip-version-check rapidfuzz
+      - name: Fetch lookups/*.txt lists changed by this push
+        # Unchanged lists are not re-fetched, so assets already analysed keep
+        # their original retrieval time.
+        env:
+          OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
+          BEFORE: ${{ github.event.before }}
         run: |
-          shopt -s nullglob
-          for f in lookups/*.txt; do
+          mkdir -p lookup_out
+          if [[ -z "$BEFORE" || "$BEFORE" =~ ^0+$ ]] || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            changed=$(ls lookups/*.txt 2>/dev/null || true)
+          else
+            changed=$(git diff --name-only "$BEFORE" "$GITHUB_SHA" -- 'lookups/*.txt')
+          fi
+          for f in $changed; do
+            [[ -f "$f" ]] || continue
             echo "== $f"
             python scripts/openalex_lookup.py "$f" --out lookup_out
           done
+      - name: Title lookups from a private list (repository secret LOOKUP_TITLES_B64)
+        # The list is Scopus-derived: it is decoded outside the workspace,
+        # never committed, and the log shows refs only. Delete the secret after use.
+        env:
+          OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
+          LOOKUP_TITLES_B64: ${{ secrets.LOOKUP_TITLES_B64 }}
+        run: |
+          if [[ -z "$LOOKUP_TITLES_B64" ]]; then echo "No LOOKUP_TITLES_B64 secret; skipping title lookups."; exit 0; fi
+          src="$RUNNER_TEMP/muhas_scopus_only_no_doi.csv"
+          printf '%s' "$LOOKUP_TITLES_B64" | base64 -d > "$src"
+          python scripts/openalex_lookup.py --titles "$src" --out lookup_out
+          rm -f "$src"
       - name: Attach results to the openalex-lookups pre-release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -45,7 +72,9 @@ jobs:
               --title "OpenAlex lookups (helper, not an Observatory snapshot)" \
               --notes "Full OpenAlex records fetched by scripts/openalex_lookup.py for the lists in lookups/ on the openalex-lookups branch. Not part of the MUHAS Publications Observatory snapshots."
           fi
-          gh release upload openalex-lookups lookup_out/* --clobber
+          shopt -s nullglob
+          files=(lookup_out/*)
+          if (( ${#files[@]} )); then gh release upload openalex-lookups "${files[@]}" --clobber; else echo "Nothing to upload."; fi
       - uses: actions/upload-artifact@v4
         with:
           name: openalex-lookups
