@@ -38,6 +38,7 @@ INSTITUTION_NAME = "Muhimbili University of Health and Allied Sciences"
 INSTITUTION_ALT_NAME = "Chuo Kikuu cha Afya na Sayansi Shirikishi Muhimbili"
 OPENALEX_ID = "I154840374"
 ROR = "027pr6c67"
+REPOSITORY = "sangeda/sangeda.github.io"
 PIPELINE_VERSION = "1.1"
 START_DATE = date(1964, 1, 1)
 USER_AGENT = "muhas-publications-observatory/1.1"
@@ -485,7 +486,7 @@ def write_excel(path: Path, works: list[dict], authorships: list[dict], annual: 
         ("ROR", ROR), ("OpenAlex ID", OPENALEX_ID), ("Snapshot ID", manifest["snapshot_id"]),
         ("Retrieved at", manifest["retrieved_at"]), ("Period through", manifest["as_of_date"]),
         ("Works", len(works)), ("Authorship rows", len(authorships)),
-        ("Important", "OpenAlex-derived inception dataset; school and department assignments require institutional curation."),
+        ("Important", "Pilot OpenAlex-derived dataset, cleaned progressively; school and department assignments await the approved affiliation crosswalk."),
     ]
     for row in summary_rows:
         summary.append(row)
@@ -507,7 +508,7 @@ def write_excel(path: Path, works: list[dict], authorships: list[dict], annual: 
         {"field": "period_end", "definition": "Official end date of the MUHAS fiscal quarter containing the publication date."},
         {"field": "retrieved_at", "definition": "Actual UTC timestamp when the source API data were retrieved."},
         {"field": "snapshot_id", "definition": "Immutable identifier for the extraction run."},
-        {"field": "curation_status", "definition": "Institutional review status; inception records default to unreviewed."},
+        {"field": "curation_status", "definition": "Institutional review status; records default to unreviewed until curated."},
         {"field": "cited_by_count_at_snapshot", "definition": "OpenAlex citation count at retrieval; not publication productivity."},
         {"field": "school / department", "definition": "Blank until assigned through the versioned MUHAS affiliation crosswalk."},
         {"field": "authors", "definition": "All authors; for works with more than 100, the first 99, then every MUHAS author beyond them with true position, then the total."},
@@ -575,18 +576,33 @@ def build_dashboard(work_rows: list[dict], annual: list[dict], quarter_rows: lis
         f'flagging does not mean they are invalid.</span></p>'
     ) if flagged else ""
     changes_note = changes_html(manifest.get("changes_since_previous"))
+    # Describe what the files on offer actually contain: snapshots before pipeline 1.1
+    # lack PubMed IDs, flags and complete author lists.
+    current_files = str(manifest.get("pipeline_version", "1.0")) >= "1.1"
+    cards = (
+        ("Publications, authorships, summaries, data dictionary and metadata",
+         "One row per work, with PubMed IDs and review flags",
+         "One row per author and work, complete author lists")
+        if current_files else
+        ("Publications, authorships, summaries, data dictionary and metadata",
+         "One row per OpenAlex work",
+         "One row per author–publication relationship")
+    )
+    release_tag = f"muhas-pubs-{manifest['as_of_date']}-{manifest['snapshot_status']}"
+    release_link = (f'<a href="https://github.com/{REPOSITORY}/releases/tag/{html.escape(release_tag)}">'
+                    f'<code>{html.escape(release_tag)}</code></a>')
     page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MUHAS Publications Observatory</title><meta name="description" content="Reproducible OpenAlex-based MUHAS publication reporting by year and fiscal quarter.">
 <link rel="stylesheet" href="../assets/style.css"><style>.flag-note{{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline;margin:0 0 1.2rem;font-size:.95rem}}.flag-note label{{font-weight:700;white-space:nowrap}}.flag-note span{{opacity:.8}}.changes-note{{margin:0 0 1.2rem;font-size:.95rem;max-width:62rem}}</style><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"></head><body>
 <header class="site-header"><div class="nav-wrap"><a class="brand" href="../index.html"><span class="brand-mark">MU</span><span>MUHAS Publications Observatory</span></a><nav class="site-nav always"><a href="../index.html">Profile</a><a href="#downloads">Downloads</a><a href="#methods">Methods</a></nav></div></header>
-<main><section class="pub-hero"><p class="eyebrow">Institutional research intelligence</p><h1>MUHAS publications, <span>preserved and reportable.</span></h1>
-<p class="hero-lead">An OpenAlex-based inception database designed for annual, fiscal-quarter, school and department reporting. Organisational assignments will be added through controlled institutional curation.</p>
+<main><section class="pub-hero"><p class="eyebrow">Institutional research intelligence · Pilot</p><h1>MUHAS publications, <span>preserved and reportable.</span></h1>
+<p class="hero-lead">A pilot observatory of MUHAS publications from OpenAlex, refreshed after each fiscal quarter. Records are cleaned progressively, so counts can change between snapshots; school and department reporting will follow once the staff affiliation crosswalk is approved.</p>
 <div class="hero-stats"><div><strong>{len(work_rows):,}</strong><span>works through {manifest['as_of_date']}</span></div><div><strong>{sum(row['publication_year'] <= 2025 for row in work_rows):,}</strong><span>historical works, 1964–2025</span></div><div><strong>{manifest['snapshot_status'].title()}</strong><span>snapshot status</span></div><div><strong>{html.escape(manifest['retrieved_at'][:10])}</strong><span>retrieval date</span></div></div></section>
 <section class="section tinted"><div class="section-heading"><div><p class="section-kicker">Reporting</p><h2>Annual and fiscal-quarter views</h2></div><p>Publication dates determine reporting periods. Retrieval timestamps independently document when the evidence was downloaded.</p></div>{flag_note}{changes_note}<div id="muhas-summary" class="observatory-grid"></div></section>
-<section id="downloads" class="section"><div class="section-heading"><div><p class="section-kicker">Downloads</p><h2>Current inception dataset</h2></div><p>Excel is formatted for institutional review; CSV supports analysis in R, Python, Power BI and other systems.</p></div>
-<div class="download-grid"><a href="downloads/MUHAS_Publications_LATEST.xlsx"><strong>Excel workbook</strong><span>Publications, authorships, summaries, metadata and curation template</span></a><a href="downloads/MUHAS_Publications_LATEST.csv"><strong>Publications CSV</strong><span>One row per OpenAlex work</span></a><a href="downloads/MUHAS_Authorships_LATEST.csv"><strong>Authorships CSV</strong><span>One row per author–publication relationship</span></a><a href="downloads/MUHAS_Publications_LATEST.sqlite"><strong>SQLite database</strong><span>Works, authorships and snapshot metadata</span></a></div></section>
-<section id="methods" class="section dark"><div class="section-heading"><div><p class="section-kicker">Methods and cautions</p><h2>Broad at inception; curated thereafter.</h2></div></div><div class="prose"><p>The extraction uses OpenAlex institution lineage <code>{OPENALEX_ID}</code> and ROR <code>{ROR}</code>. Records are retained broadly at inception. School and department fields remain blank until MUHAS validates a time-aware author affiliation crosswalk.</p><p>OpenAlex records can be incomplete, delayed or incorrectly affiliated. Counts are therefore provisional research-intelligence evidence, not an audited institutional return, until curation is completed.</p></div></section></main>
-<footer><p>MUHAS Publications Observatory · Inception implementation</p><p>Snapshot {html.escape(manifest['snapshot_id'])}</p></footer><script src="assets/observatory.js"></script></body></html>'''
+<section id="downloads" class="section"><div class="section-heading"><div><p class="section-kicker">Downloads</p><h2>Data downloads</h2></div><p>Files for the snapshot shown on this page. The LATEST files are replaced every quarter; to cite a fixed version, use the dated release {release_link}, which also holds the raw OpenAlex records. Excel is formatted for review; CSV and SQLite suit R, Python and Power BI.</p></div>
+<div class="download-grid"><a href="downloads/MUHAS_Publications_LATEST.xlsx"><strong>Excel workbook</strong><span>{cards[0]}</span></a><a href="downloads/MUHAS_Publications_LATEST.csv"><strong>Publications CSV</strong><span>{cards[1]}</span></a><a href="downloads/MUHAS_Authorships_LATEST.csv"><strong>Authorships CSV</strong><span>{cards[2]}</span></a><a href="downloads/MUHAS_Publications_LATEST.sqlite"><strong>SQLite database</strong><span>Works, authorships and snapshot metadata</span></a></div></section>
+<section id="methods" class="section dark"><div class="section-heading"><div><p class="section-kicker">Methods and cautions</p><h2>A pilot, curated progressively.</h2></div></div><div class="prose"><p>The extraction uses OpenAlex institution lineage <code>{OPENALEX_ID}</code> and ROR <code>{ROR}</code>. Works with more than 100 authors are fetched in full, so MUHAS authors late in long author lists are counted. Repository deposits added to OpenAlex long after their stated publication date are flagged for review and can be excluded from the charts. School and department fields remain blank until MUHAS approves a time-aware author affiliation crosswalk.</p><p>This is a pilot. OpenAlex records can be incomplete, delayed or incorrectly affiliated, and both OpenAlex and this observatory correct them progressively. Counts are research-intelligence evidence, not an audited institutional return; each dated snapshot is archived unchanged for reproducibility.</p></div></section></main>
+<footer><p>MUHAS Publications Observatory · Pilot, refreshed quarterly</p><p>Snapshot {html.escape(manifest['snapshot_id'])}</p></footer><script src="assets/observatory.js"></script></body></html>'''
     (SITE / "index.html").write_text(page, encoding="utf-8")
 
 
