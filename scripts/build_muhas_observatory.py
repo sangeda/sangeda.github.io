@@ -15,7 +15,9 @@ import html
 import json
 import shutil
 import sqlite3
+import os
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from collections import Counter, defaultdict
@@ -36,16 +38,23 @@ INSTITUTION_NAME = "Muhimbili University of Health and Allied Sciences"
 INSTITUTION_ALT_NAME = "Chuo Kikuu cha Afya na Sayansi Shirikishi Muhimbili"
 OPENALEX_ID = "I154840374"
 ROR = "027pr6c67"
-PIPELINE_VERSION = "1.0"
+PIPELINE_VERSION = "1.1"
 START_DATE = date(1964, 1, 1)
-USER_AGENT = "muhas-publications-observatory/1.0"
+USER_AGENT = "muhas-publications-observatory/1.1"
+API_KEY_ENV = "OPENALEX_API_KEY"
+# OpenAlex list results carry at most this many authorships per work; works at
+# the cap are refetched from the single-work endpoint, which returns them all.
+LIST_AUTHOR_CAP = 100
+# Human-readable author strings show this many leading authors, then every
+# MUHAS-affiliated author beyond them with their true position.
+DISPLAY_LEADING_AUTHORS = 99
 
 WORK_FIELDS = [
-    "id", "doi", "title", "display_name", "publication_year", "publication_date",
+    "id", "doi", "ids", "title", "display_name", "publication_year", "publication_date",
     "type", "language", "cited_by_count", "fwci", "is_retracted", "is_paratext",
     "is_xpac", "countries_distinct_count", "institutions_distinct_count", "authorships",
-    "primary_location", "open_access", "primary_topic", "topics", "keywords",
-    "sustainable_development_goals", "corresponding_author_ids",
+    "is_authors_truncated", "primary_location", "open_access", "primary_topic", "topics",
+    "keywords", "sustainable_development_goals", "corresponding_author_ids",
     "corresponding_institution_ids", "created_date", "updated_date",
 ]
 
@@ -70,17 +79,64 @@ def fiscal_period(d: date) -> tuple[str, str, date]:
     return f"FY{start}/{str(start + 1)[-2:]}", quarter, end
 
 
+class OpenAlexAuthError(RuntimeError):
+    """Raised on 401/403 so a missing or rejected API key fails the run at once."""
+
+
+def with_api_key(url: str) -> str:
+    key = os.environ.get(API_KEY_ENV, "").strip()
+    if not key:
+        return url
+    return f"{url}{'&' if '?' in url else '?'}{urllib.parse.urlencode({'api_key': key})}"
+
+
+def redact(url: str) -> str:
+    return url.split("api_key=")[0].rstrip("?&") if "api_key=" in url else url
+
+
 def api_json(url: str, attempts: int = 5) -> dict:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    request = urllib.request.Request(with_api_key(url), headers={"User-Agent": USER_AGENT})
     for attempt in range(attempts):
         try:
             with urllib.request.urlopen(request, timeout=90) as response:
                 return json.load(response)
-        except Exception:
+        except urllib.error.HTTPError as error:
+            if error.code in (401, 403):
+                hint = "" if os.environ.get(API_KEY_ENV) else f" ({API_KEY_ENV} is not set)"
+                raise OpenAlexAuthError(f"OpenAlex refused the request with HTTP {error.code}{hint}: {redact(url)}") from None
             if attempt == attempts - 1:
-                raise
+                raise RuntimeError(f"OpenAlex HTTP {error.code} after {attempts} attempts: {redact(url)}") from None
+            time.sleep(min(60, 5 * 2 ** attempt) if error.code == 429 else min(30, 2 ** attempt))
+        except Exception as error:
+            if attempt == attempts - 1:
+                raise RuntimeError(f"OpenAlex request failed after {attempts} attempts ({type(error).__name__}): {redact(url)}") from None
             time.sleep(min(30, 2 ** attempt))
     raise RuntimeError("OpenAlex request failed")
+
+
+def needs_full_authorships(work: dict) -> bool:
+    return bool(work.get("is_authors_truncated")) or len(work.get("authorships") or []) >= LIST_AUTHOR_CAP
+
+
+def complete_authorships(works: list[dict]) -> int:
+    """Replace list records capped at 100 authorships with the full single-work record.
+
+    Returns the number of works refetched. The list record's own truncation flag is
+    kept as ``list_authors_truncated`` so the raw snapshot shows what was repaired.
+    """
+    refetched = 0
+    select = urllib.parse.urlencode({"select": ",".join(WORK_FIELDS)})
+    for index, work in enumerate(works):
+        if not needs_full_authorships(work):
+            continue
+        full = api_json(f"https://api.openalex.org/works/{short_id(work.get('id'))}?{select}")
+        if len(full.get("authorships") or []) < len(work.get("authorships") or []):
+            raise RuntimeError(f"Single-work record for {short_id(work.get('id'))} has fewer authorships than the list record")
+        full["list_authors_truncated"] = True
+        works[index] = full
+        refetched += 1
+        time.sleep(0.12)
+    return refetched
 
 
 def fetch_openalex(as_of: date, raw_path: Path) -> tuple[list[dict], dict]:
@@ -92,32 +148,132 @@ def fetch_openalex(as_of: date, raw_path: Path) -> tuple[list[dict], dict]:
         f"from_publication_date:{START_DATE.isoformat()},"
         f"to_publication_date:{as_of.isoformat()}"
     )
+    while cursor:
+        query = urllib.parse.urlencode({
+            "filter": filter_value,
+            "select": ",".join(WORK_FIELDS),
+            "per-page": 200,
+            "cursor": cursor,
+        })
+        payload = api_json(f"https://api.openalex.org/works?{query}")
+        page += 1
+        batch = payload.get("results", [])
+        works.extend(batch)
+        cursor = payload.get("meta", {}).get("next_cursor")
+        if not batch:
+            break
+        print(f"OpenAlex page {page}: {len(works):,} works", flush=True)
+        time.sleep(0.12)
+    # Cursor paging over a live index can return a work twice; keep one record per id.
+    unique = {short_id(w.get("id")): w for w in works}
+    duplicates = len(works) - len(unique)
+    works = list(unique.values())
+    if duplicates:
+        print(f"Dropped {duplicates:,} duplicate records returned while paging", flush=True)
+    refetched = complete_authorships(works)
+    print(f"Refetched {refetched:,} works capped at {LIST_AUTHOR_CAP} authorships", flush=True)
     raw_path.parent.mkdir(parents=True, exist_ok=True)
     with gzip.open(raw_path, "wt", encoding="utf-8") as stream:
-        while cursor:
-            query = urllib.parse.urlencode({
-                "filter": filter_value,
-                "select": ",".join(WORK_FIELDS),
-                "per-page": 200,
-                "cursor": cursor,
-            })
-            payload = api_json(f"https://api.openalex.org/works?{query}")
-            page += 1
-            batch = payload.get("results", [])
-            for work in batch:
-                stream.write(json.dumps(work, ensure_ascii=False) + "\n")
-            works.extend(batch)
-            cursor = payload.get("meta", {}).get("next_cursor")
-            if not batch:
-                break
-            print(f"OpenAlex page {page}: {len(works):,} works", flush=True)
-            time.sleep(0.12)
+        for work in works:
+            stream.write(json.dumps(work, ensure_ascii=False) + "\n")
     return works, {
         "query_filter": filter_value,
         "openalex_reported_count": len(works),
         "pages_retrieved": page,
+        "duplicate_records_dropped": duplicates,
+        "works_refetched_for_full_authorships": refetched,
         "raw_path": str(raw_path.relative_to(ROOT)),
     }
+
+
+def authors_display(names: list[str], muhas_flags: list[bool]) -> str:
+    """All authors when short; otherwise the leading authors, then every MUHAS
+    author beyond them with their true position, then the total count."""
+    if len(names) <= LIST_AUTHOR_CAP:
+        return " | ".join(names)
+    parts = names[:DISPLAY_LEADING_AUTHORS]
+    parts += [
+        f"[MUHAS] {name} (pos. {position:,})"
+        for position, (name, is_muhas) in enumerate(zip(names, muhas_flags), start=1)
+        if position > DISPLAY_LEADING_AUTHORS and is_muhas
+    ]
+    return " | ".join(parts) + f" | … ({len(names):,} authors)"
+
+
+FLAG_RULE_TEXT = (
+    "Repository-hosted record (PubMed exempt) added to OpenAlex in 2026 or later "
+    "with a publication date at least three years before it was added."
+)
+
+
+def is_backdated_deposit(work: dict) -> bool:
+    """Flag (not exclude) repository deposits backdated relative to their OpenAlex creation."""
+    source = (work.get("primary_location") or {}).get("source") or {}
+    if source.get("type") != "repository" or "pubmed" in (source.get("display_name") or "").lower():
+        return False
+    created = (work.get("created_date") or "")[:4]
+    year = work.get("publication_year")
+    return created.isdigit() and int(created) >= 2026 and isinstance(year, int) and year <= int(created) - 3
+
+
+def truthy(value) -> bool:
+    return value is True or str(value).strip().lower() in ("true", "1", "yes")
+
+
+def has_muhas_lineage(work: dict) -> bool:
+    return any(
+        OPENALEX_ID in (inst.get("lineage") or []) or short_id(inst.get("id")) == OPENALEX_ID
+        for a in work.get("authorships") or [] for inst in a.get("institutions") or []
+    )
+
+
+def removed_status(ids: list[str]) -> dict:
+    """Re-query works that left the set: deleted/merged, re-linked away from MUHAS, or still MUHAS."""
+    found: dict[str, dict] = {}
+    for i in range(0, len(ids), 50):
+        query = urllib.parse.urlencode({
+            "filter": "openalex:" + "|".join(ids[i:i + 50]),
+            "select": "id,authorships",
+            "per-page": 50,
+        })
+        for work in api_json(f"https://api.openalex.org/works?{query}").get("results", []):
+            found[short_id(work.get("id"))] = work
+        time.sleep(0.12)
+    status = Counter()
+    for wid in ids:
+        work = found.get(wid)
+        status["not_returned_deleted_or_merged" if work is None
+               else "no_muhas_affiliation_now" if not has_muhas_lineage(work)
+               else "still_muhas_other_reason"] += 1
+    return dict(status)
+
+
+def compare_works(previous: dict[str, dict], current: list[dict], query_api: bool = True) -> dict:
+    """Aggregate differences between two raw snapshots (no titles)."""
+    now = {short_id(w.get("id")): w for w in current}
+    removed = sorted(set(previous) - set(now))
+    added = sorted(set(now) - set(previous))
+    report = {
+        "previous_works": len(previous),
+        "current_works": len(now),
+        "added": len(added),
+        "removed": len(removed),
+        "removed_matching_backdated_rule": sum(is_backdated_deposit(previous[w]) for w in removed),
+        "added_matching_backdated_rule": sum(is_backdated_deposit(now[w]) for w in added),
+        "backdated_rule_previous": sum(map(is_backdated_deposit, previous.values())),
+        "backdated_rule_current": sum(map(is_backdated_deposit, now.values())),
+        "removed_by_source_type": dict(Counter(
+            ((previous[w].get("primary_location") or {}).get("source") or {}).get("type") or "none" for w in removed
+        ).most_common(5)),
+    }
+    if removed and query_api:
+        report["removed_status_now"] = removed_status(removed)
+    return report
+
+
+def load_raw(path: Path) -> dict[str, dict]:
+    with gzip.open(path, "rt", encoding="utf-8") as stream:
+        return {short_id(w.get("id")): w for w in map(json.loads, stream)}
 
 
 def join_names(items: list[dict] | None, field: str = "display_name") -> str:
@@ -138,11 +294,15 @@ def process_works(works: list[dict], retrieved_at: str, snapshot_id: str) -> tup
         countries = set()
         corresponding_names = []
         corresponding_ids = set(work.get("corresponding_author_ids") or [])
-        for authorship in authorships:
+        all_names: list[str] = []
+        muhas_flags: list[bool] = []
+        for sequence, authorship in enumerate(authorships, start=1):
             author = authorship.get("author") or {}
             institutions = authorship.get("institutions") or []
             has_muhas = any(OPENALEX_ID in (inst.get("lineage") or []) or short_id(inst.get("id")) == OPENALEX_ID for inst in institutions)
             name = author.get("display_name") or ""
+            all_names.append(name or "(unnamed)")
+            muhas_flags.append(has_muhas)
             if has_muhas and name:
                 muhas_authors.append(name)
             if author.get("id") in corresponding_ids and name:
@@ -159,6 +319,7 @@ def process_works(works: list[dict], retrieved_at: str, snapshot_id: str) -> tup
                 "orcid": (author.get("orcid") or "").replace("https://orcid.org/", ""),
                 "author_name": name,
                 "author_position": authorship.get("author_position") or "",
+                "author_sequence": sequence,
                 "is_corresponding": bool(authorship.get("is_corresponding")),
                 "has_muhas_affiliation": has_muhas,
                 "institution_ids": " | ".join(short_id(x.get("id")) for x in institutions if x.get("id")),
@@ -178,10 +339,13 @@ def process_works(works: list[dict], retrieved_at: str, snapshot_id: str) -> tup
         keywords = work.get("keywords") or []
         sdgs = work.get("sustainable_development_goals") or []
         corresponding_institutions = set(work.get("corresponding_institution_ids") or [])
+        ids = work.get("ids") or {}
         work_rows.append({
             "snapshot_id": snapshot_id,
             "openalex_work_id": short_id(work.get("id")),
             "doi": (work.get("doi") or "").replace("https://doi.org/", ""),
+            "pmid": short_id(ids.get("pmid")),
+            "pmcid": short_id(ids.get("pmcid")),
             "title": work.get("title") or work.get("display_name") or "",
             "publication_date": published.isoformat(),
             "publication_year": published.year,
@@ -203,6 +367,8 @@ def process_works(works: list[dict], retrieved_at: str, snapshot_id: str) -> tup
             "is_paratext": bool(work.get("is_paratext")),
             "is_xpac": bool(work.get("is_xpac")),
             "authors_count": len(authorships),
+            "authors": authors_display(all_names, muhas_flags),
+            "list_authors_truncated": bool(work.get("list_authors_truncated") or work.get("is_authors_truncated")),
             "muhas_authors_count": len(muhas_authors),
             "muhas_authors": " | ".join(muhas_authors),
             "corresponding_authors": " | ".join(corresponding_names),
@@ -218,6 +384,7 @@ def process_works(works: list[dict], retrieved_at: str, snapshot_id: str) -> tup
             "topics": join_names(topics),
             "keywords": join_names(keywords),
             "sustainable_development_goals": join_names(sdgs),
+            "flag_backdated_repository_deposit": is_backdated_deposit(work),
             "openalex_created_date": work.get("created_date") or "",
             "openalex_updated_date": work.get("updated_date") or "",
             "retrieved_at": retrieved_at,
@@ -343,14 +510,49 @@ def write_excel(path: Path, works: list[dict], authorships: list[dict], annual: 
         {"field": "curation_status", "definition": "Institutional review status; inception records default to unreviewed."},
         {"field": "cited_by_count_at_snapshot", "definition": "OpenAlex citation count at retrieval; not publication productivity."},
         {"field": "school / department", "definition": "Blank until assigned through the versioned MUHAS affiliation crosswalk."},
+        {"field": "authors", "definition": "All authors; for works with more than 100, the first 99, then every MUHAS author beyond them with true position, then the total."},
+        {"field": "list_authors_truncated", "definition": "OpenAlex list results capped this work at 100 authorships; the full record was refetched, so authorship rows are complete."},
+        {"field": "author_sequence", "definition": "1-based position of the author in the work's full author list."},
+        {"field": "flag_backdated_repository_deposit", "definition": FLAG_RULE_TEXT + " Flagged for review, not excluded."},
+        {"field": "pmid / pmcid", "definition": "PubMed and PubMed Central identifiers recorded by OpenAlex, where present."},
     ])
     path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(path)
 
 
+def changes_html(changes: dict | None) -> str:
+    """Neutral note on how this snapshot differs from the previous final one."""
+    if not changes:
+        return ""
+    tag = str(changes.get("previous_snapshot", ""))
+    date_match = tag[11:21] if tag.startswith("muhas-pubs-") else tag
+    status = changes.get("removed_status_now") or {}
+    parts = [f"{changes.get('added', 0):,} works were added and {changes.get('removed', 0):,} are no longer included."]
+    detail = []
+    if status.get("not_returned_deleted_or_merged"):
+        detail.append(f"{status['not_returned_deleted_or_merged']:,} are no longer returned by OpenAlex (deleted or merged into another record)")
+    if status.get("no_muhas_affiliation_now"):
+        detail.append(f"{status['no_muhas_affiliation_now']:,} are no longer linked to MUHAS")
+    if changes.get("removed_matching_backdated_rule"):
+        detail.append(f"{changes['removed_matching_backdated_rule']:,} had matched the repository-deposit flag")
+    if detail:
+        parts.append("Of those no longer included, " + "; ".join(detail) + ".")
+    parts.append("Counts for earlier years can change between snapshots as OpenAlex corrects its records; "
+                 "each dated snapshot is archived unchanged as a GitHub Release.")
+    return (f'<p class="changes-note"><strong>Changes since the {html.escape(date_match)} snapshot.</strong> '
+            f'{html.escape(" ".join(parts))}</p>')
+
+
 def build_dashboard(work_rows: list[dict], annual: list[dict], quarter_rows: list[dict], type_rows: list[dict], manifest: dict) -> None:
     DATA.mkdir(parents=True, exist_ok=True)
+    unflagged = [row for row in work_rows if not truthy(row.get("flag_backdated_repository_deposit"))]
+    flagged = len(work_rows) - len(unflagged)
+    annual_unflagged, quarters_unflagged, _ = summaries(unflagged)
     summary = {
+        "flagged_backdated_deposits": flagged,
+        "flag_rule": FLAG_RULE_TEXT,
+        "annual_excluding_flagged": annual_unflagged,
+        "quarters_excluding_flagged": quarters_unflagged,
         "institution": INSTITUTION_NAME,
         "openalex_id": OPENALEX_ID,
         "ror": ROR,
@@ -367,14 +569,20 @@ def build_dashboard(work_rows: list[dict], annual: list[dict], quarter_rows: lis
         ],
     }
     (DATA / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+    flag_note = (
+        f'<p class="flag-note"><label><input type="checkbox" id="exclude-flagged"> Exclude {flagged:,} flagged repository deposits</label> '
+        f'<span>{html.escape(FLAG_RULE_TEXT)} These records are under review and are counted in the totals unless excluded; '
+        f'flagging does not mean they are invalid.</span></p>'
+    ) if flagged else ""
+    changes_note = changes_html(manifest.get("changes_since_previous"))
     page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MUHAS Publications Observatory</title><meta name="description" content="Reproducible OpenAlex-based MUHAS publication reporting by year and fiscal quarter.">
-<link rel="stylesheet" href="../assets/style.css"><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"></head><body>
+<link rel="stylesheet" href="../assets/style.css"><style>.flag-note{{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline;margin:0 0 1.2rem;font-size:.95rem}}.flag-note label{{font-weight:700;white-space:nowrap}}.flag-note span{{opacity:.8}}.changes-note{{margin:0 0 1.2rem;font-size:.95rem;max-width:62rem}}</style><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"></head><body>
 <header class="site-header"><div class="nav-wrap"><a class="brand" href="../index.html"><span class="brand-mark">MU</span><span>MUHAS Publications Observatory</span></a><nav class="site-nav always"><a href="../index.html">Profile</a><a href="#downloads">Downloads</a><a href="#methods">Methods</a></nav></div></header>
 <main><section class="pub-hero"><p class="eyebrow">Institutional research intelligence</p><h1>MUHAS publications, <span>preserved and reportable.</span></h1>
 <p class="hero-lead">An OpenAlex-based inception database designed for annual, fiscal-quarter, school and department reporting. Organisational assignments will be added through controlled institutional curation.</p>
 <div class="hero-stats"><div><strong>{len(work_rows):,}</strong><span>works through {manifest['as_of_date']}</span></div><div><strong>{sum(row['publication_year'] <= 2025 for row in work_rows):,}</strong><span>historical works, 1964–2025</span></div><div><strong>{manifest['snapshot_status'].title()}</strong><span>snapshot status</span></div><div><strong>{html.escape(manifest['retrieved_at'][:10])}</strong><span>retrieval date</span></div></div></section>
-<section class="section tinted"><div class="section-heading"><div><p class="section-kicker">Reporting</p><h2>Annual and fiscal-quarter views</h2></div><p>Publication dates determine reporting periods. Retrieval timestamps independently document when the evidence was downloaded.</p></div><div id="muhas-summary" class="observatory-grid"></div></section>
+<section class="section tinted"><div class="section-heading"><div><p class="section-kicker">Reporting</p><h2>Annual and fiscal-quarter views</h2></div><p>Publication dates determine reporting periods. Retrieval timestamps independently document when the evidence was downloaded.</p></div>{flag_note}{changes_note}<div id="muhas-summary" class="observatory-grid"></div></section>
 <section id="downloads" class="section"><div class="section-heading"><div><p class="section-kicker">Downloads</p><h2>Current inception dataset</h2></div><p>Excel is formatted for institutional review; CSV supports analysis in R, Python, Power BI and other systems.</p></div>
 <div class="download-grid"><a href="downloads/MUHAS_Publications_LATEST.xlsx"><strong>Excel workbook</strong><span>Publications, authorships, summaries, metadata and curation template</span></a><a href="downloads/MUHAS_Publications_LATEST.csv"><strong>Publications CSV</strong><span>One row per OpenAlex work</span></a><a href="downloads/MUHAS_Authorships_LATEST.csv"><strong>Authorships CSV</strong><span>One row per author–publication relationship</span></a><a href="downloads/MUHAS_Publications_LATEST.sqlite"><strong>SQLite database</strong><span>Works, authorships and snapshot metadata</span></a></div></section>
 <section id="methods" class="section dark"><div class="section-heading"><div><p class="section-kicker">Methods and cautions</p><h2>Broad at inception; curated thereafter.</h2></div></div><div class="prose"><p>The extraction uses OpenAlex institution lineage <code>{OPENALEX_ID}</code> and ROR <code>{ROR}</code>. Records are retained broadly at inception. School and department fields remain blank until MUHAS validates a time-aware author affiliation crosswalk.</p><p>OpenAlex records can be incomplete, delayed or incorrectly affiliated. Counts are therefore provisional research-intelligence evidence, not an audited institutional return, until curation is completed.</p></div></section></main>
@@ -385,7 +593,15 @@ def build_dashboard(work_rows: list[dict], annual: list[dict], quarter_rows: lis
 def build_js() -> None:
     assets = SITE / "assets"
     assets.mkdir(parents=True, exist_ok=True)
-    script = '''fetch("data/summary.json").then(r=>r.json()).then(d=>{const years=d.annual.filter(x=>x.publication_year>=2016);const recent=years.slice(-10);const max=Math.max(...recent.map(x=>x.publications),1);const annual=recent.map(x=>`<div class="mini-bar-row"><span>${x.publication_year}</span><i style="width:${100*x.publications/max}%"></i><strong>${x.publications}</strong></div>`).join("");const qs=d.quarters.slice(-8).reverse().map(x=>`<tr><td>${x.fiscal_year}</td><td>${x.fiscal_quarter}</td><td>${x.period_end}</td><td>${x.publications}</td></tr>`).join("");const topics=d.top_topics.slice(0,10).map(x=>`<li><span>${x.topic}</span><strong>${x.publications}</strong></li>`).join("");document.querySelector("#muhas-summary").innerHTML=`<article class="observatory-card"><h3>Recent annual output</h3><div class="mini-bars">${annual}</div></article><article class="observatory-card"><h3>Latest fiscal quarters</h3><table><thead><tr><th>FY</th><th>Quarter</th><th>Ends</th><th>Works</th></tr></thead><tbody>${qs}</tbody></table></article><article class="observatory-card"><h3>Leading OpenAlex topics</h3><ol class="topic-rank">${topics}</ol></article>`;}).catch(()=>{document.querySelector("#muhas-summary").textContent="Summary data are temporarily unavailable.";});'''
+    script = '''(function(){const box=()=>document.querySelector("#exclude-flagged");let data=null;
+function render(){const d=data;const ex=box()&&box().checked;const annualAll=ex?d.annual_excluding_flagged:d.annual;const quartersAll=ex?d.quarters_excluding_flagged:d.quarters;
+const recent=annualAll.filter(x=>x.publication_year>=2016).slice(-10);const max=Math.max(...recent.map(x=>x.publications),1);
+const annual=recent.map(x=>`<div class="mini-bar-row"><span>${x.publication_year}</span><i style="width:${100*x.publications/max}%"></i><strong>${x.publications}</strong></div>`).join("");
+const qs=quartersAll.slice(-8).reverse().map(x=>`<tr><td>${x.fiscal_year}</td><td>${x.fiscal_quarter}</td><td>${x.period_end}</td><td>${x.publications}</td></tr>`).join("");
+const topics=d.top_topics.slice(0,10).map(x=>`<li><span>${x.topic}</span><strong>${x.publications}</strong></li>`).join("");
+const label=ex?" (excluding flagged)":"";
+document.querySelector("#muhas-summary").innerHTML=`<article class="observatory-card"><h3>Recent annual output${label}</h3><div class="mini-bars">${annual}</div></article><article class="observatory-card"><h3>Latest fiscal quarters${label}</h3><table><thead><tr><th>FY</th><th>Quarter</th><th>Ends</th><th>Works</th></tr></thead><tbody>${qs}</tbody></table></article><article class="observatory-card"><h3>Leading OpenAlex topics</h3><ol class="topic-rank">${topics}</ol></article>`;}
+fetch("data/summary.json").then(r=>r.json()).then(d=>{data=d;if(!d.annual_excluding_flagged){d.annual_excluding_flagged=d.annual;d.quarters_excluding_flagged=d.quarters;}render();if(box())box().addEventListener("change",render);}).catch(()=>{document.querySelector("#muhas-summary").textContent="Summary data are temporarily unavailable.";});})();'''
     (assets / "observatory.js").write_text(script, encoding="utf-8")
 
 
@@ -394,6 +610,8 @@ def main() -> None:
     parser.add_argument("--as-of", default=date.today().isoformat())
     parser.add_argument("--status", choices=["provisional", "final"], default="provisional")
     parser.add_argument("--reuse-raw", type=Path)
+    parser.add_argument("--previous-raw", type=Path, help="raw JSONL.gz of the previous final snapshot")
+    parser.add_argument("--previous-tag", default="", help="release tag of the previous final snapshot")
     args = parser.parse_args()
     as_of = date.fromisoformat(args.as_of)
     retrieved_at = iso_now()
@@ -421,6 +639,9 @@ def main() -> None:
         "authorship_rows": len(author_rows),
         **query_meta,
     }
+    if args.previous_raw:
+        changes = compare_works(load_raw(args.previous_raw), works, query_api=not args.reuse_raw)
+        manifest["changes_since_previous"] = {"previous_snapshot": args.previous_tag or args.previous_raw.name, **changes}
     DOWNLOADS.mkdir(parents=True, exist_ok=True)
     dated_csv = DOWNLOADS / f"{snapshot_id}_works.csv"
     dated_auth = DOWNLOADS / f"{snapshot_id}_authorships.csv"

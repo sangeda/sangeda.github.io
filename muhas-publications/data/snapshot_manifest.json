@@ -1,17 +1,18 @@
 {
-  "snapshot_id": "MUHAS_OPENALEX_1964_2026-09-16_PROVISIONAL_asof_2026-09-16",
-  "snapshot_status": "provisional",
+  "snapshot_id": "MUHAS_OPENALEX_1964_2026-09-30_FINAL_asof_2026-10-01",
+  "pipeline_version": "1.0",
+  "snapshot_status": "final",
   "institution_name": "Muhimbili University of Health and Allied Sciences",
   "alternate_name": "Chuo Kikuu cha Afya na Sayansi Shirikishi Muhimbili",
   "openalex_id": "I154840374",
   "ror": "027pr6c67",
   "period_start": "1964-01-01",
-  "as_of_date": "2026-09-16",
-  "retrieved_at": "2026-09-16T14:17:25+00:00",
-  "works_processed": 9504,
-  "authorship_rows": 77740,
-  "query_filter": "reused raw snapshot",
-  "openalex_reported_count": 9504,
-  "pages_retrieved": null,
-  "raw_path": "muhas_publications_archive/raw/MUHAS_OPENALEX_1964_2026-09-16_PROVISIONAL_asof_2026-09-16.jsonl.gz"
+  "as_of_date": "2026-09-30",
+  "retrieved_at": "2026-10-01T00:34:19+00:00",
+  "works_processed": 9432,
+  "authorship_rows": 78183,
+  "query_filter": "authorships.institutions.lineage:I154840374,from_publication_date:1964-01-01,to_publication_date:2026-09-30",
+  "openalex_reported_count": 9432,
+  "pages_retrieved": 48,
+  "raw_path": "muhas_publications_archive/raw/MUHAS_OPENALEX_1964_2026-09-30_FINAL_asof_2026-10-01.jsonl.gz"
 }

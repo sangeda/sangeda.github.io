@@ -1,13 +1,9 @@
 name: Build MUHAS Publications Observatory
 
+# No push trigger: a push-triggered harvest would publish a provisional release
+# that outranks the latest final snapshot on the live site. Code changes reach the
+# site through deploy-pages.yml; harvests run only on schedule or by hand.
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/build-muhas-observatory.yml"
-      - "scripts/build_muhas_observatory.py"
-      - "requirements.txt"
-      - "muhas-publications/**"
   workflow_dispatch:
     inputs:
       as_of:
@@ -25,7 +21,7 @@ on:
       publish_release:
         description: "Archive the dated snapshot in a GitHub Release"
         required: true
-        default: true
+        default: false
         type: boolean
   schedule:
     # 00:15 East Africa Time on the day after each MUHAS quarter closes.
@@ -43,7 +39,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       snapshot_id: ${{ steps.validate.outputs.snapshot_id }}
       as_of: ${{ steps.meta.outputs.as_of }}
@@ -73,13 +69,33 @@ jobs:
           else
             AS_OF="${INPUT_AS_OF:-$(TZ=Africa/Dar_es_Salaam date +%F)}"
             STATUS="${INPUT_STATUS:-provisional}"
-            PUBLISH_RELEASE="${INPUT_RELEASE:-true}"
+            PUBLISH_RELEASE="${INPUT_RELEASE:-false}"
           fi
           echo "as_of=$AS_OF" >> "$GITHUB_OUTPUT"
           echo "status=$STATUS" >> "$GITHUB_OUTPUT"
           echo "publish_release=$PUBLISH_RELEASE" >> "$GITHUB_OUTPUT"
+      - name: Fetch the previous final snapshot for comparison
+        id: prev
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AS_OF: ${{ steps.meta.outputs.as_of }}
+        run: |
+          tag=$(gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" --jq \
+            '[.[] | select(.tag_name | test("^muhas-pubs-[0-9-]{10}-final$")) | select(.tag_name[11:21] < env.AS_OF)] | sort_by(.tag_name) | last | .tag_name // empty')
+          if [[ -z "$tag" ]]; then echo "No earlier final snapshot to compare with."; exit 0; fi
+          mkdir -p "$RUNNER_TEMP/prev"
+          gh release download "$tag" --repo "$GITHUB_REPOSITORY" --pattern '*.jsonl.gz' --dir "$RUNNER_TEMP/prev"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "raw=$(ls "$RUNNER_TEMP"/prev/*.jsonl.gz | head -1)" >> "$GITHUB_OUTPUT"
       - name: Query OpenAlex and build all formats
-        run: python scripts/build_muhas_observatory.py --as-of "${{ steps.meta.outputs.as_of }}" --status "${{ steps.meta.outputs.status }}"
+        env:
+          OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
+          PREV_RAW: ${{ steps.prev.outputs.raw }}
+          PREV_TAG: ${{ steps.prev.outputs.tag }}
+        run: |
+          extra=()
+          if [[ -n "$PREV_RAW" ]]; then extra=(--previous-raw "$PREV_RAW" --previous-tag "$PREV_TAG"); fi
+          python scripts/build_muhas_observatory.py --as-of "${{ steps.meta.outputs.as_of }}" --status "${{ steps.meta.outputs.status }}" "${extra[@]}"
       - name: Validate generated database
         id: validate
         run: |
@@ -94,6 +110,27 @@ jobs:
           print(f"Validated {manifest['works_processed']:,} works and {manifest['authorship_rows']:,} authorships")
           with open(os.environ["GITHUB_OUTPUT"], "a") as output:
               output.write(f"snapshot_id={manifest['snapshot_id']}\n")
+          PY
+      - name: Report snapshot checks
+        run: |
+          python - <<'PY'
+          import csv, json
+          from pathlib import Path
+          m = json.loads(Path("muhas-publications/data/snapshot_manifest.json").read_text())
+          with open("muhas-publications/downloads/MUHAS_Publications_LATEST.csv", encoding="utf-8-sig", newline="") as f:
+              works = list(csv.DictReader(f))
+          truncated = [w for w in works if w.get("list_authors_truncated") == "True"]
+          checks = {
+              "works": m["works_processed"],
+              "authorship_rows": m["authorship_rows"],
+              "refetched_for_full_authorships": m.get("works_refetched_for_full_authorships"),
+              "truncated_works_with_muhas_after_99": sum("[MUHAS]" in w.get("authors", "") for w in truncated),
+              "max_authors": max((int(w["authors_count"]) for w in works), default=0),
+              "works_with_pmid": sum(bool(w.get("pmid")) for w in works),
+          }
+          print("::notice title=Snapshot checks::" + json.dumps(checks))
+          if m.get("changes_since_previous"):
+              print("::notice title=Changes since previous final::" + json.dumps(m["changes_since_previous"]))
           PY
       - name: Package immutable snapshot
         run: |
@@ -133,7 +170,9 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    # Only a published snapshot goes live; test runs build and upload artifacts only.
+    if: needs.build.outputs.publish_release == 'true'
+    runs-on: ubuntu-24.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
