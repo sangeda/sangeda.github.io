@@ -39,10 +39,15 @@ INSTITUTION_ALT_NAME = "Chuo Kikuu cha Afya na Sayansi Shirikishi Muhimbili"
 OPENALEX_ID = "I154840374"
 ROR = "027pr6c67"
 REPOSITORY = "sangeda/sangeda.github.io"
-PIPELINE_VERSION = "1.1"
+PIPELINE_VERSION = "1.2"
 START_DATE = date(1964, 1, 1)
-USER_AGENT = "muhas-publications-observatory/1.1"
+USER_AGENT = "muhas-publications-observatory/1.2"
 API_KEY_ENV = "OPENALEX_API_KEY"
+# OpenAlex re-created most existing records on this date (index rebuild), so a record's
+# created_date shows when it was first indexed only for quarters starting after it.
+OPENALEX_CREATED_DATE_RESET = date(2025, 10, 10)
+ADDED_DATE_NOTE = ("OpenAlex re-created most existing records on 10 October 2025, so \"added\" dates show "
+                   "when a paper was indexed only for quarters starting after that date.")
 # OpenAlex list results carry at most this many authorships per work; works at
 # the cap are refetched from the single-work endpoint, which returns them all.
 LIST_AUTHOR_CAP = 100
@@ -396,6 +401,194 @@ def process_works(works: list[dict], retrieved_at: str, snapshot_id: str) -> tup
     return work_rows, author_rows
 
 
+def version_tuple(value) -> tuple[int, ...]:
+    try:
+        return tuple(int(x) for x in str(value).split("."))
+    except ValueError:
+        return (0,)
+
+
+def parse_date(value) -> date | None:
+    try:
+        return date.fromisoformat(str(value)[:10])
+    except ValueError:
+        return None
+
+
+def fiscal_year_start(d: date) -> date:
+    """MUHAS fiscal years run 1 July to 30 June."""
+    return date(d.year if d.month >= 7 else d.year - 1, 7, 1)
+
+
+def quarter_start(period_end: date) -> date:
+    return date(period_end.year, period_end.month - 2, 1)
+
+
+def previous_quarter_end(period_end: date) -> date:
+    start = quarter_start(period_end)
+    return date.fromordinal(start.toordinal() - 1)
+
+
+def reporting_metrics(work_rows: list[dict], as_of: date) -> dict:
+    """Fiscal-year and fiscal-quarter metrics for the page and the quarterly report.
+
+    "Published" uses the publication date; "added" uses the date OpenAlex created
+    the record, which shows works indexed late. Flagged deposits are counted in
+    the totals and also reported excluding flags.
+    """
+    fy_now, q_now, end_now = fiscal_period(as_of)
+    fy_start_now = fiscal_year_start(as_of)
+    flagged = [truthy(r.get("flag_backdated_repository_deposit")) for r in work_rows]
+    pub_key = Counter()
+    pub_key_unflagged = Counter()
+    added_key = Counter()
+    added_key_unflagged = Counter()
+    fiscal = Counter()
+    fiscal_unflagged = Counter()
+    for row, is_flagged in zip(work_rows, flagged):
+        key = (row["fiscal_year"], row["fiscal_quarter"])
+        pub_key[key] += 1
+        fiscal[row["fiscal_year"]] += 1
+        if not is_flagged:
+            pub_key_unflagged[key] += 1
+            fiscal_unflagged[row["fiscal_year"]] += 1
+        created = parse_date(row.get("openalex_created_date"))
+        if created:
+            fy, q, _ = fiscal_period(created)
+            added_key[(fy, q)] += 1
+            if not is_flagged:
+                added_key_unflagged[(fy, q)] += 1
+    quarters = []
+    end = end_now
+    for _ in range(8):
+        fy, q, _ = fiscal_period(end)
+        reliable = quarter_start(end) > OPENALEX_CREATED_DATE_RESET
+        quarters.append({
+            "fiscal_year": fy, "fiscal_quarter": q,
+            "period_start": quarter_start(end).isoformat(), "period_end": end.isoformat(),
+            "partial": end > as_of,
+            "published": pub_key[(fy, q)],
+            "published_excluding_flagged": pub_key_unflagged[(fy, q)],
+            "added": added_key[(fy, q)] if reliable else None,
+            "added_excluding_flagged": added_key_unflagged[(fy, q)] if reliable else None,
+        })
+        end = previous_quarter_end(end)
+    years = sorted(fiscal)
+    fiscal_years = [
+        {"fiscal_year": fy, "publications": fiscal[fy], "publications_excluding_flagged": fiscal_unflagged[fy],
+         "partial": fy == fy_now and as_of < date(fy_start_now.year + 1, 6, 30)}
+        for fy in years
+    ]
+    complete_fy = fy_now if as_of >= date(fy_start_now.year + 1, 6, 30) else fiscal_period(date(fy_start_now.year - 1, 7, 1))[0]
+    topics = Counter(r["primary_topic"] for r in work_rows if r["fiscal_year"] == complete_fy and r.get("primary_topic"))
+    latest = quarters[0]
+    q_start = date.fromisoformat(latest["period_start"])
+    added_earlier = sum(
+        1 for r in work_rows
+        if (c := parse_date(r.get("openalex_created_date"))) and q_start <= c <= end_now
+        and (pd := parse_date(r.get("publication_date"))) and pd < q_start
+    )
+    return {
+        "as_of_date": as_of.isoformat(),
+        "current_fiscal_year": fy_now,
+        "latest_quarter": {**latest, "added_published_earlier": added_earlier},
+        "quarters": quarters,
+        "fiscal_years": fiscal_years,
+        "works_before_current_fiscal_year": sum(
+            1 for r in work_rows if (pd := parse_date(r.get("publication_date"))) and pd < fy_start_now
+        ),
+        "topics_fiscal_year": complete_fy,
+        "added_date_note": ADDED_DATE_NOTE,
+        "top_topics": [{"topic": t, "publications": n} for t, n in topics.most_common(25)],
+    }
+
+
+QUARTER_COLUMNS = [
+    "openalex_work_id", "doi", "pmid", "title", "publication_date", "date_is_1_january",
+    "journal_or_source", "work_type", "open_access_status", "muhas_authors_count", "muhas_authors",
+    "corresponding_authors", "has_muhas_corresponding_institution", "international_collaboration",
+    "primary_topic", "primary_field", "flag_backdated_repository_deposit", "openalex_created_date",
+]
+
+
+def write_quarterly_report(path: Path, work_rows: list[dict], manifest: dict) -> dict:
+    """The DRPI workbook: what was published, and what was newly indexed, in the latest quarter."""
+    as_of = date.fromisoformat(manifest["as_of_date"])
+    metrics = reporting_metrics(work_rows, as_of)
+    latest = metrics["latest_quarter"]
+    q_start, q_end = date.fromisoformat(latest["period_start"]), date.fromisoformat(latest["period_end"])
+
+    def pick(row: dict) -> dict:
+        out = {c: row.get(c, "") for c in QUARTER_COLUMNS}
+        out["date_is_1_january"] = str(row.get("publication_date", ""))[5:10] == "01-01"
+        return out
+
+    published = sorted(
+        (r for r in work_rows if (r["fiscal_year"], r["fiscal_quarter"]) == (latest["fiscal_year"], latest["fiscal_quarter"])),
+        key=lambda r: (str(r["publication_date"]), str(r["title"]).lower()),
+    )
+    earlier = sorted(
+        (r for r in work_rows
+         if (c := parse_date(r.get("openalex_created_date"))) and q_start <= c <= q_end
+         and (pd := parse_date(r.get("publication_date"))) and pd < q_start),
+        key=lambda r: (str(r["publication_date"]), str(r["title"]).lower()),
+        reverse=True,
+    )
+    label = f"{latest['fiscal_year']} {latest['fiscal_quarter']}" + (" (to date)" if latest["partial"] else "")
+    tag = f"muhas-pubs-{manifest['as_of_date']}-{manifest['snapshot_status']}"
+    counts = {
+        "quarter": label,
+        "published_in_quarter": len(published),
+        "published_dated_1_january": sum(str(r["publication_date"])[5:10] == "01-01" for r in published),
+        "published_flagged": sum(truthy(r.get("flag_backdated_repository_deposit")) for r in published),
+        "added_in_quarter_published_earlier": len(earlier),
+        "added_earlier_flagged": sum(truthy(r.get("flag_backdated_repository_deposit")) for r in earlier),
+    }
+    wb = Workbook()
+    readme = wb.active
+    readme.title = "Read_me"
+    readme.append(["MUHAS Publications Observatory: quarterly report", ""])
+    for item in [
+        ("Quarter", label),
+        ("Period", f"{q_start.isoformat()} to {q_end.isoformat()}"),
+        ("Snapshot", manifest["snapshot_id"]),
+        ("Release (cite this)", f"https://github.com/{REPOSITORY}/releases/tag/{tag}"),
+        ("Snapshot status", manifest["snapshot_status"]),
+        ("Works published in the quarter", counts["published_in_quarter"]),
+        ("  of which dated 1 January", counts["published_dated_1_january"]),
+        ("  of which flagged repository deposits", counts["published_flagged"]),
+        ("Works added to OpenAlex in the quarter but published earlier", counts["added_in_quarter_published_earlier"]),
+        ("  of which flagged repository deposits", counts["added_earlier_flagged"]),
+        ("Definition: published", "Publication date within the MUHAS fiscal quarter (fiscal year 1 July to 30 June)."),
+        ("Definition: added", "Date OpenAlex created the record. Papers are often indexed weeks or months after publication, "
+                              "so later reports list late additions for earlier quarters."),
+        ("Caveat: added dates", ADDED_DATE_NOTE),
+        ("Caveat: 1 January dates", "Some records carry only a publication year, which OpenAlex dates 1 January; these fall in Q3 "
+                                    "and are marked in the date_is_1_january column."),
+        ("Caveat: flags", FLAG_RULE_TEXT + " Flagged works are under review and are not necessarily invalid."),
+        ("Caveat: pilot", "Pilot dataset from OpenAlex (institution I154840374, ROR 027pr6c67), cleaned progressively. "
+                          "Not an audited institutional return."),
+        ("Schools and departments", "Not yet assigned; they will be added once the staff affiliation crosswalk is approved."),
+    ]:
+        readme.append(list(item))
+    style_sheet(readme)
+    readme.column_dimensions["A"].width = 58
+    readme.column_dimensions["B"].width = 100
+    for name, rows in (("Quarter_published", published), ("Added_published_earlier", earlier)):
+        ws = wb.create_sheet(name)
+        selected = [pick(r) for r in rows]
+        if name == "Added_published_earlier":
+            for out, r in zip(selected, rows):
+                out["published_fiscal_quarter"] = f"{r['fiscal_year']} {r['fiscal_quarter']}"
+        if selected:
+            append_rows(ws, selected)
+        else:
+            ws.append(["No works in this category for the quarter."])
+    path.parent.mkdir(parents=True, exist_ok=True)
+    wb.save(path)
+    return counts
+
+
 def write_csv(path: Path, rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if not rows:
@@ -492,7 +685,9 @@ def write_excel(path: Path, works: list[dict], authorships: list[dict], annual: 
         summary.append(row)
     style_sheet(summary)
     for name, rows in (
-        ("Publications", works), ("Authorships", authorships), ("Annual_Summary", annual),
+        ("Publications", works), ("Authorships", authorships),
+        ("Fiscal_Year_Summary", [{"fiscal_year": fy, "publications": n} for fy, n in sorted(Counter(r["fiscal_year"] for r in works).items())]),
+        ("Annual_Summary", annual),
         ("Quarterly_Summary", quarters), ("Type_Summary", types),
         ("Snapshot_Metadata", [{"field": k, "value": json.dumps(v) if isinstance(v, (dict, list)) else v} for k, v in manifest.items()]),
     ):
@@ -505,7 +700,9 @@ def write_excel(path: Path, works: list[dict], authorships: list[dict], annual: 
     }])
     dictionary = wb.create_sheet("Data_Dictionary")
     append_rows(dictionary, [
+        {"field": "fiscal_year / fiscal_quarter", "definition": "MUHAS fiscal year (1 July to 30 June) and quarter (Q1 Jul-Sep, Q2 Oct-Dec, Q3 Jan-Mar, Q4 Apr-Jun) of the publication date."},
         {"field": "period_end", "definition": "Official end date of the MUHAS fiscal quarter containing the publication date."},
+        {"field": "Annual_Summary", "definition": "Calendar-year counts (January to December), kept for comparison with journal and Scopus figures."},
         {"field": "retrieved_at", "definition": "Actual UTC timestamp when the source API data were retrieved."},
         {"field": "snapshot_id", "definition": "Immutable identifier for the extraction run."},
         {"field": "curation_status", "definition": "Institutional review status; records default to unreviewed until curated."},
@@ -549,7 +746,12 @@ def build_dashboard(work_rows: list[dict], annual: list[dict], quarter_rows: lis
     unflagged = [row for row in work_rows if not truthy(row.get("flag_backdated_repository_deposit"))]
     flagged = len(work_rows) - len(unflagged)
     annual_unflagged, quarters_unflagged, _ = summaries(unflagged)
+    as_of = date.fromisoformat(manifest["as_of_date"])
+    reporting = reporting_metrics(work_rows, as_of)
+    latest = reporting["latest_quarter"]
+    q_label = f"{latest['fiscal_year']} {latest['fiscal_quarter']}" + (" to date" if latest["partial"] else "")
     summary = {
+        "reporting": reporting,
         "flagged_backdated_deposits": flagged,
         "flag_rule": FLAG_RULE_TEXT,
         "annual_excluding_flagged": annual_unflagged,
@@ -578,7 +780,14 @@ def build_dashboard(work_rows: list[dict], annual: list[dict], quarter_rows: lis
     changes_note = changes_html(manifest.get("changes_since_previous"))
     # Describe what the files on offer actually contain: snapshots before pipeline 1.1
     # lack PubMed IDs, flags and complete author lists.
-    current_files = str(manifest.get("pipeline_version", "1.0")) >= "1.1"
+    current_files = version_tuple(manifest.get("pipeline_version", "1.0")) >= (1, 1)
+    # The quarterly report lives in the dated release, so the link survives the shared deploy.
+    quarterly_card = (
+        f'<a href="https://github.com/{REPOSITORY}/releases/download/'
+        f'muhas-pubs-{html.escape(manifest["as_of_date"])}-{html.escape(manifest["snapshot_status"])}/'
+        f'{html.escape(manifest["snapshot_id"])}_quarterly_report.xlsx"><strong>Quarterly report (Excel)</strong>'
+        f'<span>Works published in {html.escape(q_label)}, and works added to OpenAlex in the quarter but published earlier</span></a>'
+    ) if version_tuple(manifest.get("pipeline_version", "1.0")) >= (1, 2) else ""
     cards = (
         ("Publications, authorships, summaries, data dictionary and metadata",
          "One row per work, with PubMed IDs and review flags",
@@ -593,14 +802,15 @@ def build_dashboard(work_rows: list[dict], annual: list[dict], quarter_rows: lis
                     f'<code>{html.escape(release_tag)}</code></a>')
     page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MUHAS Publications Observatory</title><meta name="description" content="Reproducible OpenAlex-based MUHAS publication reporting by year and fiscal quarter.">
-<link rel="stylesheet" href="../assets/style.css"><style>.flag-note{{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline;margin:0 0 1.2rem;font-size:.95rem}}.flag-note label{{font-weight:700;white-space:nowrap}}.flag-note span{{opacity:.8}}.changes-note{{margin:0 0 1.2rem;font-size:.95rem;max-width:62rem}}</style><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"></head><body>
+<link rel="stylesheet" href="../assets/style.css"><style>.flag-note{{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline;margin:0 0 1.2rem;font-size:.95rem}}.flag-note label{{font-weight:700;white-space:nowrap}}.flag-note span{{opacity:.8}}.changes-note{{margin:0 0 1.2rem;font-size:.95rem;max-width:62rem}}.snapshot-line{{margin:1.2rem 0 0;font-size:.9rem;opacity:.75}}.table-note{{margin:.8rem 0 0;font-size:.85rem;opacity:.75}}.mini-bars.fy .mini-bar-row{{grid-template-columns:5.2rem 1fr 48px}}.mini-bars.fy .mini-bar-row span{{white-space:nowrap}}#muhas-summary td:first-child{{white-space:nowrap}}</style><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"></head><body>
 <header class="site-header"><div class="nav-wrap"><a class="brand" href="../index.html"><span class="brand-mark">MU</span><span>MUHAS Publications Observatory</span></a><nav class="site-nav always"><a href="../index.html">Profile</a><a href="#downloads">Downloads</a><a href="#methods">Methods</a></nav></div></header>
 <main><section class="pub-hero"><p class="eyebrow">Institutional research intelligence · Pilot</p><h1>MUHAS publications, <span>preserved and reportable.</span></h1>
 <p class="hero-lead">A pilot observatory of MUHAS publications from OpenAlex, refreshed after each fiscal quarter. Records are cleaned progressively, so counts can change between snapshots; school and department reporting will follow once the staff affiliation crosswalk is approved.</p>
-<div class="hero-stats"><div><strong>{len(work_rows):,}</strong><span>works through {manifest['as_of_date']}</span></div><div><strong>{sum(row['publication_year'] <= 2025 for row in work_rows):,}</strong><span>historical works, 1964–2025</span></div><div><strong>{manifest['snapshot_status'].title()}</strong><span>snapshot status</span></div><div><strong>{html.escape(manifest['retrieved_at'][:10])}</strong><span>retrieval date</span></div></div></section>
-<section class="section tinted"><div class="section-heading"><div><p class="section-kicker">Reporting</p><h2>Annual and fiscal-quarter views</h2></div><p>Publication dates determine reporting periods. Retrieval timestamps independently document when the evidence was downloaded.</p></div>{flag_note}{changes_note}<div id="muhas-summary" class="observatory-grid"></div></section>
+<div class="hero-stats"><div><strong>{len(work_rows):,}</strong><span>works through {manifest['as_of_date']}</span></div><div><strong>{latest['published']:,}</strong><span>published in {html.escape(q_label)}</span></div><div><strong>{"—" if latest['added'] is None else f"{latest['added']:,}"}</strong><span>added to OpenAlex in {html.escape(q_label)}</span></div><div><strong>{reporting['works_before_current_fiscal_year']:,}</strong><span>published before {html.escape(reporting['current_fiscal_year'])}</span></div></div>
+<p class="snapshot-line">{html.escape(manifest['snapshot_status'].title())} snapshot · retrieved {html.escape(manifest['retrieved_at'][:10])} · fiscal year runs 1 July to 30 June</p></section>
+<section class="section tinted"><div class="section-heading"><div><p class="section-kicker">Reporting</p><h2>Fiscal-year and quarterly views</h2></div><p>Reporting follows the MUHAS fiscal year (1 July to 30 June). "Published" uses the publication date; "added" is when OpenAlex indexed the record, which shows papers that arrive late.</p></div>{flag_note}{changes_note}<div id="muhas-summary" class="observatory-grid"></div></section>
 <section id="downloads" class="section"><div class="section-heading"><div><p class="section-kicker">Downloads</p><h2>Data downloads</h2></div><p>Files for the snapshot shown on this page. The LATEST files are replaced every quarter; to cite a fixed version, use the dated release {release_link}, which also holds the raw OpenAlex records. Excel is formatted for review; CSV and SQLite suit R, Python and Power BI.</p></div>
-<div class="download-grid"><a href="downloads/MUHAS_Publications_LATEST.xlsx"><strong>Excel workbook</strong><span>{cards[0]}</span></a><a href="downloads/MUHAS_Publications_LATEST.csv"><strong>Publications CSV</strong><span>{cards[1]}</span></a><a href="downloads/MUHAS_Authorships_LATEST.csv"><strong>Authorships CSV</strong><span>{cards[2]}</span></a><a href="downloads/MUHAS_Publications_LATEST.sqlite"><strong>SQLite database</strong><span>Works, authorships and snapshot metadata</span></a></div></section>
+<div class="download-grid">{quarterly_card}<a href="downloads/MUHAS_Publications_LATEST.xlsx"><strong>Excel workbook</strong><span>{cards[0]}</span></a><a href="downloads/MUHAS_Publications_LATEST.csv"><strong>Publications CSV</strong><span>{cards[1]}</span></a><a href="downloads/MUHAS_Authorships_LATEST.csv"><strong>Authorships CSV</strong><span>{cards[2]}</span></a><a href="downloads/MUHAS_Publications_LATEST.sqlite"><strong>SQLite database</strong><span>Works, authorships and snapshot metadata</span></a></div></section>
 <section id="methods" class="section dark"><div class="section-heading"><div><p class="section-kicker">Methods and cautions</p><h2>A pilot, curated progressively.</h2></div></div><div class="prose"><p>The extraction uses OpenAlex institution lineage <code>{OPENALEX_ID}</code> and ROR <code>{ROR}</code>. Works with more than 100 authors are fetched in full, so MUHAS authors late in long author lists are counted. Repository deposits added to OpenAlex long after their stated publication date are flagged for review and can be excluded from the charts. School and department fields remain blank until MUHAS approves a time-aware author affiliation crosswalk.</p><p>This is a pilot. OpenAlex records can be incomplete, delayed or incorrectly affiliated, and both OpenAlex and this observatory correct them progressively. Counts are research-intelligence evidence, not an audited institutional return; each dated snapshot is archived unchanged for reproducibility.</p></div></section></main>
 <footer><p>MUHAS Publications Observatory · Pilot, refreshed quarterly</p><p>Snapshot {html.escape(manifest['snapshot_id'])}</p></footer><script src="assets/observatory.js"></script></body></html>'''
     (SITE / "index.html").write_text(page, encoding="utf-8")
@@ -610,14 +820,24 @@ def build_js() -> None:
     assets = SITE / "assets"
     assets.mkdir(parents=True, exist_ok=True)
     script = '''(function(){const box=()=>document.querySelector("#exclude-flagged");let data=null;
-function render(){const d=data;const ex=box()&&box().checked;const annualAll=ex?d.annual_excluding_flagged:d.annual;const quartersAll=ex?d.quarters_excluding_flagged:d.quarters;
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function render(){const d=data;const ex=!!(box()&&box().checked);const r=d.reporting;const label=ex?" (excluding flagged)":"";let cards;
+if(r){const fys=r.fiscal_years.slice(-10).map(x=>({k:x.fiscal_year.replace(/^FY/,"")+(x.partial?"*":""),n:ex?x.publications_excluding_flagged:x.publications}));
+const partialNote=r.fiscal_years.some(x=>x.partial)?`<p class="table-note">* Current fiscal year, to date.</p>`:"";
+const max=Math.max(...fys.map(x=>x.n),1);
+const bars=fys.map(x=>`<div class="mini-bar-row"><span>${esc(x.k)}</span><i style="width:${100*x.n/max}%"></i><strong>${x.n}</strong></div>`).join("");
+const qs=r.quarters.map(x=>`<tr><td title="${esc(x.period_start)} to ${esc(x.period_end)}">${esc(x.fiscal_year.replace(/^FY/,""))} ${esc(x.fiscal_quarter)}${x.partial?"*":""}</td><td>${ex?x.published_excluding_flagged:x.published}</td><td>${(ex?x.added_excluding_flagged:x.added)??"—"}</td></tr>`).join("");
+const note=`<p class="table-note">Q1 Jul–Sep, Q2 Oct–Dec, Q3 Jan–Mar, Q4 Apr–Jun.${r.quarters.some(x=>x.partial)?" * To date.":""}${r.quarters.some(x=>x.added===null)&&r.added_date_note?" — "+esc(r.added_date_note):""}</p>`;
+const topics=r.top_topics.slice(0,10).map(x=>`<li><span>${esc(x.topic)}</span><strong>${x.publications}</strong></li>`).join("");
+cards=`<article class="observatory-card"><h3>Output by fiscal year${label}</h3><div class="mini-bars fy">${bars}</div>${partialNote}</article><article class="observatory-card"><h3>Latest fiscal quarters${label}</h3><table><thead><tr><th>Quarter</th><th>Published</th><th>Added to OpenAlex</th></tr></thead><tbody>${qs}</tbody></table>${note}</article><article class="observatory-card"><h3>Leading OpenAlex topics, ${esc(r.topics_fiscal_year)}</h3><ol class="topic-rank">${topics}</ol></article>`;}
+else{const annualAll=ex&&d.annual_excluding_flagged?d.annual_excluding_flagged:d.annual;const quartersAll=ex&&d.quarters_excluding_flagged?d.quarters_excluding_flagged:d.quarters;
 const recent=annualAll.filter(x=>x.publication_year>=2016).slice(-10);const max=Math.max(...recent.map(x=>x.publications),1);
 const annual=recent.map(x=>`<div class="mini-bar-row"><span>${x.publication_year}</span><i style="width:${100*x.publications/max}%"></i><strong>${x.publications}</strong></div>`).join("");
-const qs=quartersAll.slice(-8).reverse().map(x=>`<tr><td>${x.fiscal_year}</td><td>${x.fiscal_quarter}</td><td>${x.period_end}</td><td>${x.publications}</td></tr>`).join("");
-const topics=d.top_topics.slice(0,10).map(x=>`<li><span>${x.topic}</span><strong>${x.publications}</strong></li>`).join("");
-const label=ex?" (excluding flagged)":"";
-document.querySelector("#muhas-summary").innerHTML=`<article class="observatory-card"><h3>Recent annual output${label}</h3><div class="mini-bars">${annual}</div></article><article class="observatory-card"><h3>Latest fiscal quarters${label}</h3><table><thead><tr><th>FY</th><th>Quarter</th><th>Ends</th><th>Works</th></tr></thead><tbody>${qs}</tbody></table></article><article class="observatory-card"><h3>Leading OpenAlex topics</h3><ol class="topic-rank">${topics}</ol></article>`;}
-fetch("data/summary.json").then(r=>r.json()).then(d=>{data=d;if(!d.annual_excluding_flagged){d.annual_excluding_flagged=d.annual;d.quarters_excluding_flagged=d.quarters;}render();if(box())box().addEventListener("change",render);}).catch(()=>{document.querySelector("#muhas-summary").textContent="Summary data are temporarily unavailable.";});})();'''
+const qs=quartersAll.slice(-8).reverse().map(x=>`<tr><td>${esc(x.fiscal_year)}</td><td>${esc(x.fiscal_quarter)}</td><td>${esc(x.period_end)}</td><td>${x.publications}</td></tr>`).join("");
+const topics=d.top_topics.slice(0,10).map(x=>`<li><span>${esc(x.topic)}</span><strong>${x.publications}</strong></li>`).join("");
+cards=`<article class="observatory-card"><h3>Recent annual output${label}</h3><div class="mini-bars">${annual}</div></article><article class="observatory-card"><h3>Latest fiscal quarters${label}</h3><table><thead><tr><th>FY</th><th>Quarter</th><th>Ends</th><th>Works</th></tr></thead><tbody>${qs}</tbody></table></article><article class="observatory-card"><h3>Leading OpenAlex topics</h3><ol class="topic-rank">${topics}</ol></article>`;}
+document.querySelector("#muhas-summary").innerHTML=cards;}
+fetch("data/summary.json").then(r=>r.json()).then(d=>{data=d;render();if(box())box().addEventListener("change",render);}).catch(()=>{document.querySelector("#muhas-summary").textContent="Summary data are temporarily unavailable.";});})();'''
     (assets / "observatory.js").write_text(script, encoding="utf-8")
 
 
@@ -667,6 +887,7 @@ def main() -> None:
     write_csv(dated_auth, author_rows)
     write_sqlite(dated_db, work_rows, author_rows, manifest)
     write_excel(dated_xlsx, work_rows, author_rows, annual_rows, quarter_rows, type_rows, manifest)
+    manifest["quarterly_report"] = write_quarterly_report(DOWNLOADS / f"{snapshot_id}_quarterly_report.xlsx", work_rows, manifest)
     for source, stable in (
         (dated_csv, DOWNLOADS / "MUHAS_Publications_LATEST.csv"),
         (dated_auth, DOWNLOADS / "MUHAS_Authorships_LATEST.csv"),

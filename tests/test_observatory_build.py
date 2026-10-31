@@ -159,5 +159,44 @@ class SnapshotChangesTests(unittest.TestCase):
         self.assertEqual(obs.changes_html(None), "")
 
 
+class FiscalReportingTests(unittest.TestCase):
+    @staticmethod
+    def row(pub, created, flagged=False, topic="T"):
+        fy, q, end = obs.fiscal_period(obs.date.fromisoformat(pub))
+        return {"publication_date": pub, "fiscal_year": fy, "fiscal_quarter": q, "period_end": end.isoformat(),
+                "openalex_created_date": created, "flag_backdated_repository_deposit": flagged,
+                "primary_topic": topic, "title": pub, "publication_year": int(pub[:4])}
+
+    def test_quarters_fiscal_years_and_added(self):
+        rows = [
+            self.row("2026-10-05", "2026-10-20"),            # Q2 FY2026/27, added Q2
+            self.row("2026-06-30", "2026-11-02"),            # Q4 FY2025/26, added Q2 (late)
+            self.row("2019-01-01", "2026-12-01", True),      # flagged deposit added Q2
+            self.row("2025-07-01", "2025-10-10", topic="X"), # FY2025/26, rebuild date
+        ]
+        r = obs.reporting_metrics(rows, obs.date(2026, 12, 31))
+        latest = r["latest_quarter"]
+        self.assertEqual((latest["fiscal_year"], latest["fiscal_quarter"], latest["partial"]), ("FY2026/27", "Q2", False))
+        self.assertEqual((latest["published"], latest["added"], latest["added_excluding_flagged"]), (1, 3, 2))
+        self.assertEqual(latest["added_published_earlier"], 2)
+        self.assertEqual(r["works_before_current_fiscal_year"], 3)
+        self.assertEqual(r["topics_fiscal_year"], "FY2025/26")
+        by_q = {(q["fiscal_year"], q["fiscal_quarter"]): q for q in r["quarters"]}
+        self.assertIsNone(by_q[("FY2025/26", "Q2")]["added"])      # spans the 10 Oct 2025 rebuild
+        self.assertEqual(by_q[("FY2025/26", "Q3")]["added"], 0)     # first reliable quarter
+        self.assertTrue(r["fiscal_years"][-1]["partial"])
+
+    def test_partial_quarter_and_report(self):
+        rows = [self.row("2026-10-05", "2026-10-20"), self.row("2026-01-01", "2026-10-25")]
+        r = obs.reporting_metrics(rows, obs.date(2026, 10, 31))
+        self.assertTrue(r["latest_quarter"]["partial"])
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            counts = obs.write_quarterly_report(Path(d) / "q.xlsx", rows, {
+                "as_of_date": "2026-10-31", "snapshot_status": "provisional", "snapshot_id": "X"})
+        self.assertEqual(counts["quarter"], "FY2026/27 Q2 (to date)")
+        self.assertEqual((counts["published_in_quarter"], counts["added_in_quarter_published_earlier"]), (1, 1))
+
+
 if __name__ == "__main__":
     unittest.main()
