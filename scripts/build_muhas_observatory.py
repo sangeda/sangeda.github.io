@@ -15,7 +15,9 @@ import html
 import json
 import shutil
 import sqlite3
+import os
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from collections import Counter, defaultdict
@@ -36,16 +38,23 @@ INSTITUTION_NAME = "Muhimbili University of Health and Allied Sciences"
 INSTITUTION_ALT_NAME = "Chuo Kikuu cha Afya na Sayansi Shirikishi Muhimbili"
 OPENALEX_ID = "I154840374"
 ROR = "027pr6c67"
-PIPELINE_VERSION = "1.0"
+PIPELINE_VERSION = "1.1"
 START_DATE = date(1964, 1, 1)
-USER_AGENT = "muhas-publications-observatory/1.0"
+USER_AGENT = "muhas-publications-observatory/1.1"
+API_KEY_ENV = "OPENALEX_API_KEY"
+# OpenAlex list results carry at most this many authorships per work; works at
+# the cap are refetched from the single-work endpoint, which returns them all.
+LIST_AUTHOR_CAP = 100
+# Human-readable author strings show this many leading authors, then every
+# MUHAS-affiliated author beyond them with their true position.
+DISPLAY_LEADING_AUTHORS = 99
 
 WORK_FIELDS = [
-    "id", "doi", "title", "display_name", "publication_year", "publication_date",
+    "id", "doi", "ids", "title", "display_name", "publication_year", "publication_date",
     "type", "language", "cited_by_count", "fwci", "is_retracted", "is_paratext",
     "is_xpac", "countries_distinct_count", "institutions_distinct_count", "authorships",
-    "primary_location", "open_access", "primary_topic", "topics", "keywords",
-    "sustainable_development_goals", "corresponding_author_ids",
+    "is_authors_truncated", "primary_location", "open_access", "primary_topic", "topics",
+    "keywords", "sustainable_development_goals", "corresponding_author_ids",
     "corresponding_institution_ids", "created_date", "updated_date",
 ]
 
@@ -70,17 +79,64 @@ def fiscal_period(d: date) -> tuple[str, str, date]:
     return f"FY{start}/{str(start + 1)[-2:]}", quarter, end
 
 
+class OpenAlexAuthError(RuntimeError):
+    """Raised on 401/403 so a missing or rejected API key fails the run at once."""
+
+
+def with_api_key(url: str) -> str:
+    key = os.environ.get(API_KEY_ENV, "").strip()
+    if not key:
+        return url
+    return f"{url}{'&' if '?' in url else '?'}{urllib.parse.urlencode({'api_key': key})}"
+
+
+def redact(url: str) -> str:
+    return url.split("api_key=")[0].rstrip("?&") if "api_key=" in url else url
+
+
 def api_json(url: str, attempts: int = 5) -> dict:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    request = urllib.request.Request(with_api_key(url), headers={"User-Agent": USER_AGENT})
     for attempt in range(attempts):
         try:
             with urllib.request.urlopen(request, timeout=90) as response:
                 return json.load(response)
-        except Exception:
+        except urllib.error.HTTPError as error:
+            if error.code in (401, 403):
+                hint = "" if os.environ.get(API_KEY_ENV) else f" ({API_KEY_ENV} is not set)"
+                raise OpenAlexAuthError(f"OpenAlex refused the request with HTTP {error.code}{hint}: {redact(url)}") from None
             if attempt == attempts - 1:
-                raise
+                raise RuntimeError(f"OpenAlex HTTP {error.code} after {attempts} attempts: {redact(url)}") from None
+            time.sleep(min(60, 5 * 2 ** attempt) if error.code == 429 else min(30, 2 ** attempt))
+        except Exception as error:
+            if attempt == attempts - 1:
+                raise RuntimeError(f"OpenAlex request failed after {attempts} attempts ({type(error).__name__}): {redact(url)}") from None
             time.sleep(min(30, 2 ** attempt))
     raise RuntimeError("OpenAlex request failed")
+
+
+def needs_full_authorships(work: dict) -> bool:
+    return bool(work.get("is_authors_truncated")) or len(work.get("authorships") or []) >= LIST_AUTHOR_CAP
+
+
+def complete_authorships(works: list[dict]) -> int:
+    """Replace list records capped at 100 authorships with the full single-work record.
+
+    Returns the number of works refetched. The list record's own truncation flag is
+    kept as ``list_authors_truncated`` so the raw snapshot shows what was repaired.
+    """
+    refetched = 0
+    select = urllib.parse.urlencode({"select": ",".join(WORK_FIELDS)})
+    for index, work in enumerate(works):
+        if not needs_full_authorships(work):
+            continue
+        full = api_json(f"https://api.openalex.org/works/{short_id(work.get('id'))}?{select}")
+        if len(full.get("authorships") or []) < len(work.get("authorships") or []):
+            raise RuntimeError(f"Single-work record for {short_id(work.get('id'))} has fewer authorships than the list record")
+        full["list_authors_truncated"] = True
+        works[index] = full
+        refetched += 1
+        time.sleep(0.12)
+    return refetched
 
 
 def fetch_openalex(as_of: date, raw_path: Path) -> tuple[list[dict], dict]:
@@ -92,32 +148,49 @@ def fetch_openalex(as_of: date, raw_path: Path) -> tuple[list[dict], dict]:
         f"from_publication_date:{START_DATE.isoformat()},"
         f"to_publication_date:{as_of.isoformat()}"
     )
+    while cursor:
+        query = urllib.parse.urlencode({
+            "filter": filter_value,
+            "select": ",".join(WORK_FIELDS),
+            "per-page": 200,
+            "cursor": cursor,
+        })
+        payload = api_json(f"https://api.openalex.org/works?{query}")
+        page += 1
+        batch = payload.get("results", [])
+        works.extend(batch)
+        cursor = payload.get("meta", {}).get("next_cursor")
+        if not batch:
+            break
+        print(f"OpenAlex page {page}: {len(works):,} works", flush=True)
+        time.sleep(0.12)
+    refetched = complete_authorships(works)
+    print(f"Refetched {refetched:,} works capped at {LIST_AUTHOR_CAP} authorships", flush=True)
     raw_path.parent.mkdir(parents=True, exist_ok=True)
     with gzip.open(raw_path, "wt", encoding="utf-8") as stream:
-        while cursor:
-            query = urllib.parse.urlencode({
-                "filter": filter_value,
-                "select": ",".join(WORK_FIELDS),
-                "per-page": 200,
-                "cursor": cursor,
-            })
-            payload = api_json(f"https://api.openalex.org/works?{query}")
-            page += 1
-            batch = payload.get("results", [])
-            for work in batch:
-                stream.write(json.dumps(work, ensure_ascii=False) + "\n")
-            works.extend(batch)
-            cursor = payload.get("meta", {}).get("next_cursor")
-            if not batch:
-                break
-            print(f"OpenAlex page {page}: {len(works):,} works", flush=True)
-            time.sleep(0.12)
+        for work in works:
+            stream.write(json.dumps(work, ensure_ascii=False) + "\n")
     return works, {
         "query_filter": filter_value,
         "openalex_reported_count": len(works),
         "pages_retrieved": page,
+        "works_refetched_for_full_authorships": refetched,
         "raw_path": str(raw_path.relative_to(ROOT)),
     }
+
+
+def authors_display(names: list[str], muhas_flags: list[bool]) -> str:
+    """All authors when short; otherwise the leading authors, then every MUHAS
+    author beyond them with their true position, then the total count."""
+    if len(names) <= LIST_AUTHOR_CAP:
+        return " | ".join(names)
+    parts = names[:DISPLAY_LEADING_AUTHORS]
+    parts += [
+        f"[MUHAS] {name} (pos. {position:,})"
+        for position, (name, is_muhas) in enumerate(zip(names, muhas_flags), start=1)
+        if position > DISPLAY_LEADING_AUTHORS and is_muhas
+    ]
+    return " | ".join(parts) + f" | … ({len(names):,} authors)"
 
 
 def join_names(items: list[dict] | None, field: str = "display_name") -> str:
@@ -138,11 +211,15 @@ def process_works(works: list[dict], retrieved_at: str, snapshot_id: str) -> tup
         countries = set()
         corresponding_names = []
         corresponding_ids = set(work.get("corresponding_author_ids") or [])
-        for authorship in authorships:
+        all_names: list[str] = []
+        muhas_flags: list[bool] = []
+        for sequence, authorship in enumerate(authorships, start=1):
             author = authorship.get("author") or {}
             institutions = authorship.get("institutions") or []
             has_muhas = any(OPENALEX_ID in (inst.get("lineage") or []) or short_id(inst.get("id")) == OPENALEX_ID for inst in institutions)
             name = author.get("display_name") or ""
+            all_names.append(name or "(unnamed)")
+            muhas_flags.append(has_muhas)
             if has_muhas and name:
                 muhas_authors.append(name)
             if author.get("id") in corresponding_ids and name:
@@ -159,6 +236,7 @@ def process_works(works: list[dict], retrieved_at: str, snapshot_id: str) -> tup
                 "orcid": (author.get("orcid") or "").replace("https://orcid.org/", ""),
                 "author_name": name,
                 "author_position": authorship.get("author_position") or "",
+                "author_sequence": sequence,
                 "is_corresponding": bool(authorship.get("is_corresponding")),
                 "has_muhas_affiliation": has_muhas,
                 "institution_ids": " | ".join(short_id(x.get("id")) for x in institutions if x.get("id")),
@@ -178,10 +256,13 @@ def process_works(works: list[dict], retrieved_at: str, snapshot_id: str) -> tup
         keywords = work.get("keywords") or []
         sdgs = work.get("sustainable_development_goals") or []
         corresponding_institutions = set(work.get("corresponding_institution_ids") or [])
+        ids = work.get("ids") or {}
         work_rows.append({
             "snapshot_id": snapshot_id,
             "openalex_work_id": short_id(work.get("id")),
             "doi": (work.get("doi") or "").replace("https://doi.org/", ""),
+            "pmid": short_id(ids.get("pmid")),
+            "pmcid": short_id(ids.get("pmcid")),
             "title": work.get("title") or work.get("display_name") or "",
             "publication_date": published.isoformat(),
             "publication_year": published.year,
@@ -203,6 +284,8 @@ def process_works(works: list[dict], retrieved_at: str, snapshot_id: str) -> tup
             "is_paratext": bool(work.get("is_paratext")),
             "is_xpac": bool(work.get("is_xpac")),
             "authors_count": len(authorships),
+            "authors": authors_display(all_names, muhas_flags),
+            "list_authors_truncated": bool(work.get("list_authors_truncated") or work.get("is_authors_truncated")),
             "muhas_authors_count": len(muhas_authors),
             "muhas_authors": " | ".join(muhas_authors),
             "corresponding_authors": " | ".join(corresponding_names),
@@ -343,6 +426,10 @@ def write_excel(path: Path, works: list[dict], authorships: list[dict], annual: 
         {"field": "curation_status", "definition": "Institutional review status; inception records default to unreviewed."},
         {"field": "cited_by_count_at_snapshot", "definition": "OpenAlex citation count at retrieval; not publication productivity."},
         {"field": "school / department", "definition": "Blank until assigned through the versioned MUHAS affiliation crosswalk."},
+        {"field": "authors", "definition": "All authors; for works with more than 100, the first 99, then every MUHAS author beyond them with true position, then the total."},
+        {"field": "list_authors_truncated", "definition": "OpenAlex list results capped this work at 100 authorships; the full record was refetched, so authorship rows are complete."},
+        {"field": "author_sequence", "definition": "1-based position of the author in the work's full author list."},
+        {"field": "pmid / pmcid", "definition": "PubMed and PubMed Central identifiers recorded by OpenAlex, where present."},
     ])
     path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(path)

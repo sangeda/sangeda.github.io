@@ -1,13 +1,9 @@
 name: Build MUHAS Publications Observatory
 
+# No push trigger: a push-triggered harvest would publish a provisional release
+# that outranks the latest final snapshot on the live site. Code changes reach the
+# site through deploy-pages.yml; harvests run only on schedule or by hand.
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/build-muhas-observatory.yml"
-      - "scripts/build_muhas_observatory.py"
-      - "requirements.txt"
-      - "muhas-publications/**"
   workflow_dispatch:
     inputs:
       as_of:
@@ -25,7 +21,7 @@ on:
       publish_release:
         description: "Archive the dated snapshot in a GitHub Release"
         required: true
-        default: true
+        default: false
         type: boolean
   schedule:
     # 00:15 East Africa Time on the day after each MUHAS quarter closes.
@@ -43,7 +39,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       snapshot_id: ${{ steps.validate.outputs.snapshot_id }}
       as_of: ${{ steps.meta.outputs.as_of }}
@@ -73,12 +69,14 @@ jobs:
           else
             AS_OF="${INPUT_AS_OF:-$(TZ=Africa/Dar_es_Salaam date +%F)}"
             STATUS="${INPUT_STATUS:-provisional}"
-            PUBLISH_RELEASE="${INPUT_RELEASE:-true}"
+            PUBLISH_RELEASE="${INPUT_RELEASE:-false}"
           fi
           echo "as_of=$AS_OF" >> "$GITHUB_OUTPUT"
           echo "status=$STATUS" >> "$GITHUB_OUTPUT"
           echo "publish_release=$PUBLISH_RELEASE" >> "$GITHUB_OUTPUT"
       - name: Query OpenAlex and build all formats
+        env:
+          OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
         run: python scripts/build_muhas_observatory.py --as-of "${{ steps.meta.outputs.as_of }}" --status "${{ steps.meta.outputs.status }}"
       - name: Validate generated database
         id: validate
@@ -133,7 +131,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
