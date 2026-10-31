@@ -159,6 +159,33 @@ def build_page(kind, data, root):
     (directory/'index.html').write_text(page, encoding='utf-8')
 
 
+
+def refine_home(text):
+    highlights = """<div class="hero-stats" aria-label="Academic profile highlights">
+        <a class="highlight-link" href="/publications.html"><strong>150+</strong><span>peer-reviewed publications and book chapters</span><small>Explore publications ↗</small></a>
+        <a class="highlight-link" href="/supervision/?level=BPharm"><strong>25+</strong><span>BPharm researchers supervised</span><small>Browse BPharm supervision ↗</small></a>
+        <a class="highlight-link" href="#leadership"><strong>2001–</strong><span>academic service at MUHAS</span><small>Academic service &amp; leadership ↓</small></a>
+        <a class="highlight-link" href="#education"><strong>3</strong><span>continents of academic training and collaboration</span><small>Education &amp; international engagement ↓</small></a>
+      </div>
+    </section>"""
+    text = re.sub(r'<div class="hero-stats" aria-label="Academic profile highlights">.*?</section>', lambda _: highlights, text, count=1, flags=re.S)
+    text = text.replace('<section class="section education">', '<section id="education" class="section education">')
+    if 'academic-service-intro' not in text:
+        text = text.replace('<h2>Academic leadership at MUHAS</h2>', '<h2>Academic leadership at MUHAS</h2><p id="academic-service-intro">Academic service at MUHAS since 2001, including teaching, research supervision and institutional leadership.</p>')
+    if 'international-engagement-link' not in text:
+        old = 'Training across pharmacy, microbiology, computing and biomedical sciences shaped an unusually integrative research practice.'
+        new = 'Academic training spans Africa, Asia and Europe, across pharmacy, microbiology, computing and biomedical sciences. <a id="international-engagement-link" class="detail-link" href="/events/">Explore conferences, training and international engagement ↗</a>'
+        text = text.replace(old, new)
+    osp = 'https://muhas-osp.github.io/opportunities/'
+    if '<a href="'+osp+'">OSP opportunities</a>' not in text:
+        text = text.replace('<a href="/events/">Events</a>', '<a href="/events/">Events</a>\n        <a href="'+osp+'">OSP opportunities</a>', 1)
+    if 'id="opportunities"' not in text:
+        section = """<section id="opportunities" class="section split tinted"><div><p class="section-kicker">Research opportunities</p><h2>Find support for the next research idea.</h2></div><div class="prose"><p>Browse funding calls through the MUHAS OSP opportunities portal, alongside the publication and research resources linked from this profile.</p><a class="button primary" href="https://muhas-osp.github.io/opportunities/">Explore MUHAS OSP opportunities ↗</a></div></section>
+
+    """
+        text = text.replace('<section class="contact section">', section+'<section class="contact section">')
+    return text
+
 def build(root=ROOT):
     students = load('student', root)
     events = load('event', root)
@@ -176,13 +203,11 @@ def build(root=ROOT):
         else:
             text, n = re.subn(r'<section id="mentorship".*?</section>', lambda _: section, text, count=1, flags=re.S)
             if n != 1: raise ValueError('Homepage mentorship section not found.')
-        text = re.sub(r'<div><strong>25\+</strong><span>BPharm researchers supervised</span></div>', '<div data-profile-count><strong>'+str(len(students['records']))+'</strong><span>supervision records · BPharm, master’s &amp; PhD</span></div>', text)
-        text = re.sub(r'<div data-profile-count>.*?</div>', '<div data-profile-count><strong>'+str(len(students['records']))+'</strong><span>supervision records · BPharm, master’s &amp; PhD</span></div>', text)
         if 'href="/assets/profile-records.css"' not in text:
             text = text.replace('</head>', '<link rel="stylesheet" href="/assets/profile-records.css">\n</head>')
         if '<a href="/events/">Events</a>' not in text:
             text = text.replace('<a href="#mentorship">Mentorship</a>', '<a href="#mentorship">Mentorship</a>\n        <a href="/events/">Events</a>')
-        home.write_text(text)
+        home.write_text(refine_home(text))
     print(f'Built {len(students["records"])} supervision and {len(events["records"])} event records.')
 
 
@@ -201,3 +226,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
