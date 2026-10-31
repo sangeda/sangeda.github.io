@@ -33,13 +33,7 @@ def load(path: Path) -> dict[str, dict]:
         return {obs.short_id(w.get("id")): w for w in map(json.loads, stream)}
 
 
-def is_backdated_deposit(work: dict) -> bool:
-    source = (work.get("primary_location") or {}).get("source") or {}
-    if source.get("type") != "repository" or "pubmed" in (source.get("display_name") or "").lower():
-        return False
-    created = (work.get("created_date") or "")[:4]
-    year = work.get("publication_year")
-    return created.isdigit() and int(created) >= 2026 and isinstance(year, int) and year <= int(created) - 3
+is_backdated_deposit = obs.is_backdated_deposit
 
 
 def has_muhas(work: dict) -> bool:

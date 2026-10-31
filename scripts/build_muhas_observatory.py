@@ -200,6 +200,26 @@ def authors_display(names: list[str], muhas_flags: list[bool]) -> str:
     return " | ".join(parts) + f" | … ({len(names):,} authors)"
 
 
+FLAG_RULE_TEXT = (
+    "Repository-hosted record (PubMed exempt) added to OpenAlex in 2026 or later "
+    "with a publication date at least three years before it was added."
+)
+
+
+def is_backdated_deposit(work: dict) -> bool:
+    """Flag (not exclude) repository deposits backdated relative to their OpenAlex creation."""
+    source = (work.get("primary_location") or {}).get("source") or {}
+    if source.get("type") != "repository" or "pubmed" in (source.get("display_name") or "").lower():
+        return False
+    created = (work.get("created_date") or "")[:4]
+    year = work.get("publication_year")
+    return created.isdigit() and int(created) >= 2026 and isinstance(year, int) and year <= int(created) - 3
+
+
+def truthy(value) -> bool:
+    return value is True or str(value).strip().lower() in ("true", "1", "yes")
+
+
 def join_names(items: list[dict] | None, field: str = "display_name") -> str:
     return " | ".join(str(item.get(field, "")).strip() for item in (items or []) if item.get(field))
 
@@ -308,6 +328,7 @@ def process_works(works: list[dict], retrieved_at: str, snapshot_id: str) -> tup
             "topics": join_names(topics),
             "keywords": join_names(keywords),
             "sustainable_development_goals": join_names(sdgs),
+            "flag_backdated_repository_deposit": is_backdated_deposit(work),
             "openalex_created_date": work.get("created_date") or "",
             "openalex_updated_date": work.get("updated_date") or "",
             "retrieved_at": retrieved_at,
@@ -436,6 +457,7 @@ def write_excel(path: Path, works: list[dict], authorships: list[dict], annual: 
         {"field": "authors", "definition": "All authors; for works with more than 100, the first 99, then every MUHAS author beyond them with true position, then the total."},
         {"field": "list_authors_truncated", "definition": "OpenAlex list results capped this work at 100 authorships; the full record was refetched, so authorship rows are complete."},
         {"field": "author_sequence", "definition": "1-based position of the author in the work's full author list."},
+        {"field": "flag_backdated_repository_deposit", "definition": FLAG_RULE_TEXT + " Flagged for review, not excluded."},
         {"field": "pmid / pmcid", "definition": "PubMed and PubMed Central identifiers recorded by OpenAlex, where present."},
     ])
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -444,7 +466,14 @@ def write_excel(path: Path, works: list[dict], authorships: list[dict], annual: 
 
 def build_dashboard(work_rows: list[dict], annual: list[dict], quarter_rows: list[dict], type_rows: list[dict], manifest: dict) -> None:
     DATA.mkdir(parents=True, exist_ok=True)
+    unflagged = [row for row in work_rows if not truthy(row.get("flag_backdated_repository_deposit"))]
+    flagged = len(work_rows) - len(unflagged)
+    annual_unflagged, quarters_unflagged, _ = summaries(unflagged)
     summary = {
+        "flagged_backdated_deposits": flagged,
+        "flag_rule": FLAG_RULE_TEXT,
+        "annual_excluding_flagged": annual_unflagged,
+        "quarters_excluding_flagged": quarters_unflagged,
         "institution": INSTITUTION_NAME,
         "openalex_id": OPENALEX_ID,
         "ror": ROR,
@@ -461,14 +490,19 @@ def build_dashboard(work_rows: list[dict], annual: list[dict], quarter_rows: lis
         ],
     }
     (DATA / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+    flag_note = (
+        f'<p class="flag-note"><label><input type="checkbox" id="exclude-flagged"> Exclude {flagged:,} flagged repository deposits</label> '
+        f'<span>{html.escape(FLAG_RULE_TEXT)} These records are under review and are counted in the totals unless excluded; '
+        f'flagging does not mean they are invalid.</span></p>'
+    ) if flagged else ""
     page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MUHAS Publications Observatory</title><meta name="description" content="Reproducible OpenAlex-based MUHAS publication reporting by year and fiscal quarter.">
-<link rel="stylesheet" href="../assets/style.css"><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"></head><body>
+<link rel="stylesheet" href="../assets/style.css"><style>.flag-note{{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline;margin:0 0 1.2rem;font-size:.95rem}}.flag-note label{{font-weight:700;white-space:nowrap}}.flag-note span{{opacity:.8}}</style><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"></head><body>
 <header class="site-header"><div class="nav-wrap"><a class="brand" href="../index.html"><span class="brand-mark">MU</span><span>MUHAS Publications Observatory</span></a><nav class="site-nav always"><a href="../index.html">Profile</a><a href="#downloads">Downloads</a><a href="#methods">Methods</a></nav></div></header>
 <main><section class="pub-hero"><p class="eyebrow">Institutional research intelligence</p><h1>MUHAS publications, <span>preserved and reportable.</span></h1>
 <p class="hero-lead">An OpenAlex-based inception database designed for annual, fiscal-quarter, school and department reporting. Organisational assignments will be added through controlled institutional curation.</p>
 <div class="hero-stats"><div><strong>{len(work_rows):,}</strong><span>works through {manifest['as_of_date']}</span></div><div><strong>{sum(row['publication_year'] <= 2025 for row in work_rows):,}</strong><span>historical works, 1964–2025</span></div><div><strong>{manifest['snapshot_status'].title()}</strong><span>snapshot status</span></div><div><strong>{html.escape(manifest['retrieved_at'][:10])}</strong><span>retrieval date</span></div></div></section>
-<section class="section tinted"><div class="section-heading"><div><p class="section-kicker">Reporting</p><h2>Annual and fiscal-quarter views</h2></div><p>Publication dates determine reporting periods. Retrieval timestamps independently document when the evidence was downloaded.</p></div><div id="muhas-summary" class="observatory-grid"></div></section>
+<section class="section tinted"><div class="section-heading"><div><p class="section-kicker">Reporting</p><h2>Annual and fiscal-quarter views</h2></div><p>Publication dates determine reporting periods. Retrieval timestamps independently document when the evidence was downloaded.</p></div>{flag_note}<div id="muhas-summary" class="observatory-grid"></div></section>
 <section id="downloads" class="section"><div class="section-heading"><div><p class="section-kicker">Downloads</p><h2>Current inception dataset</h2></div><p>Excel is formatted for institutional review; CSV supports analysis in R, Python, Power BI and other systems.</p></div>
 <div class="download-grid"><a href="downloads/MUHAS_Publications_LATEST.xlsx"><strong>Excel workbook</strong><span>Publications, authorships, summaries, metadata and curation template</span></a><a href="downloads/MUHAS_Publications_LATEST.csv"><strong>Publications CSV</strong><span>One row per OpenAlex work</span></a><a href="downloads/MUHAS_Authorships_LATEST.csv"><strong>Authorships CSV</strong><span>One row per author–publication relationship</span></a><a href="downloads/MUHAS_Publications_LATEST.sqlite"><strong>SQLite database</strong><span>Works, authorships and snapshot metadata</span></a></div></section>
 <section id="methods" class="section dark"><div class="section-heading"><div><p class="section-kicker">Methods and cautions</p><h2>Broad at inception; curated thereafter.</h2></div></div><div class="prose"><p>The extraction uses OpenAlex institution lineage <code>{OPENALEX_ID}</code> and ROR <code>{ROR}</code>. Records are retained broadly at inception. School and department fields remain blank until MUHAS validates a time-aware author affiliation crosswalk.</p><p>OpenAlex records can be incomplete, delayed or incorrectly affiliated. Counts are therefore provisional research-intelligence evidence, not an audited institutional return, until curation is completed.</p></div></section></main>
@@ -479,7 +513,15 @@ def build_dashboard(work_rows: list[dict], annual: list[dict], quarter_rows: lis
 def build_js() -> None:
     assets = SITE / "assets"
     assets.mkdir(parents=True, exist_ok=True)
-    script = '''fetch("data/summary.json").then(r=>r.json()).then(d=>{const years=d.annual.filter(x=>x.publication_year>=2016);const recent=years.slice(-10);const max=Math.max(...recent.map(x=>x.publications),1);const annual=recent.map(x=>`<div class="mini-bar-row"><span>${x.publication_year}</span><i style="width:${100*x.publications/max}%"></i><strong>${x.publications}</strong></div>`).join("");const qs=d.quarters.slice(-8).reverse().map(x=>`<tr><td>${x.fiscal_year}</td><td>${x.fiscal_quarter}</td><td>${x.period_end}</td><td>${x.publications}</td></tr>`).join("");const topics=d.top_topics.slice(0,10).map(x=>`<li><span>${x.topic}</span><strong>${x.publications}</strong></li>`).join("");document.querySelector("#muhas-summary").innerHTML=`<article class="observatory-card"><h3>Recent annual output</h3><div class="mini-bars">${annual}</div></article><article class="observatory-card"><h3>Latest fiscal quarters</h3><table><thead><tr><th>FY</th><th>Quarter</th><th>Ends</th><th>Works</th></tr></thead><tbody>${qs}</tbody></table></article><article class="observatory-card"><h3>Leading OpenAlex topics</h3><ol class="topic-rank">${topics}</ol></article>`;}).catch(()=>{document.querySelector("#muhas-summary").textContent="Summary data are temporarily unavailable.";});'''
+    script = '''(function(){const box=()=>document.querySelector("#exclude-flagged");let data=null;
+function render(){const d=data;const ex=box()&&box().checked;const annualAll=ex?d.annual_excluding_flagged:d.annual;const quartersAll=ex?d.quarters_excluding_flagged:d.quarters;
+const recent=annualAll.filter(x=>x.publication_year>=2016).slice(-10);const max=Math.max(...recent.map(x=>x.publications),1);
+const annual=recent.map(x=>`<div class="mini-bar-row"><span>${x.publication_year}</span><i style="width:${100*x.publications/max}%"></i><strong>${x.publications}</strong></div>`).join("");
+const qs=quartersAll.slice(-8).reverse().map(x=>`<tr><td>${x.fiscal_year}</td><td>${x.fiscal_quarter}</td><td>${x.period_end}</td><td>${x.publications}</td></tr>`).join("");
+const topics=d.top_topics.slice(0,10).map(x=>`<li><span>${x.topic}</span><strong>${x.publications}</strong></li>`).join("");
+const label=ex?" (excluding flagged)":"";
+document.querySelector("#muhas-summary").innerHTML=`<article class="observatory-card"><h3>Recent annual output${label}</h3><div class="mini-bars">${annual}</div></article><article class="observatory-card"><h3>Latest fiscal quarters${label}</h3><table><thead><tr><th>FY</th><th>Quarter</th><th>Ends</th><th>Works</th></tr></thead><tbody>${qs}</tbody></table></article><article class="observatory-card"><h3>Leading OpenAlex topics</h3><ol class="topic-rank">${topics}</ol></article>`;}
+fetch("data/summary.json").then(r=>r.json()).then(d=>{data=d;if(!d.annual_excluding_flagged){d.annual_excluding_flagged=d.annual;d.quarters_excluding_flagged=d.quarters;}render();if(box())box().addEventListener("change",render);}).catch(()=>{document.querySelector("#muhas-summary").textContent="Summary data are temporarily unavailable.";});})();'''
     (assets / "observatory.js").write_text(script, encoding="utf-8")
 
 
