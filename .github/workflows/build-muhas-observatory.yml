@@ -93,6 +93,25 @@ jobs:
           with open(os.environ["GITHUB_OUTPUT"], "a") as output:
               output.write(f"snapshot_id={manifest['snapshot_id']}\n")
           PY
+      - name: Report snapshot checks
+        run: |
+          python - <<'PY'
+          import csv, json
+          from pathlib import Path
+          m = json.loads(Path("muhas-publications/data/snapshot_manifest.json").read_text())
+          with open("muhas-publications/downloads/MUHAS_Publications_LATEST.csv", encoding="utf-8-sig", newline="") as f:
+              works = list(csv.DictReader(f))
+          truncated = [w for w in works if w.get("list_authors_truncated") == "True"]
+          checks = {
+              "works": m["works_processed"],
+              "authorship_rows": m["authorship_rows"],
+              "refetched_for_full_authorships": m.get("works_refetched_for_full_authorships"),
+              "truncated_works_with_muhas_after_99": sum("[MUHAS]" in w.get("authors", "") for w in truncated),
+              "max_authors": max((int(w["authors_count"]) for w in works), default=0),
+              "works_with_pmid": sum(bool(w.get("pmid")) for w in works),
+          }
+          print("::notice title=Snapshot checks::" + json.dumps(checks))
+          PY
       - name: Package immutable snapshot
         run: |
           mkdir -p release
