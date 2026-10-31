@@ -1,0 +1,42 @@
+name: OpenAlex lookup (read-only helper)
+
+# Runs only on the openalex-lookups branch, never on main: it does not build
+# or deploy the site and does not touch the Observatory snapshot. Push a file
+# of DOIs / OpenAlex work ids to lookups/ and the full records come back as a
+# downloadable run artifact.
+
+on:
+  push:
+    branches: [openalex-lookups]
+    paths:
+      - "lookups/*.txt"
+      - "scripts/openalex_lookup.py"
+      - ".github/workflows/openalex-lookup.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: openalex-lookup
+  cancel-in-progress: false
+
+jobs:
+  lookup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Fetch every lookups/*.txt list
+        run: |
+          shopt -s nullglob
+          for f in lookups/*.txt; do
+            echo "== $f"
+            python scripts/openalex_lookup.py "$f" --out lookup_out
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openalex-lookups
+          path: lookup_out/
+          retention-days: 30
