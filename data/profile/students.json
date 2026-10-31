@@ -1,0 +1,537 @@
+{
+  "updated_at": "2026-10-31",
+  "source": "Sangeda_Supervised_Students_Full_List_Complete.csv",
+  "records": [
+    {
+      "id": "SUP0001",
+      "level": "PhD",
+      "name": "Pharm Regina Joseph",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "Ongoing",
+      "status": "In Progress",
+      "title": "Dilemma in Controlling Antibiotic Use and Tackling Antimicrobial Resistance in Tanzania: A Case Study in Kagera, Dar es Salaam and Dodoma."
+    },
+    {
+      "id": "SUP0002",
+      "level": "PhD",
+      "name": "Pharm William Ndimbumi Mwamakimbula Reuben",
+      "institution": "The University of Dodoma",
+      "year": "Ongoing",
+      "status": "In Progress",
+      "title": "Evaluating Implementation Fidelity of Bottom-Up Quantification of Essential Medicines Availability among Primary Health Facilities in Tanzania"
+    },
+    {
+      "id": "SUP0003",
+      "level": "PhD",
+      "name": "Pharm Flora Makenya",
+      "institution": "The University of Dodoma",
+      "year": "Ongoing",
+      "status": "In Progress",
+      "title": "Assessment of the Redesigned Integrated Logistic System in Tanzania in reducing health commodity stockouts and minimization of wastage in public primary health facilities: A case of Dodoma Region"
+    },
+    {
+      "id": "SUP0004",
+      "level": "PhD",
+      "name": "Pharm. Juma Ayubu Mohamed",
+      "institution": "KU Leuven, Belgium",
+      "year": "Ongoing",
+      "status": "In Progress",
+      "title": "Pharmacometrics Modeling and Simulation as an Intelligence Base for Optimized Monoclonal Antibody Dosing in Sickle Cell Disease and Inflammatory Bowel Disease"
+    },
+    {
+      "id": "SUP0005",
+      "level": "PhD",
+      "name": "Pharm. Beatrice Aiko",
+      "institution": "KU Leuven, Belgium",
+      "year": "Ongoing",
+      "status": "In Progress",
+      "title": "Qualitative and quantitative models of the HIV system and design and pilot interventions for HIV drug resistance(HIVDR)"
+    },
+    {
+      "id": "SUP0006",
+      "level": "PhD",
+      "name": "Dr. George Bwire",
+      "institution": "KU Leuven, Belgium",
+      "year": "2024",
+      "status": "Completed",
+      "title": "HIV-1 drug resistance: prevalence in Tanzania, determinants of drug resistance and impact of interventions on treatment outcomes."
+    },
+    {
+      "id": "SUP0007",
+      "level": "PhD",
+      "name": "Dr. Bernadether Rugumisa",
+      "institution": "University of Dar es Salaam",
+      "year": "2022",
+      "status": "Completed",
+      "title": "Significance of inter-pregnancy interval after abortion on vaginal microbiome during the first trimester"
+    },
+    {
+      "id": "SUP0008",
+      "level": "PhD",
+      "name": "Dr. Daudi Peter Manyanga",
+      "institution": "Open University of Tanzania",
+      "year": "2020",
+      "status": "Completed",
+      "title": "Effects of short message services on male partners' participation in prevention of mother-to-child transmission of HIV and immunization programmes services in Tabora, Tanzania"
+    },
+    {
+      "id": "SUP0009",
+      "level": "MSc",
+      "name": "David Thomas Myemba",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2021",
+      "status": "Completed",
+      "title": "Microbiological Quality and Antibiogram of Microbial Pathogens Isolated from Selected Local and Imported Non-Sterile Pharmaceuticals"
+    },
+    {
+      "id": "SUP0010",
+      "level": "MSc",
+      "name": "Pharm. George Nyamanda Musiba",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2020",
+      "status": "Completed",
+      "title": "Bacterial Profile and Antimicrobial Susceptibility Patterns among Patients Attending Hemodialysis at Muhimbili National Hospital, Tanzania"
+    },
+    {
+      "id": "SUP0011",
+      "level": "MSc",
+      "name": "Julieth Michael Kaaya",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2024",
+      "status": "Completed",
+      "title": "PREVALENCE OF URINARY TRACT INFECTION AND ANTIMICROBIAL SUSCEPTIBILITY PATTERNS OF UROPATHOGENS ISOLATED FROM THE HEART FAILURE PATIENTS ON SODIUM GLUCOSE TRANSPORTER 2 INHIBITORS AT JAKAYA KIKWETE CARDIAC INSTITUTE"
+    },
+    {
+      "id": "SUP0012",
+      "level": "BPharm",
+      "name": "Gwandumi Kayange",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2025",
+      "status": "Completed",
+      "title": "Factors Associated with Viral Load Suppression and Indicators of Stigma among People Living with HIV in Dar es Salaam Tertiary Hospitals, Tanzania."
+    },
+    {
+      "id": "SUP0013",
+      "level": "BPharm",
+      "name": "Hamis A Dani",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2025",
+      "status": "Completed",
+      "title": "ASSOCIATION OF BASELINE ADVANCED HIV DISEASE AND DOLUTEGRAVIR VERSUS NON-DOLUTEGRAVIR REGIMEN STATUS WITH VIRAL LOAD SUPPRESSION AMONG PATIENTS ON ANTIRETROVIRAL THERAPY IN TANZANIA"
+    },
+    {
+      "id": "SUP0014",
+      "level": "BPharm",
+      "name": "Michael Kalulo",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2024",
+      "status": "Completed",
+      "title": "Utilizing pharmacy refill data to determine virological failure and loss to follow-up in Tanzanian HIV patients in Manyara region in Tanzania"
+    },
+    {
+      "id": "SUP0015",
+      "level": "BPharm",
+      "name": "Mwanahawa Mchunga",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2024",
+      "status": "Completed",
+      "title": "Evaluation of antimicrobial resistance profiles of Pseudomonas aeruginosa in clinical and environmental specifically in wards isolates from Muhimbili National Hospital"
+    },
+    {
+      "id": "SUP0016",
+      "level": "BPharm",
+      "name": "William S Sanga",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2024",
+      "status": "Completed",
+      "title": "KNOWLEDGE, ATTITUDE AND PRACTICES OF HEPATITIS B VACCINE UPTAKE AMONG MEDICAL STUDENTS IN CLINICAL YEARS AT PUBLIC AND PRIVATE UNIVERSITIES IN TANZANIA"
+    },
+    {
+      "id": "SUP0017",
+      "level": "BPharm",
+      "name": "Daniel James",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2023",
+      "status": "Completed",
+      "title": "Childhood vaccination trends during 2019 to 2022 in Tanzania and the impact of the COVID-19 pandemic"
+    },
+    {
+      "id": "SUP0018",
+      "level": "BPharm",
+      "name": "Suzan Kibona",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2023",
+      "status": "Completed",
+      "title": "ASSESSING THE MICROBIOLOGICAL QUALITY OF WATER FROM VENDING MACHINES IN DAR ES SALAAM TANZANIA"
+    },
+    {
+      "id": "SUP0019",
+      "level": "BPharm",
+      "name": "Elvis Msuya",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2023",
+      "status": "Completed",
+      "title": "Prevalence of Diabetes Mellitus Among People Living With HIV and Receiving Antiretroviral Therapy at Muhimbili National Hospital in Tanzania"
+    },
+    {
+      "id": "SUP0020",
+      "level": "BPharm",
+      "name": "Aurelia Kadinde",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2022",
+      "status": "Completed",
+      "title": "Utilization Trends of Phosphodiesterase Type-5 Inhibitors for Erectile Dysfunction Between 2019 and 2023 in Tanzania"
+    },
+    {
+      "id": "SUP0021",
+      "level": "BPharm",
+      "name": "Jackob Aron Ndayomwami",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2022",
+      "status": "Completed",
+      "title": "Trends in antibiotic use among cardiovascular heart disease inpatients at the Jakaya Kikwete Cardiac Institute in Tanzania from 2016 to 2022"
+    },
+    {
+      "id": "SUP0022",
+      "level": "BPharm",
+      "name": "Justin Vasco",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2022",
+      "status": "Completed",
+      "title": "Pharmacoepidemiology of Cardiovascular Medicines Used Among Inpatients at Tertiary Care Hospital in Tanzania from 2016-2022"
+    },
+    {
+      "id": "SUP0023",
+      "level": "BPharm",
+      "name": "Hamis Kaniki",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2021",
+      "status": "Completed",
+      "title": "Antibiotic Consumption Patterns among Outpatients at JKCI"
+    },
+    {
+      "id": "SUP0024",
+      "level": "BPharm",
+      "name": "Hillary Mushi",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2021",
+      "status": "Completed",
+      "title": "Predictors of loss to follow-up among patients on Antiretroviral Therapy in Njombe region, Tanzania (2017-2021)"
+    },
+    {
+      "id": "SUP0025",
+      "level": "BPharm",
+      "name": "Deus Mtweve",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2020",
+      "status": "Completed",
+      "title": "ASSESMENT OF KNOWLEDGE ATTITUDE AND PRACTICES OF HAND WASHING AMONG HEALTH CARE WORKERS IN SELECTED HEALTH HOSPITAL IN DAR ES SALAAM"
+    },
+    {
+      "id": "SUP0026",
+      "level": "BPharm",
+      "name": "Hafidhi Ntisi",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2020",
+      "status": "Completed",
+      "title": "PREVALENCE OF HEPATITIS B AND FACTORS ASSOCIATED WITH OTHER TRANSFUSION INFECTIONS AMONG BLOOD DONORS IN TANZANIA"
+    },
+    {
+      "id": "SUP0027",
+      "level": "BPharm",
+      "name": "Mary Kilapilo",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2020",
+      "status": "Completed",
+      "title": "EXPLORING PATIENTS’ FACTORS AND SUPPLY CHAIN PERFORMANCE INDICATORS FOR PREVENTING HIV DRUG RESISTANCE IN Dar es Salaam"
+    },
+    {
+      "id": "SUP0028",
+      "level": "BPharm",
+      "name": "George Nyamanda Musiba",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2020",
+      "status": "Completed",
+      "title": "BACTERIAL PROFILE AND ANTIMICROBIAL SUSCEPTIBILITY PATTERNS AMONG PATIENTS ATTENDING HEMODIALYSIS AT MUHIMBILI NATIONAL HOSPITAL, TANZANIA"
+    },
+    {
+      "id": "SUP0029",
+      "level": "BPharm",
+      "name": "Kelvin Kasu",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2020",
+      "status": "Completed",
+      "title": "ASSESSMENT OF ANTIBACTERIAL ACTIVITY OF GINGER OIL EXTRACT FROM TANZANIA ON SELECTED BACTERIA"
+    },
+    {
+      "id": "SUP0030",
+      "level": "BPharm",
+      "name": "Adonis Msigwa",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2019",
+      "status": "Completed",
+      "title": "DEVELOPMENT OF MOBILE HEALTH SOFTWARE FOR NUTRITION ANALYSIS TO CONTROL BODY WEIGHT"
+    },
+    {
+      "id": "SUP0031",
+      "level": "BPharm",
+      "name": "Kelvin Kasu",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2019",
+      "status": "Completed",
+      "title": "ASSESSMENT OF ANTIBACTERIAL ACTIVITY OF GINGER OIL EXTRACT FROM TANZANIA ON SELECTED BACTERIA"
+    },
+    {
+      "id": "SUP0032",
+      "level": "BPharm",
+      "name": "Lusajo Shitindi",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2019",
+      "status": "Completed",
+      "title": "ASSESSMENT OF KNOWLEDGE, ATTITUDE AND PRACTICE OF ANTIBIOTIC SELF MEDICATION AMONG MEDICAL STUDENTS AT MUHAS AND KIUT"
+    },
+    {
+      "id": "SUP0033",
+      "level": "BPharm",
+      "name": "OMARY I.KILONGOMWITU",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2019",
+      "status": "Completed",
+      "title": "ASSESSMENT OF KNOWLEDGE, ATTITUDE AND PRACTICE OF SELF-MEDICATION WITH ANTIBIOTICS AMONG STUDENTS FROM NON MEDICAL UNIVERSITY IN DAR ES SALAAM REGION"
+    },
+    {
+      "id": "SUP0034",
+      "level": "BPharm",
+      "name": "NG’WISHO NYALALI",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2019",
+      "status": "Completed",
+      "title": "ASSESSMENT OF DISTRIBUTION OF COMMUNITY PHARMACIES AND ACCREDITED DRUG DISPENSING OUTLETS IN KINONDONI DISTRICT"
+    },
+    {
+      "id": "SUP0035",
+      "level": "BPharm",
+      "name": "POYONGO BARAKA P",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2019",
+      "status": "Completed",
+      "title": "PHARMACISTS’ KNOWLEDGE ATTITUDE AND PRACTICE REGARDING DISPENSING OF ANTIBIOTICS WITHOUT PRESCRIPTION IN TANZANIA"
+    },
+    {
+      "id": "SUP0036",
+      "level": "BPharm",
+      "name": "WILSON MARIKI",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2019",
+      "status": "Completed",
+      "title": "ASSESSMENT OF ANTIMICROBIAL ACTIVITY OF Cinnamomum zeylanicum BARK EXTRACT FROM TANDAI VILLAGE IN MOROGORO REGION"
+    },
+    {
+      "id": "SUP0037",
+      "level": "BPharm",
+      "name": "Shitindi Lusajo",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2019",
+      "status": "Completed",
+      "title": "Comparison of knowledge, attitude, practice and predictors of self-medication with antibiotics among medical and non-medical students in Tanzania"
+    },
+    {
+      "id": "SUP0038",
+      "level": "BPharm",
+      "name": "BARAKA P POYONGO",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2019",
+      "status": "Completed",
+      "title": "Pharmacists' Knowledge, Attitude and Practice Regarding the Dispensing of Antibiotics without Prescription in Tanzania: An Explorative Cross-Sectional Study"
+    },
+    {
+      "id": "SUP0039",
+      "level": "BPharm",
+      "name": "ANDREA BAHA",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2018",
+      "status": "Completed",
+      "title": "Consumption pattern of antibiotic for veterinary use in Tanzania from 2010-2017"
+    },
+    {
+      "id": "SUP0040",
+      "level": "BPharm",
+      "name": "HAFIDH HAMIM",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2018",
+      "status": "Completed",
+      "title": "CONSUMPTION TRENDS OF ANTIVIRAL AND ANTIFUNGAL AGENTS FOR SYSTEMIC USE IN TANZANIA FROM 2010 TO 2017."
+    },
+    {
+      "id": "SUP0041",
+      "level": "BPharm",
+      "name": "KELVIN M SHIJA",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2018",
+      "status": "Completed",
+      "title": "Effect of Lemon Decoction on Malaria Parasite Clearance and Selected Hematological Parameters in Plasmodium berghei Infected Mice"
+    },
+    {
+      "id": "SUP0042",
+      "level": "BPharm",
+      "name": "JOEL KIBONA",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2018",
+      "status": "Completed",
+      "title": "ASSESSMENT OF THE CURRENT SURVEILLANCE AND STEWARDSHIP PROGRAMS IMPLEMENTATION ON ANTIMICROBIAL RESISTANCE IN HOSPITALS IN TANZANIA"
+    },
+    {
+      "id": "SUP0043",
+      "level": "BPharm",
+      "name": "JOHN KIZINDO",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2018",
+      "status": "Completed",
+      "title": "ADHERENCE TO ANTIRETROVIRAL THERAPY AND ITS ASSOCIATION WITH IMMUNE STATUS AMONG HIV INFECTED INJECTABLE DRUG USERS ATTENDING METHADONE CLINICS IN DAR ES SALAAM"
+    },
+    {
+      "id": "SUP0044",
+      "level": "BPharm",
+      "name": "MERCYLINE D. NTENGO",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2018",
+      "status": "Completed",
+      "title": "MICROBIAL QUALITY OF GROUND WATER FOR HOUSEHOLD CONSUMPTION AMONG COMMUNITIES IN TEMEKE DISTRICT"
+    },
+    {
+      "id": "SUP0045",
+      "level": "BPharm",
+      "name": "SHAIBU MOHAMED MSAKATI.",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2018",
+      "status": "Completed",
+      "title": "ANTIMICROBIAL DRUG RESISTANCE IN SALMONELLA ISOLATED FROM DROPPINGS OF BROILERS AND LOCAL BREED CHICKEN"
+    },
+    {
+      "id": "SUP0046",
+      "level": "BPharm",
+      "name": "SYLVIA V KABOYOKA",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2018",
+      "status": "Completed",
+      "title": "PHYLOGENETICS OF HIV-1 SUBTYPES CIRCULATING IN TANZANIA"
+    },
+    {
+      "id": "SUP0047",
+      "level": "BPharm",
+      "name": "Hafidhi Hamim",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2018",
+      "status": "Completed",
+      "title": "Utilization Trends of Antiviral and Antifungal Agents for Human Systemic Use in Tanzania From 2010 to 2017 Using the World Health Organization Collaborating Centre for Drug Statistics Methodology"
+    },
+    {
+      "id": "SUP0048",
+      "level": "BPharm",
+      "name": "Deus M. Mtweve",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2018",
+      "status": "Completed",
+      "title": "Assessment of handwashing knowledge, attitude and practices among healthcare workers at Muhimbili National Hospital, Tanzania"
+    },
+    {
+      "id": "SUP0049",
+      "level": "BPharm",
+      "name": "FRANCO PAUL",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2017",
+      "status": "Completed",
+      "title": "PREVALENCE OF URINARY TRACT INFECTIONS AND ANTIBIOTIC SUSCEPTIBILITY TESTING OF UROPATHOGEN ISOLATED FROM UNDERFIVE CHILDREN ATTENDING BAGAMOYO DISTRICT HOSPITAL"
+    },
+    {
+      "id": "SUP0050",
+      "level": "BPharm",
+      "name": "HABIBU A SABURI",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2017",
+      "status": "Completed",
+      "title": "INFERRING ANTIMICROBIALS CONSUMPTION FROM HUMAN MEDICINE IMPORTATION DATA OF TFDA BETWEEN 2010 AND 2016"
+    },
+    {
+      "id": "SUP0051",
+      "level": "BPharm",
+      "name": "IKANGILA E. TUNDUJE",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2017",
+      "status": "Completed",
+      "title": "EVALUATIONS OF ANTIBACTERIAL ACTIVITY OF SOOT AND BLACK ASHES FROM BANANA FRUIT PEELS"
+    },
+    {
+      "id": "SUP0052",
+      "level": "BPharm",
+      "name": "ELIAS WILSON",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2016",
+      "status": "Completed",
+      "title": "FUNGAL CONTAMINATION OF GROUNDNUTS AND GROUNDNUT PRODUCTS."
+    },
+    {
+      "id": "SUP0053",
+      "level": "BPharm",
+      "name": "MARIKI I URASSA",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2016",
+      "status": "Completed",
+      "title": "PATTERNS OF ANTIBACTERIAL USE AT KIBASILA WARD IN MUHIMBILI NATIONAL HOSPITAL"
+    },
+    {
+      "id": "SUP0054",
+      "level": "BPharm",
+      "name": "KEDDY M. MANGA",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2015",
+      "status": "Completed",
+      "title": "COMPARATIVE ASSESMENT OF ANTIMICROBIAL ACTIVITY OF TOOTHPASTES COMMONLY used IN DAR ES SALAAM, TANZANIA."
+    },
+    {
+      "id": "SUP0055",
+      "level": "BPharm",
+      "name": "REVINA HAULE",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2015",
+      "status": "Completed",
+      "title": "ASSESSMENT OF AWARENESS AND ATTITUDE TOWARDS CONTROL OF EBOLA INFECTION AMONG COMUNITY PHARMACY WORKERS IN DAR ES SALAAM."
+    },
+    {
+      "id": "SUP0056",
+      "level": "BPharm",
+      "name": "JOSEPH YOHANA",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2015",
+      "status": "Completed",
+      "title": "ANTIMICROBIAL SENSITIVITY PROFILE OF BACTERIA CAUSING URINARY TRACT INFECTIONS IN CHILDREN WITH SICKLE CELL ANAEMIA"
+    },
+    {
+      "id": "SUP0057",
+      "level": "BPharm",
+      "name": "Yohanna Joseph",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2015",
+      "status": "Completed",
+      "title": "Prevalence of Urinary Tract Infections and Antibiogram of Bacteria Isolated From Children With Sickle Cell Disease in Tanzania"
+    },
+    {
+      "id": "SUP0058",
+      "level": "BPharm",
+      "name": "NASSOR NASSOR A.",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2014",
+      "status": "Completed",
+      "title": "PREVALENCE AND MICROBIOLOGICAL PROFILING OF UTI AMONG PUBLIC PRIMARY SCHOOLS PUPILS, DAR ES SALAAM"
+    },
+    {
+      "id": "SUP0059",
+      "level": "BPharm",
+      "name": "Mohammed .S. Thani",
+      "institution": "Muhimbili University of Health and Allied Sciences",
+      "year": "2014",
+      "status": "Completed",
+      "title": "PREVALENCE AND MICROBIOLOGICAL PROFILING OF URINARY TRACT PATHOGENS AMONGPRIVATE PRIMARY SCHOOL CHILDREN IN DAR ES SALAAM"
+    }
+  ]
+}

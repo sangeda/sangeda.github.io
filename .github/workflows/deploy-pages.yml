@@ -11,8 +11,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: personal-pages
-  cancel-in-progress: true
+  group: muhas-publications-observatory
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -22,10 +22,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Validate profile records and update pages
+        run: |
+          python -m unittest discover -s tests -p 'test_profile_records.py'
+          python scripts/build_site_seo.py
+      - name: Stage complete site with preserved Observatory downloads
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python -m pip install -r requirements.txt
+          python scripts/stage_dcepd_site.py
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: .
+          path: _site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+

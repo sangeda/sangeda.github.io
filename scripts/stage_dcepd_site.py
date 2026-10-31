@@ -69,7 +69,7 @@ def main():
     optimise_site()
     stage = ROOT/'_site'
     stage.mkdir(exist_ok=True)
-    for directory in ['assets', 'data', 'muhas-publications', 'dcepd-courses', 'dcepd-dashboard', 'bpharm-projects']:
+    for directory in ['supervision', 'events', 'assets', 'data', 'muhas-publications', 'dcepd-courses', 'dcepd-dashboard', 'bpharm-projects']:
         shutil.copytree(ROOT/directory, stage/directory, dirs_exist_ok=True)
     for file in [*ROOT.glob('*.html'), ROOT/'.nojekyll', ROOT/'robots.txt', ROOT/'sitemap.xml']:
         shutil.copy2(file, stage/file.name)
@@ -77,5 +77,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 

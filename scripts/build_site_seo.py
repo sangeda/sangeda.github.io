@@ -8,6 +8,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BASE = 'https://sangeda.github.io/'
 PAGES = {
+    'supervision/index.html': ('supervision/', 'Student Supervision | Prof. Raphael Z. Sangeda | BPharm, MSc & PhD', 'Explore Raphael Sangeda’s student supervision records by name, research topic, degree, institution, year and status.'),
+    'events/index.html': ('events/', 'Events & Academic Engagement | Prof. Raphael Z. Sangeda', 'Explore Raphael Sangeda’s conferences, workshops, training and academic activities by year, country, role and keyword.'),
     'bpharm-projects/index.html': ('bpharm-projects/', 'MUHAS BPharm Research Projects | Year, Supervisor & Topic', 'Search recovered MUHAS Bachelor of Pharmacy research projects by title, keyword, completion year and supervisor.'),
     'index.html': ('', 'Prof. Raphael Z. Sangeda | MUHAS Research, Leadership & Mentorship',
         'Academic profile of Prof. Raphael Zozimus Sangeda at MUHAS: research in bioinformatics, HIV and AMR, academic leadership, teaching, mentorship and publications.'),
@@ -18,6 +20,8 @@ PAGES = {
 }
 
 def optimise_site():
+    from profile_records import build
+    build()
     person = {'@type':'Person','@id':BASE+'#person','name':'Raphael Zozimus Sangeda',
         'alternateName':['Raphael Z. Sangeda','Prof. Raphael Sangeda'], 'honorificPrefix':'Prof.',
         'url':BASE,'jobTitle':'Professor of Pharmaceutical Microbiology and Implementation Research',
@@ -34,7 +38,7 @@ def optimise_site():
           'publisher':{'@id':BASE+'#person'},'inLanguage':'en'}
     navigation='<!-- SITE-DIRECTORY START --><nav aria-label="Explore this website" style="padding:24px;max-width:1200px;margin:auto;display:flex;flex-wrap:wrap;gap:18px">'+''.join(
         f'<a href="{BASE}{url}">{label}</a>' for url,label in [
-            ('','Academic profile'),('#research','Research'),('#leadership','Leadership'),('#mentorship','Mentorship'),
+            ('','Academic profile'),('#research','Research'),('#leadership','Leadership'),('#mentorship','Mentorship'),('supervision/','Student supervision'),('events/','Events and engagement'),
             ('publications.html','Publications and trends'),('muhas-publications/','MUHAS Publications Observatory'),
             ('bpharm-projects/','BPharm research projects')])+'<a href="https://muhas-dcepd.github.io/">MUHAS DCEPD</a></nav><!-- SITE-DIRECTORY END -->'
     for path,(route,title,description) in PAGES.items():
@@ -79,4 +83,5 @@ def optimise_site():
     (ROOT/'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: '+BASE+'sitemap.xml\nSitemap: '+BASE+'bpharm-projects/sitemap.xml\n')
 
 if __name__=='__main__': optimise_site()
+
 
