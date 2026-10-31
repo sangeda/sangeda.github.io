@@ -127,6 +127,8 @@ jobs:
               "truncated_works_with_muhas_after_99": sum("[MUHAS]" in w.get("authors", "") for w in truncated),
               "max_authors": max((int(w["authors_count"]) for w in works), default=0),
               "works_with_pmid": sum(bool(w.get("pmid")) for w in works),
+              "quarterly_report": m.get("quarterly_report"),
+              "release_files": sorted(p.name for p in Path("muhas-publications/downloads").glob(m["snapshot_id"] + "*")),
           }
           print("::notice title=Snapshot checks::" + json.dumps(checks))
           if m.get("changes_since_previous"):
