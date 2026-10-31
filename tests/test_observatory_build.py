@@ -141,5 +141,23 @@ class FetchDedupTests(unittest.TestCase):
         self.assertEqual(meta["duplicate_records_dropped"], 1)
 
 
+class SnapshotChangesTests(unittest.TestCase):
+    def test_compare_counts_and_neutral_note(self):
+        old = {w: work(3, muhas_positions=(1,), work_id=w) for w in ("W1", "W2", "W3")}
+        deposit = work(3, muhas_positions=(1,), work_id="W3")
+        deposit.update({"created_date": "2026-03-01", "publication_year": 2019,
+                        "primary_location": {"source": {"type": "repository", "display_name": "Zenodo"}}})
+        old["W3"] = deposit
+        current = [old["W1"], work(3, muhas_positions=(1,), work_id="W4")]
+        report = obs.compare_works(old, current, query_api=False)
+        self.assertEqual((report["added"], report["removed"], report["removed_matching_backdated_rule"]), (1, 2, 1))
+        note = obs.changes_html({"previous_snapshot": "muhas-pubs-2026-09-30-final", **report,
+                                 "removed_status_now": {"not_returned_deleted_or_merged": 2}})
+        self.assertIn("Changes since the 2026-09-30 snapshot.", note)
+        self.assertIn("1 works were added and 2 are no longer included.", note)
+        self.assertIn("archived unchanged", note)
+        self.assertEqual(obs.changes_html(None), "")
+
+
 if __name__ == "__main__":
     unittest.main()

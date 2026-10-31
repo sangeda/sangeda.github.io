@@ -220,6 +220,62 @@ def truthy(value) -> bool:
     return value is True or str(value).strip().lower() in ("true", "1", "yes")
 
 
+def has_muhas_lineage(work: dict) -> bool:
+    return any(
+        OPENALEX_ID in (inst.get("lineage") or []) or short_id(inst.get("id")) == OPENALEX_ID
+        for a in work.get("authorships") or [] for inst in a.get("institutions") or []
+    )
+
+
+def removed_status(ids: list[str]) -> dict:
+    """Re-query works that left the set: deleted/merged, re-linked away from MUHAS, or still MUHAS."""
+    found: dict[str, dict] = {}
+    for i in range(0, len(ids), 50):
+        query = urllib.parse.urlencode({
+            "filter": "openalex:" + "|".join(ids[i:i + 50]),
+            "select": "id,authorships",
+            "per-page": 50,
+        })
+        for work in api_json(f"https://api.openalex.org/works?{query}").get("results", []):
+            found[short_id(work.get("id"))] = work
+        time.sleep(0.12)
+    status = Counter()
+    for wid in ids:
+        work = found.get(wid)
+        status["not_returned_deleted_or_merged" if work is None
+               else "no_muhas_affiliation_now" if not has_muhas_lineage(work)
+               else "still_muhas_other_reason"] += 1
+    return dict(status)
+
+
+def compare_works(previous: dict[str, dict], current: list[dict], query_api: bool = True) -> dict:
+    """Aggregate differences between two raw snapshots (no titles)."""
+    now = {short_id(w.get("id")): w for w in current}
+    removed = sorted(set(previous) - set(now))
+    added = sorted(set(now) - set(previous))
+    report = {
+        "previous_works": len(previous),
+        "current_works": len(now),
+        "added": len(added),
+        "removed": len(removed),
+        "removed_matching_backdated_rule": sum(is_backdated_deposit(previous[w]) for w in removed),
+        "added_matching_backdated_rule": sum(is_backdated_deposit(now[w]) for w in added),
+        "backdated_rule_previous": sum(map(is_backdated_deposit, previous.values())),
+        "backdated_rule_current": sum(map(is_backdated_deposit, now.values())),
+        "removed_by_source_type": dict(Counter(
+            ((previous[w].get("primary_location") or {}).get("source") or {}).get("type") or "none" for w in removed
+        ).most_common(5)),
+    }
+    if removed and query_api:
+        report["removed_status_now"] = removed_status(removed)
+    return report
+
+
+def load_raw(path: Path) -> dict[str, dict]:
+    with gzip.open(path, "rt", encoding="utf-8") as stream:
+        return {short_id(w.get("id")): w for w in map(json.loads, stream)}
+
+
 def join_names(items: list[dict] | None, field: str = "display_name") -> str:
     return " | ".join(str(item.get(field, "")).strip() for item in (items or []) if item.get(field))
 
@@ -464,6 +520,29 @@ def write_excel(path: Path, works: list[dict], authorships: list[dict], annual: 
     wb.save(path)
 
 
+def changes_html(changes: dict | None) -> str:
+    """Neutral note on how this snapshot differs from the previous final one."""
+    if not changes:
+        return ""
+    tag = str(changes.get("previous_snapshot", ""))
+    date_match = tag[11:21] if tag.startswith("muhas-pubs-") else tag
+    status = changes.get("removed_status_now") or {}
+    parts = [f"{changes.get('added', 0):,} works were added and {changes.get('removed', 0):,} are no longer included."]
+    detail = []
+    if status.get("not_returned_deleted_or_merged"):
+        detail.append(f"{status['not_returned_deleted_or_merged']:,} are no longer returned by OpenAlex (deleted or merged into another record)")
+    if status.get("no_muhas_affiliation_now"):
+        detail.append(f"{status['no_muhas_affiliation_now']:,} are no longer linked to MUHAS")
+    if changes.get("removed_matching_backdated_rule"):
+        detail.append(f"{changes['removed_matching_backdated_rule']:,} had matched the repository-deposit flag")
+    if detail:
+        parts.append("Of those no longer included, " + "; ".join(detail) + ".")
+    parts.append("Counts for earlier years can change between snapshots as OpenAlex corrects its records; "
+                 "each dated snapshot is archived unchanged as a GitHub Release.")
+    return (f'<p class="changes-note"><strong>Changes since the {html.escape(date_match)} snapshot.</strong> '
+            f'{html.escape(" ".join(parts))}</p>')
+
+
 def build_dashboard(work_rows: list[dict], annual: list[dict], quarter_rows: list[dict], type_rows: list[dict], manifest: dict) -> None:
     DATA.mkdir(parents=True, exist_ok=True)
     unflagged = [row for row in work_rows if not truthy(row.get("flag_backdated_repository_deposit"))]
@@ -495,14 +574,15 @@ def build_dashboard(work_rows: list[dict], annual: list[dict], quarter_rows: lis
         f'<span>{html.escape(FLAG_RULE_TEXT)} These records are under review and are counted in the totals unless excluded; '
         f'flagging does not mean they are invalid.</span></p>'
     ) if flagged else ""
+    changes_note = changes_html(manifest.get("changes_since_previous"))
     page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MUHAS Publications Observatory</title><meta name="description" content="Reproducible OpenAlex-based MUHAS publication reporting by year and fiscal quarter.">
-<link rel="stylesheet" href="../assets/style.css"><style>.flag-note{{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline;margin:0 0 1.2rem;font-size:.95rem}}.flag-note label{{font-weight:700;white-space:nowrap}}.flag-note span{{opacity:.8}}</style><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"></head><body>
+<link rel="stylesheet" href="../assets/style.css"><style>.flag-note{{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline;margin:0 0 1.2rem;font-size:.95rem}}.flag-note label{{font-weight:700;white-space:nowrap}}.flag-note span{{opacity:.8}}.changes-note{{margin:0 0 1.2rem;font-size:.95rem;max-width:62rem}}</style><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"></head><body>
 <header class="site-header"><div class="nav-wrap"><a class="brand" href="../index.html"><span class="brand-mark">MU</span><span>MUHAS Publications Observatory</span></a><nav class="site-nav always"><a href="../index.html">Profile</a><a href="#downloads">Downloads</a><a href="#methods">Methods</a></nav></div></header>
 <main><section class="pub-hero"><p class="eyebrow">Institutional research intelligence</p><h1>MUHAS publications, <span>preserved and reportable.</span></h1>
 <p class="hero-lead">An OpenAlex-based inception database designed for annual, fiscal-quarter, school and department reporting. Organisational assignments will be added through controlled institutional curation.</p>
 <div class="hero-stats"><div><strong>{len(work_rows):,}</strong><span>works through {manifest['as_of_date']}</span></div><div><strong>{sum(row['publication_year'] <= 2025 for row in work_rows):,}</strong><span>historical works, 1964–2025</span></div><div><strong>{manifest['snapshot_status'].title()}</strong><span>snapshot status</span></div><div><strong>{html.escape(manifest['retrieved_at'][:10])}</strong><span>retrieval date</span></div></div></section>
-<section class="section tinted"><div class="section-heading"><div><p class="section-kicker">Reporting</p><h2>Annual and fiscal-quarter views</h2></div><p>Publication dates determine reporting periods. Retrieval timestamps independently document when the evidence was downloaded.</p></div>{flag_note}<div id="muhas-summary" class="observatory-grid"></div></section>
+<section class="section tinted"><div class="section-heading"><div><p class="section-kicker">Reporting</p><h2>Annual and fiscal-quarter views</h2></div><p>Publication dates determine reporting periods. Retrieval timestamps independently document when the evidence was downloaded.</p></div>{flag_note}{changes_note}<div id="muhas-summary" class="observatory-grid"></div></section>
 <section id="downloads" class="section"><div class="section-heading"><div><p class="section-kicker">Downloads</p><h2>Current inception dataset</h2></div><p>Excel is formatted for institutional review; CSV supports analysis in R, Python, Power BI and other systems.</p></div>
 <div class="download-grid"><a href="downloads/MUHAS_Publications_LATEST.xlsx"><strong>Excel workbook</strong><span>Publications, authorships, summaries, metadata and curation template</span></a><a href="downloads/MUHAS_Publications_LATEST.csv"><strong>Publications CSV</strong><span>One row per OpenAlex work</span></a><a href="downloads/MUHAS_Authorships_LATEST.csv"><strong>Authorships CSV</strong><span>One row per author–publication relationship</span></a><a href="downloads/MUHAS_Publications_LATEST.sqlite"><strong>SQLite database</strong><span>Works, authorships and snapshot metadata</span></a></div></section>
 <section id="methods" class="section dark"><div class="section-heading"><div><p class="section-kicker">Methods and cautions</p><h2>Broad at inception; curated thereafter.</h2></div></div><div class="prose"><p>The extraction uses OpenAlex institution lineage <code>{OPENALEX_ID}</code> and ROR <code>{ROR}</code>. Records are retained broadly at inception. School and department fields remain blank until MUHAS validates a time-aware author affiliation crosswalk.</p><p>OpenAlex records can be incomplete, delayed or incorrectly affiliated. Counts are therefore provisional research-intelligence evidence, not an audited institutional return, until curation is completed.</p></div></section></main>
@@ -530,6 +610,8 @@ def main() -> None:
     parser.add_argument("--as-of", default=date.today().isoformat())
     parser.add_argument("--status", choices=["provisional", "final"], default="provisional")
     parser.add_argument("--reuse-raw", type=Path)
+    parser.add_argument("--previous-raw", type=Path, help="raw JSONL.gz of the previous final snapshot")
+    parser.add_argument("--previous-tag", default="", help="release tag of the previous final snapshot")
     args = parser.parse_args()
     as_of = date.fromisoformat(args.as_of)
     retrieved_at = iso_now()
@@ -557,6 +639,9 @@ def main() -> None:
         "authorship_rows": len(author_rows),
         **query_meta,
     }
+    if args.previous_raw:
+        changes = compare_works(load_raw(args.previous_raw), works, query_api=not args.reuse_raw)
+        manifest["changes_since_previous"] = {"previous_snapshot": args.previous_tag or args.previous_raw.name, **changes}
     DOWNLOADS.mkdir(parents=True, exist_ok=True)
     dated_csv = DOWNLOADS / f"{snapshot_id}_works.csv"
     dated_auth = DOWNLOADS / f"{snapshot_id}_authorships.csv"
