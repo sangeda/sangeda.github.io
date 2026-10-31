@@ -2,8 +2,9 @@ name: OpenAlex lookup (read-only helper)
 
 # Runs only on the openalex-lookups branch, never on main: it does not build
 # or deploy the site and does not touch the Observatory snapshot. Push a file
-# of DOIs / OpenAlex work ids to lookups/ and the full records come back as a
-# downloadable run artifact.
+# of DOIs / OpenAlex work ids to lookups/ and the full records are attached to
+# the pre-release "openalex-lookups" (marked pre-release so it never shows as
+# the latest Observatory snapshot), and kept as a run artifact.
 
 on:
   push:
@@ -14,7 +15,7 @@ on:
       - ".github/workflows/openalex-lookup.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: openalex-lookup
@@ -35,6 +36,16 @@ jobs:
             echo "== $f"
             python scripts/openalex_lookup.py "$f" --out lookup_out
           done
+      - name: Attach results to the openalex-lookups pre-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view openalex-lookups >/dev/null 2>&1; then
+            gh release create openalex-lookups --target openalex-lookups --prerelease \
+              --title "OpenAlex lookups (helper, not an Observatory snapshot)" \
+              --notes "Full OpenAlex records fetched by scripts/openalex_lookup.py for the lists in lookups/ on the openalex-lookups branch. Not part of the MUHAS Publications Observatory snapshots."
+          fi
+          gh release upload openalex-lookups lookup_out/* --clobber
       - uses: actions/upload-artifact@v4
         with:
           name: openalex-lookups
