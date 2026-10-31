@@ -112,6 +112,20 @@ jobs:
           }
           print("::notice title=Snapshot checks::" + json.dumps(checks))
           PY
+      - name: Compare with the previous final snapshot
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
+          AS_OF: ${{ steps.meta.outputs.as_of }}
+          SNAPSHOT_ID: ${{ steps.validate.outputs.snapshot_id }}
+        run: |
+          prev=$(gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" --jq \
+            '[.[] | select(.tag_name | test("^muhas-pubs-[0-9-]{10}-final$")) | select(.tag_name[11:21] < env.AS_OF)] | sort_by(.tag_name) | last | .tag_name // empty')
+          if [[ -z "$prev" ]]; then echo "No earlier final snapshot to compare with."; exit 0; fi
+          mkdir -p "$RUNNER_TEMP/prev"
+          gh release download "$prev" --repo "$GITHUB_REPOSITORY" --pattern '*.jsonl.gz' --dir "$RUNNER_TEMP/prev"
+          report=$(python scripts/compare_muhas_snapshots.py "$RUNNER_TEMP"/prev/*.jsonl.gz "muhas_publications_archive/raw/$SNAPSHOT_ID.jsonl.gz")
+          echo "::notice title=Compared with $prev::$report"
       - name: Package immutable snapshot
         run: |
           mkdir -p release
