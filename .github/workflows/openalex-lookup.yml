@@ -5,6 +5,9 @@ name: OpenAlex lookup (read-only helper)
 # of DOIs / OpenAlex work ids to lookups/ and the full records are attached to
 # the pre-release "openalex-lookups" (marked pre-release so it never shows as
 # the latest Observatory snapshot), and kept as a run artifact.
+#
+# Title lookups read a private ref-keyed CSV from the LOOKUP_TITLES_B64 secret
+# (never committed); outputs are keyed by ref and contain no input titles.
 
 on:
   push:
