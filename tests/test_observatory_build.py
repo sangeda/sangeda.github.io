@@ -119,5 +119,27 @@ class ProcessWorksTests(unittest.TestCase):
         self.assertEqual([r["author_sequence"] for r in muhas_rows], [180])
 
 
+class FetchDedupTests(unittest.TestCase):
+    def test_duplicate_records_from_paging_are_dropped(self):
+        pages = [
+            {"results": [work(3, work_id="W1"), work(3, work_id="W2")], "meta": {"next_cursor": "c2"}},
+            {"results": [work(3, work_id="W2"), work(3, work_id="W3")], "meta": {"next_cursor": "c3"}},
+            {"results": [], "meta": {"next_cursor": None}},
+        ]
+        import tempfile, gzip, json
+        from datetime import date
+        with tempfile.TemporaryDirectory() as tmp, \
+                mock.patch.object(obs, "ROOT", Path(tmp)), \
+                mock.patch.object(obs, "api_json", side_effect=pages), \
+                mock.patch.object(obs.time, "sleep"):
+            raw = Path(tmp) / "raw" / "x.jsonl.gz"
+            works, meta = obs.fetch_openalex(date(2026, 10, 31), raw)
+            with gzip.open(raw, "rt") as f:
+                lines = f.readlines()
+        self.assertEqual([obs.short_id(w["id"]) for w in works], ["W1", "W2", "W3"])
+        self.assertEqual(len(lines), 3)
+        self.assertEqual(meta["duplicate_records_dropped"], 1)
+
+
 if __name__ == "__main__":
     unittest.main()

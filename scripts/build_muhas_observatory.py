@@ -164,6 +164,12 @@ def fetch_openalex(as_of: date, raw_path: Path) -> tuple[list[dict], dict]:
             break
         print(f"OpenAlex page {page}: {len(works):,} works", flush=True)
         time.sleep(0.12)
+    # Cursor paging over a live index can return a work twice; keep one record per id.
+    unique = {short_id(w.get("id")): w for w in works}
+    duplicates = len(works) - len(unique)
+    works = list(unique.values())
+    if duplicates:
+        print(f"Dropped {duplicates:,} duplicate records returned while paging", flush=True)
     refetched = complete_authorships(works)
     print(f"Refetched {refetched:,} works capped at {LIST_AUTHOR_CAP} authorships", flush=True)
     raw_path.parent.mkdir(parents=True, exist_ok=True)
@@ -174,6 +180,7 @@ def fetch_openalex(as_of: date, raw_path: Path) -> tuple[list[dict], dict]:
         "query_filter": filter_value,
         "openalex_reported_count": len(works),
         "pages_retrieved": page,
+        "duplicate_records_dropped": duplicates,
         "works_refetched_for_full_authorships": refetched,
         "raw_path": str(raw_path.relative_to(ROOT)),
     }
