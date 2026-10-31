@@ -131,6 +131,8 @@ jobs:
 
   deploy:
     needs: build
+    # Only a published snapshot goes live; test runs build and upload artifacts only.
+    if: needs.build.outputs.publish_release == 'true'
     runs-on: ubuntu-24.04
     environment:
       name: github-pages
