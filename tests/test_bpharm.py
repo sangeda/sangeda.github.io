@@ -17,7 +17,8 @@ class PublicCatalogue(unittest.TestCase):
    if 802<=int(p['record_id'][3:])<=1140:
     self.assertNotIn('student_name',p)
     self.assertEqual(p.get('completion_year'),'')
-    self.assertRegex(p.get('presentation_year',''),r'^202[0-6]
+    self.assertRegex(p.get('presentation_year',''),r'^202[0-6]$')
+   self.assertTrue((ROOT/'bpharm-projects/projects'/f'{p["record_id"]}.html').exists())
  def test_full_title_and_supervisors(self):
   self.assertIn('Antimicrobial resistance',terms('First sentence. Antimicrobial resistance.'))
   self.assertIn('Sickle cell disease',terms('Sickle cell disease among children'))
