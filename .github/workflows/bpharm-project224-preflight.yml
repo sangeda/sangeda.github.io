@@ -2,6 +2,10 @@ name: BPharm Project 224 read-only preflight
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/bpharm-project224-preflight.yml'
 
 permissions:
   contents: read
