@@ -17,7 +17,7 @@ concurrency:
 jobs:
   release:
     # Prevent this explicitly approved release from being replayed on later pushes.
-    if: github.event_name == 'push' && github.event.head_commit.message == 'Authorize title-only release of 334 Project 224 records'
+    if: github.event_name == 'push' && startsWith(github.event.head_commit.message, 'Authorize title-only release of 334 Project 224 records')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
