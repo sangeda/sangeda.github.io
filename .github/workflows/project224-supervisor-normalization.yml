@@ -1,0 +1,51 @@
+name: BPharm Project 224 supervisor normalization
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/project224_supervisor_normalize.py'
+      - 'scripts/project224_supervisor_verified_aliases.json'
+      - 'tests/test_project224_supervisor_normalize.py'
+      - '.github/workflows/project224-supervisor-normalization.yml'
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Read-only preflight by default; other operations require exact confirmation'
+        required: true
+        type: choice
+        options: [preflight, first_five, remaining]
+        default: preflight
+      confirmation:
+        description: 'NORMALIZE PROJECT 224 FIRST FIVE or NORMALIZE PROJECT 224 REMAINING'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: project224-supervisor-normalization
+  cancel-in-progress: false
+
+jobs:
+  normalize:
+    name: Verify approved changes and optionally update supervisor fields
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Run synthetic tests without API access
+        run: python -m unittest discover -s tests -p 'test_project224_supervisor_normalize.py'
+      - name: Validate live supervisor changes and apply only explicitly authorized updates
+        env:
+          REDCAP_PROJECT224_TOKEN: ${{ secrets.REDCAP_PROJECT224_TOKEN }}
+          OPERATION: ${{ github.event_name == 'push' && 'preflight' || inputs.operation }}
+          CONFIRMATION: ${{ github.event_name == 'push' && '' || inputs.confirmation }}
+        run: |
+          python scripts/project224_supervisor_normalize.py \
+            --operation "$OPERATION" \
+            --confirm "$CONFIRMATION"
