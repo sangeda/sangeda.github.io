@@ -13,13 +13,40 @@ def api(content,**extra):
  body=urllib.parse.urlencode(dict(token=token,content=content,format='json',returnFormat='json',**extra)).encode()
  req=urllib.request.Request('https://utafiti.muhas.ac.tz/api/',data=body)
  with urllib.request.urlopen(req,timeout=120) as response:return json.load(response)
+def recovery_status(raw):
+    """Publish aggregates only; never serialize held titles, identities or IDs."""
+    recovered = []
+    for row in raw:
+        match = re.fullmatch(r"BPH(\d{6})", str(row.get("record_id", "")))
+        if match and 802 <= int(match.group(1)) <= 1140:
+            recovered.append(row)
+    years = collections.Counter()
+    for row in recovered:
+        match = re.match(r"^Presentation year (202[0-6])\b", str(row.get("source_refs", "")))
+        if match:
+            years[match.group(1)] += 1
+    return {
+        "redcap_record_count": len(raw),
+        "recovered_record_count": len(recovered),
+        "recovered_title_count": sum(bool(clean(r.get("title"))) for r in recovered),
+        "recovered_untitled_count": sum(not clean(r.get("title")) for r in recovered),
+        "recovered_held_count": sum(
+            not yes(r.get("public_catalogue")) or str(r.get("curation_status")) in ("1", "3")
+            for r in recovered
+        ),
+        "presentation_year_counts": {
+            str(year): years.get(str(year), 0) for year in range(2020, 2027)
+        },
+    }
+
+
 def refresh():
  project=api('project')
  if not isinstance(project,dict) or str(project.get('project_id'))!='224':raise ValueError('API project identity check failed')
  meta=api('metadata')
- required=set(FIELDS+['public_catalogue','curation_status'])
+ required=set(FIELDS+['public_catalogue','curation_status','source_refs'])
  if not isinstance(meta,list) or not required <= {r.get('field_name') for r in meta}:raise ValueError('Project 224 dictionary is not ready')
- selected=FIELDS+['public_catalogue','curation_status','public_author','student_name']
+ selected=FIELDS+['public_catalogue','curation_status','public_author','student_name','source_refs']
  raw=api('record',action='export',type='flat',rawOrLabel='raw',**{f'fields[{i}]':f for i,f in enumerate(selected)})
  if not isinstance(raw,list) or not raw:raise ValueError('No records returned; existing public catalogue preserved')
  rows=[]
@@ -29,7 +56,7 @@ def refresh():
   if yes(r.get('public_author')):p['student_name']=clean(r.get('student_name'))
   rows.append(p)
  if not rows:raise ValueError('No Project 224 records are flagged for public catalogue; existing public catalogue preserved')
- return dict(source='REDCap Project 224 public catalogue',as_of=datetime.datetime.now(datetime.timezone.utc).date().isoformat(),records=rows)
+ return dict(source='REDCap Project 224 public catalogue',as_of=datetime.datetime.now(datetime.timezone.utc).date().isoformat(),records=rows,recovery_status=recovery_status(raw))
 def esc(s):return html.escape(str(s),quote=True)
 def page(title,description,route,body,structured=None):
  url=BASE+route
@@ -55,7 +82,39 @@ def build(data):
   if year.isdigit():schema['dateCreated']=year
   (OUT/route).write_text(page(p['title']+' | MUHAS BPharm',f'BPharm research project. Year: {year}. Supervisors: {names}.',route,body,schema),encoding='utf-8')
   cards.append(f'<article data-id="{p["record_id"]}"><p class="eyebrow">{esc(year)} · BPharm research</p><h3><a href="{route}">{esc(p["title"])}</a></h3><p>Supervisors: {esc(names)}</p></article>')
- body=f'<p class="eyebrow">Muhimbili University of Health and Allied Sciences</p><h1>BPharm research projects</h1><p class="lead">Explore research from the School of Pharmacy: discover topics, find supervisors and revisit earlier student projects.</p><p class="status">{esc(data["source"])} · Updated {esc(data["as_of"])}. Abstracts and reports will be added as recovered.</p><div class="stats"><div><strong>{len(rows)}</strong> searchable projects</div><div><strong>{len([y for y in years if y!="Unknown"])}</strong> completion years</div></div><section aria-label="Search filters" class="filters"><label>Search titles or keywords<input id="search" type="search" placeholder="e.g. antimicrobial resistance"></label><label>Year<select id="year"><option value="">All years</option></select></label><label>Supervisor<select id="supervisor"><option value="">All supervisors</option></select></label><button id="reset">Reset filters</button></section><p id="count" aria-live="polite">{len(rows)} projects</p><details open><summary>Research terms and annual coverage</summary><p>Term size shows the number of matching projects, not research impact. Click a term to search.</p><div id="cloud" class="cloud"></div><div id="years" class="yearbars"></div></details><h2>Project catalogue</h2><p><a href="catalogue.csv" download>Download public catalogue (CSV)</a></p><div id="projects" class="cards">'+''.join(cards)+'</div><script src="catalogue.js" defer></script>'
+ archive=data.get("recovery_status") or {}
+ archive_panel=""
+ if archive:
+  total=int(archive.get("redcap_record_count",len(rows)))
+  recovered=int(archive.get("recovered_record_count",0))
+  held=int(archive.get("recovered_held_count",0))
+  titled=int(archive.get("recovered_title_count",0))
+  untitled=int(archive.get("recovered_untitled_count",0))
+  years_by_presentation=archive.get("presentation_year_counts") or {}
+  year_items="".join(
+   f'<li><strong>{esc(year)}</strong><span>{int(years_by_presentation.get(year,0))} records</span></li>'
+   for year in [str(y) for y in range(2020,2027)]
+  )
+  archive_panel=(
+   '<section class="archive-status" aria-labelledby="archive-title">'
+   '<p class="eyebrow">2020–2026 · Archive recovery</p>'
+   '<h2 id="archive-title">The full REDCap archive and the approved public catalogue</h2>'
+   '<div class="archive-totals">'
+   f'<div><strong>{total:,}</strong><span>records in REDCap Project 224</span></div>'
+   f'<div><strong>{len(rows):,}</strong><span>publicly searchable projects</span></div>'
+   f'<div><strong>{held:,}</strong><span>newly recovered records awaiting curation and release</span></div>'
+   '</div>'
+   f'<p>Recovery added {recovered:,} project presentation or proposal records '
+   f'({titled:,} with a recorded title; {untitled:,} without). '
+   'They remain outside public search until separately approved. '
+   'The year counts below describe <strong>presentation or proposal years</strong>, '
+   'not confirmed completion years.</p>'
+   f'<ul class="archive-years" aria-label="Recovered records by presentation year">{year_items}</ul>'
+   '<p class="archive-disclosure">Student names, registration numbers, internal notes and '
+   'unreleased titles are not displayed.</p>'
+   '</section>'
+  )
+ body=f'<p class="eyebrow">Muhimbili University of Health and Allied Sciences</p><h1>BPharm research projects</h1><p class="lead">Explore research from the School of Pharmacy: discover topics, find supervisors and revisit earlier student projects.</p><p class="status">{esc(data["source"])} · Updated {esc(data["as_of"])}. Abstracts and reports will be added as recovered.</p><div class="stats"><div><strong>{len(rows)}</strong> searchable projects</div><div><strong>{len([y for y in years if y!="Unknown"])}</strong> completion years</div></div>{archive_panel}<section aria-label="Search filters" class="filters"><label>Search titles or keywords<input id="search" type="search" placeholder="e.g. antimicrobial resistance"></label><label>Year<select id="year"><option value="">All years</option></select></label><label>Supervisor<select id="supervisor"><option value="">All supervisors</option></select></label><button id="reset">Reset filters</button></section><p id="count" aria-live="polite">{len(rows)} projects</p><details open><summary>Research terms and annual coverage</summary><p>Term size shows the number of matching projects, not research impact. Click a term to search.</p><div id="cloud" class="cloud"></div><div id="years" class="yearbars"></div></details><h2>Project catalogue</h2><p><a href="catalogue.csv" download>Download public catalogue (CSV)</a></p><div id="projects" class="cards">'+''.join(cards)+'</div><script src="catalogue.js" defer></script>'
  (OUT/'index.html').write_text(page('MUHAS BPharm Research Projects | Search by Year, Supervisor & Topic','Search recovered MUHAS Bachelor of Pharmacy research projects by title, keyword, supervisor and completion year.','',body),encoding='utf-8')
  (OUT/'search.json').write_text(json.dumps(items,ensure_ascii=False),encoding='utf-8')
  with (OUT/'catalogue.csv').open('w',encoding='utf-8-sig',newline='') as f:
