@@ -1,6 +1,12 @@
 name: BPharm Project 224 controlled import
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/project224_controlled_import.py'
+      - 'tests/test_project224_controlled_import.py'
+      - '.github/workflows/project224-controlled-import.yml'
   workflow_dispatch:
     inputs:
       operation:
@@ -33,6 +39,7 @@ jobs:
       - name: Run synthetic safety tests
         run: python -m unittest discover -s tests -p 'test_project224_controlled_import.py'
       - name: Verify private dataset, project identity and live IDs before optional write
+        if: github.event_name == 'workflow_dispatch'
         env:
           REDCAP_PROJECT224_TOKEN: ${{ secrets.REDCAP_PROJECT224_TOKEN }}
           BPHARM_PROJECT224_RECOVERY_DATA_GZ_B64: ${{ secrets.BPHARM_PROJECT224_RECOVERY_DATA_GZ_B64 }}
