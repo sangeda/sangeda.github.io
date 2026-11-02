@@ -43,6 +43,25 @@ class ProfileTests(unittest.TestCase):
             self.assertIn('Date not recorded',text)
             self.assertIn('id="EVT0001"',text)
 
+    def test_fellow_cards_and_grant_programmes(self):
+        homepage = (Path(__file__).resolve().parents[1] / 'index.html').read_text(encoding='utf-8')
+        section = homepage.split('<section id="fellows"', 1)[1].split('<section id="opportunities"', 1)[0]
+        self.assertEqual(section.count('class="fellow-record"'), 4)
+        self.assertEqual(section.count('class="fellow-grant"'), 6)
+        for name in (
+            'Fatuma Felix Felician',
+            'David Thomas Myemba',
+            'Meshack Damian Lugoba',
+            'Hamu Joseph Mlyuka',
+        ):
+            self.assertIn(name, section)
+        for funder in ('funder-sida', 'funder-rstmh', 'funder-eac', 'funder-edctp'):
+            self.assertIn(funder, section)
+        self.assertIn('TMA2019IF-2865', section)
+        self.assertIn('not counted as an additional degree supervised', section)
+        self.assertNotIn('class="fellow-status"', section)
+        self.assertNotIn('href="https://drive.google.com/', section)
+
     def test_real_source_ids(self):
         for kind in ['student','event']:
             data=p.load(kind)
