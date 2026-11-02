@@ -29,7 +29,10 @@ def optimise_site():
         'sameAs':['https://orcid.org/0000-0002-6574-5308',
             'https://scholar.google.com/citations?user=FsMB_1cAAAAJ',
             'https://loop.frontiersin.org/people/652853/overview',
-            'https://muhas.ac.tz/user/raphael.zozimus.sangeda/'],
+            'https://muhas.ac.tz/user/raphael.zozimus.sangeda/',
+            'https://tz.linkedin.com/in/sangeda',
+            'https://www.researchgate.net/profile/Raphael-Sangeda',
+            'https://www.cureus.com/users/253652-raphael-z-sangeda'],
         'knowsAbout':['Bioinformatics','HIV drug resistance','Antimicrobial resistance',
             'Pharmaceutical microbiology','Health informatics','Implementation research']}
     org={'@type':'CollegeOrUniversity','@id':BASE+'#muhas',
