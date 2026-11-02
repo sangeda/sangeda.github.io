@@ -55,7 +55,12 @@ def optimise_site():
         url=BASE+route
         page={'@type':'ProfilePage' if not route else 'CollectionPage','@id':url+'#webpage',
               'url':url,'name':title,'description':description,'isPartOf':{'@id':BASE+'#website'},'inLanguage':'en'}
-        graph=[site,person,org,page]
+        # The Observatory is separately governed; keep its pre-existing identity
+        # schema unchanged when profile links are expanded on the homepage.
+        page_person = person
+        if route == 'muhas-publications/':
+            page_person = {**person, 'sameAs': person['sameAs'][:4]}
+        graph=[site,page_person,org,page]
         if not route:
             page['mainEntity']={'@id':BASE+'#person'}
         else:
