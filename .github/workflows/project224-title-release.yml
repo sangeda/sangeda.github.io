@@ -1,0 +1,34 @@
+name: One-time BPharm Project 224 approved title release
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/project224_release_titles.py'
+      - 'tests/test_project224_release_titles.py'
+      - '.github/workflows/project224-title-release.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: project224-approved-title-only-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    # Prevent this explicitly approved release from being replayed on later pushes.
+    if: github.event_name == 'push' && github.event.head_commit.message == 'Authorize title-only release of 334 Project 224 records'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Rehearse 334-title release without REDCap access
+        run: python -m unittest discover -s tests -p 'test_project224_release_titles.py'
+      - name: Release only the 334 approved titles with REDCap readback
+        env:
+          REDCAP_PROJECT224_TOKEN: ${{ secrets.REDCAP_PROJECT224_TOKEN }}
+          PROJECT224_TITLE_RELEASE_APPROVAL: 'RELEASE PROJECT 224 TITLES ONLY 334'
+        run: python scripts/project224_release_titles.py
