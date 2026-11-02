@@ -132,5 +132,9 @@ def main():
  if args.source=='redcap':(OUT/'catalogue.json').write_text(json.dumps(data,ensure_ascii=False),encoding='utf-8')
 if __name__=='__main__':
  try:main()
- except Exception:
-  print('BPharm build failed. Check secret, server availability and Project 224 dictionary. No raw API response logged.',file=sys.stderr);sys.exit(1)
+ except Exception as exc:
+  # Log only exception class and source-file line; NEVER log REDCap values or responses.
+  import traceback
+  frame=traceback.extract_tb(exc.__traceback__)[-1]
+  print(f'BPharm build stopped: {type(exc).__name__} at {Path(frame.filename).name}:{frame.lineno}. Private API data suppressed.',file=sys.stderr)
+  sys.exit(1)
