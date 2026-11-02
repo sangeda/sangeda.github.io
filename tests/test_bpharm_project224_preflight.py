@@ -3,7 +3,7 @@ import importlib.util
 from pathlib import Path
 import unittest
 
-PATH = Path(__file__).resolve().parents[1] / "scripts" / "bpharm_project224_preflight.py"
+PATH = Path(__file__).resolve().parents[1] / "scripts" / "project224_preflight.py"
 spec = importlib.util.spec_from_file_location("bpharm_project224_preflight", PATH)
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
