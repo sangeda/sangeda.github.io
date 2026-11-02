@@ -43,8 +43,40 @@ h1 span { display: block; margin-top: .18em; color: var(--teal); }
 .button.primary { color: white; background: var(--teal); }
 .button.secondary { color: var(--teal); background: transparent; }
 .button.light { color: var(--dark); border-color: white; background: white; }
-.profile-links { margin-top: 2rem; gap: 1.4rem; color: var(--muted); font-size: .9rem; font-weight: 700; }
-.profile-links a { border-bottom: 1px solid currentColor; }
+/* Linked academic profiles: soft colored ovals, legible contrast, keyboard focus. */
+.profile-links { margin-top: 1.8rem; gap: .58rem; font-size: .84rem; font-weight: 750; }
+.profile-links .profile-pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 38px; padding: .55rem .88rem;
+  border: 1px solid var(--pill-border); border-radius: 999px;
+  color: var(--pill-fg); background: var(--pill-bg);
+  text-decoration: none; line-height: 1.15;
+  box-shadow: 0 2px 5px rgba(17,51,50,.025);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.profile-links .profile-pill:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(14,47,50,.10); }
+.profile-links .profile-pill:focus-visible { outline: 3px solid #0b6b65; outline-offset: 3px; }
+.profile-orcid { --pill-fg: #315d11; --pill-bg: #ecf6df; --pill-border: #b9d88d; }
+.profile-scholar { --pill-fg: #164d8e; --pill-bg: #e8f1fb; --pill-border: #a9c8ed; }
+.profile-loop { --pill-fg: #6b347a; --pill-bg: #f2e8f6; --pill-border: #d8b8e3; }
+.profile-muhas { --pill-fg: #6f481a; --pill-bg: #fff0d7; --pill-border: #e5c18b; }
+.profile-linkedin { --pill-fg: #075783; --pill-bg: #e2f3fa; --pill-border: #90c5db; }
+.profile-researchgate { --pill-fg: #00675c; --pill-bg: #dff4ef; --pill-border: #92cdc0; }
+.profile-cureus { --pill-fg: #813d32; --pill-bg: #fbece8; --pill-border: #edb9ac; }
+
+/* Fellowship-linked research proposals; an application is not a confirmed award. */
+.fellows-section { background: #f9faf6; }
+.fellow-records { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,310px),1fr)); gap: 1rem; }
+.fellow-record { border: 1px solid var(--line); border-radius: 20px; padding: 1.45rem; background: #fff; box-shadow: 0 5px 24px rgba(8,38,37,.04); }
+.fellow-record-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem; }
+.fellow-record h3 { margin: 0; font-size: 1.2rem; }
+.fellow-record p { margin: .85rem 0 0; max-width: 64ch; line-height: 1.58; }
+.fellow-record .fellow-role { color: var(--teal); font-weight: 750; }
+.fellow-record .fellow-note, .fellow-section-note { color: var(--muted); font-size: .9rem; }
+.fellow-status { display: inline-flex; align-items: center; white-space: nowrap; padding: .35rem .65rem; border-radius: 99px; background: #f1ead6; color: #70531c; font-size: .73rem; font-weight: 750; }
+.fellow-section-note { margin-top: 1.2rem; }
+.fellow-section-note a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+
 .hero-card { padding: 2rem; border-radius: 28px; color: white; background: var(--dark); box-shadow: var(--shadow); transform: rotate(1.2deg); }
 .monogram { display: grid; place-items: center; width: 96px; height: 96px; border-radius: 28px; color: var(--dark); background: var(--gold); font-family: Manrope, sans-serif; font-size: 1.6rem; font-weight: 800; letter-spacing: .03em; }
 .role-label { margin: 2rem 0 .4rem; color: #a9ccc7; font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
