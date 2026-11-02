@@ -39,12 +39,13 @@ jobs:
       - name: Run synthetic safety tests
         run: python -m unittest discover -s tests -p 'test_project224_controlled_import.py'
       - name: Verify private dataset, project identity and live IDs before optional write
-        if: github.event_name == 'workflow_dispatch'
+        # On a push, run only the read-only preflight; writes remain manual and require confirmation.
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         env:
           REDCAP_PROJECT224_TOKEN: ${{ secrets.REDCAP_PROJECT224_TOKEN }}
           BPHARM_PROJECT224_RECOVERY_DATA_GZ_B64: ${{ secrets.BPHARM_PROJECT224_RECOVERY_DATA_GZ_B64 }}
-          IMPORT_OPERATION: ${{ inputs.operation }}
-          IMPORT_CONFIRMATION: ${{ inputs.confirmation }}
+          IMPORT_OPERATION: ${{ github.event_name == 'push' && 'preflight' || inputs.operation }}
+          IMPORT_CONFIRMATION: ${{ github.event_name == 'push' && '' || inputs.confirmation }}
         run: |
           python scripts/project224_controlled_import.py \
             --operation "$IMPORT_OPERATION" \
