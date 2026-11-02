@@ -9,7 +9,7 @@ on:
         default: redcap
   push:
     branches: [main]
-    paths: ['bpharm-projects/**', 'scripts/*bpharm*', '.github/workflows/update-bpharm.yml']
+    paths: ['bpharm-projects/**', 'scripts/*bpharm*', 'tests/test_bpharm.py', '.github/workflows/update-bpharm.yml']
   schedule:
     - cron: '17 2 * * *'
 permissions:
