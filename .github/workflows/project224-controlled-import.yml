@@ -1,0 +1,44 @@
+name: BPharm Project 224 controlled import
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Preflight is read-only; writes require the exact confirmation below'
+        required: true
+        type: choice
+        options: [preflight, first_five, remaining]
+        default: preflight
+      confirmation:
+        description: 'IMPORT PROJECT 224 FIRST FIVE or IMPORT PROJECT 224 REMAINING'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: project224-controlled-import
+  cancel-in-progress: false
+
+jobs:
+  controlled-import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Run synthetic safety tests
+        run: python -m unittest discover -s tests -p 'test_project224_controlled_import.py'
+      - name: Verify private dataset, project identity and live IDs before optional write
+        env:
+          REDCAP_PROJECT224_TOKEN: ${{ secrets.REDCAP_PROJECT224_TOKEN }}
+          BPHARM_PROJECT224_RECOVERY_DATA_GZ_B64: ${{ secrets.BPHARM_PROJECT224_RECOVERY_DATA_GZ_B64 }}
+          IMPORT_OPERATION: ${{ inputs.operation }}
+          IMPORT_CONFIRMATION: ${{ inputs.confirmation }}
+        run: |
+          python scripts/project224_controlled_import.py \
+            --operation "$IMPORT_OPERATION" \
+            --confirm "$IMPORT_CONFIRMATION"
