@@ -16,7 +16,7 @@ def synthetic_records():
             for i in range(1,1115)}
     for i in range(1,219):
         rows[f"BPH{i:06d}"]["supervisor_1"] = "DR.NGASSAPA" if i==4 else "NGASSAPA"
-    for i in list(range(219,230)) + list(range(1,11)):
+    for i in list(range(219,230)) + list(range(11,21)):
         rows[f"BPH{i:06d}"]["supervisor_2"] = "KAALE"
     for i in range(230,238):
         rows[f"BPH{i:06d}"]["supervisor_3"] = "MLOKA"
