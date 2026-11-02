@@ -21,4 +21,4 @@ jobs:
       - name: Query REDCap Project 224 without modifying any records
         env:
           REDCAP_PROJECT224_TOKEN: ${{ secrets.REDCAP_PROJECT224_TOKEN }}
-        run: python scripts/bpharm_project224_preflight.py
+        run: python scripts/project224_preflight.py
