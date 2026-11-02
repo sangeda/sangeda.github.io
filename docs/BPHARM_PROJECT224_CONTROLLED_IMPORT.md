@@ -1,6 +1,6 @@
 # BPharm Project 224: controlled import from a temporary GitHub Actions secret
 
-The importer has **no scheduled or push trigger**. It runs only through manual GitHub Actions dispatch. **Preflight is the default**, writing zero REDCap records.
+A push to main runs **synthetic tests only**, without connecting to REDCap. Live data operations run **only through manual GitHub Actions dispatch**. **Preflight is the default**, writing zero REDCap records.
 
 ## Load the private 339-row dataset as a repository secret
 
