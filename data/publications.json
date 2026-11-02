@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-10-26T08:56:07.798022+00:00",
+  "generated_at": "2026-11-02T11:08:23.042537+00:00",
   "orcid": "0000-0002-6574-5308",
   "scope_note": "Records linked to the ORCID iD in ORCID, Crossref, or PubMed; not a definitive bibliography.",
   "source_record_counts_before_deduplication": {
     "ORCID": 155,
     "Crossref": 77,
-    "PubMed": 29
+    "PubMed": 30
   },
   "unique_record_count": 161,
   "top_title_terms": [
@@ -831,7 +831,7 @@
       "year": 2026,
       "journal": "Alimentary Pharmacology & Therapeutics",
       "doi": "10.1111/apt.71062",
-      "pmid": "",
+      "pmid": "42928429",
       "url": "https://doi.org/10.1111/apt.71062",
       "authors": [
         "Juma A. Mohamedi",
@@ -852,7 +852,8 @@
       "type": "journal-article",
       "sources": [
         "Crossref",
-        "ORCID"
+        "ORCID",
+        "PubMed"
       ]
     },
     {
