@@ -1,0 +1,24 @@
+name: BPharm Project 224 read-only preflight
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    name: Check project identity, schema and record-ID availability
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Test read-only preflight logic
+        run: python -m unittest discover -s tests -p 'test_bpharm_project224_preflight.py'
+      - name: Query REDCap Project 224 without modifying any records
+        env:
+          REDCAP_PROJECT224_TOKEN: ${{ secrets.REDCAP_PROJECT224_TOKEN }}
+        run: python scripts/bpharm_project224_preflight.py
