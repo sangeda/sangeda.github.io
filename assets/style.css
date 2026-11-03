@@ -85,6 +85,10 @@ a.funder-pill:focus-visible { outline: 3px solid var(--teal); outline-offset: 3p
 .funder-rstmh { --funder-bg: #ebf0fa; --funder-border: #b1c6e8; --funder-ink: #234d7c; }
 .funder-eac { --funder-bg: #fff1dd; --funder-border: #e1c18c; --funder-ink: #75501a; }
 .funder-edctp { --funder-bg: #e4f4ef; --funder-border: #a5d6c9; --funder-ink: #245f51; }
+.funder-sparco { --funder-bg: #eee9f8; --funder-border: #c3b5df; --funder-ink: #58437a; }
+.fellow-grant .fellow-team { margin-top: .7rem; padding-top: .6rem; border-top: 1px solid #e0e7e3; color: #52616a; font-size: .82rem; }
+.fellow-grant em { font-style: italic; }
+
 .fellow-section-note { margin-top: 1.4rem; max-width: 950px; color: var(--muted); font-size: .9rem; line-height: 1.55; }
 .fellow-section-note a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 760px) { .fellow-records { grid-template-columns: 1fr; } }
