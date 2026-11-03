@@ -86,6 +86,7 @@ a.funder-pill:focus-visible { outline: 3px solid var(--teal); outline-offset: 3p
 .funder-eac { --funder-bg: #fff1dd; --funder-border: #e1c18c; --funder-ink: #75501a; }
 .funder-edctp { --funder-bg: #e4f4ef; --funder-border: #a5d6c9; --funder-ink: #245f51; }
 .funder-sparco { --funder-bg: #eee9f8; --funder-border: #c3b5df; --funder-ink: #58437a; }
+.funder-glocal { --funder-bg: #e7f0fc; --funder-border: #a9c3e8; --funder-ink: #284e83; }
 .fellow-grant .fellow-team { margin-top: .7rem; padding-top: .6rem; border-top: 1px solid #e0e7e3; color: #52616a; font-size: .82rem; }
 .fellow-grant em { font-style: italic; }
 
