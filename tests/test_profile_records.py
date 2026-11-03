@@ -46,21 +46,38 @@ class ProfileTests(unittest.TestCase):
     def test_fellow_cards_and_grant_programmes(self):
         homepage = (Path(__file__).resolve().parents[1] / 'index.html').read_text(encoding='utf-8')
         section = homepage.split('<section id="fellows"', 1)[1].split('<section id="opportunities"', 1)[0]
-        self.assertEqual(section.count('class="fellow-record"'), 4)
-        self.assertEqual(section.count('class="fellow-grant"'), 6)
+        self.assertEqual(section.count('class="fellow-record"'), 7)
+        self.assertEqual(section.count('class="fellow-grant"'), 9)
         for name in (
             'Fatuma Felix Felician',
             'David Thomas Myemba',
             'Meshack Damian Lugoba',
             'Hamu Joseph Mlyuka',
+            'Daniel Kandonga',
+            'Ritah Mutagonda',
+            'Upendo Masamu',
         ):
             self.assertIn(name, section)
-        for funder in ('funder-sida', 'funder-rstmh', 'funder-eac', 'funder-edctp'):
+        for funder in ('funder-sida', 'funder-rstmh', 'funder-eac', 'funder-edctp', 'funder-sparco'):
             self.assertIn(funder, section)
+        self.assertEqual(section.count('SPARCO–NIH Small Grants'), 3)
         self.assertIn('TMA2019IF-2865', section)
+        self.assertIn('Automating Migration of Consistent Sickle Cell Disease Clinical-Database', section)
+        self.assertIn('Upgrading Biorepository to Support Genomics and Clinical Research', section)
+        self.assertIn('Streptococcal pneumoniae', section)
+        self.assertIn('Uptake of Viral Load Testing and the Role of Pharmacy Refill Adherence', section)
+        self.assertIn('co-investigator: Ritah Francis Mutagonda', section)
+        self.assertIn('Hillary Mshana', section)
+        self.assertIn('Naizihijwa Majani', section)
+        self.assertIn('grant awarded in 2026', section)
+        self.assertNotIn('Leveraging Global Genomic Repositories', section)
+        self.assertIn('2022</time>', section)
+        self.assertIn('2023 grant application', section)
         self.assertIn('not counted as an additional degree supervised', section)
         self.assertNotIn('class="fellow-status"', section)
         self.assertNotIn('href="https://drive.google.com/', section)
+        for count in ('48', '3', '8'):
+            self.assertIn('<strong>'+count+'</strong>', homepage)
 
     def test_real_source_ids(self):
         for kind in ['student','event']:
