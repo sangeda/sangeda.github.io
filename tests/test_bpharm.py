@@ -33,6 +33,16 @@ class PublicCatalogue(unittest.TestCase):
   self.assertEqual(sups[0]['search_key'],'raphael z sangeda')
   self.assertEqual(supervisors({'supervisor_1':'prof Kennedy Mwambete'})[0]['name'],'Kennedy Daniel Mwambete')
 
+ def test_archive_return_navigation(self):
+  from build_bpharm import page
+  markup=page('Sample','Public collection','bpharm-projects/','<p>Test</p>')
+  header=markup.split('<header>',1)[1].split('</header>',1)[0]
+  footer=markup.split('<footer>',1)[1].split('</footer>',1)[0]
+  self.assertIn('https://muhas-dcepd.github.io/',header)
+  self.assertIn('https://muhas-osp.github.io/opportunities/',header)
+  self.assertIn('href="/"',header)
+  self.assertIn('https://sangeda.github.io/',footer)
+
 class RecoveryStatusTests(unittest.TestCase):
  def test_held_student_data_never_serialized(self):
   live=[
