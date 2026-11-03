@@ -47,3 +47,16 @@ Funder spelling: **RSTMH** (Royal Society of Tropical Medicine and Hygiene), **E
 
 ## Limits
 External pages can change or block automated access. This is a targeted audit of profile, site-directory and institutional links, not a guarantee that every outbound publication URL on the website is permanently valid.
+
+## Fellowship funder and programme links — 3 November 2026
+
+All **11** grant/fellowship badges in the public Fellows section are hyperlinks. Links are to official funder or administering programme websites, rather than to individual confidential applications or unverified award records:
+
+- **Sida** (Fatuma, Meshack and Hafidhi): https://sida.se/en ; the associated MUHAS–Sida grants are administered at MUHAS, with institutional research support described at https://muhas.ac.tz/drpi/.
+- **RSTMH** (David and Meshack): https://www.rstmh.org/grants
+- **EACoECVS** (Meshack): https://eacecs.or.tz/
+- **EDCTP** (Hamu): https://www.edctp.org/clinical-research-and-product-development-fellowships-2019/
+- **SPARCO / NIH-supported SickleInAfrica consortium** (Daniel, Ritah and Upendo): https://www.sickleinafrica.org/
+- **UCGHI GloCal Health Fellowship** (Liberata): https://ucghi.universityofcalifornia.edu/fellowships/glocal-health-fellowship/
+
+The links identify the funding agencies/programmes; they do **not** independently verify an individual investigator's award. The established project record status and person/degree-supervision counts remain unchanged. Regression tests protect all 11 links from accidental removal during site refreshes.
