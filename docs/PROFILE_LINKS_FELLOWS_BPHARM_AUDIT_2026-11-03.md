@@ -19,7 +19,7 @@ These display as seven accessible, differently colored, oval badges at the top o
 
 ## Fellows and early-career mentorship — corrected 3 November 2026
 
-There are **seven investigators and nine distinct programme/project entries**. These are *not* nine awarded grants; some records are application documents. None is automatically a degree-supervision record. User-provided concept notes and project title pages are the principal source for the 2020 SPARCO and 2022 Sida corrections; confidential source documents are not linked from the public site.
+There are **nine investigators and eleven distinct programme/project entries**. These are *not* nine awarded grants; some records are application documents. None is automatically a degree-supervision record. User-provided concept notes and project title pages are the principal source for the 2020 SPARCO and 2022 Sida corrections; confidential source documents are not linked from the public site.
 
 1. **Fatuma Felix Felician** — MUHAS–Sida Small Grants, 2021. PI, childhood sickle-cell disease gut microbial communities project. Raphael Z. Sangeda: mentor. User confirmed Sida sponsorship.
 2. **David Thomas Myemba** — RSTMH Early Career Grant, 2024, sociocultural HPV vaccination decision-making in Tanzanian families. His February 2024 recommendation letter identifies Sangeda as project supervisor; subsequent RSTMH correspondence about his final report supports that this became an administered grant.
@@ -31,6 +31,9 @@ There are **seven investigators and nine distinct programme/project entries**. T
 5. **Daniel Kandonga** — **SPARCO–NIH Small Grants, 2020**, PI: *Automating Migration of Consistent Sickle Cell Disease Clinical-Database at Muhimbili National Hospital in Tanzania*. Co-investigators Upendo Masamu (statistician), Frank Makundi (IT specialist) and Jesca Ondego (data clerk). Mentor Dr Raphael Sangeda, then Senior Lecturer and MUHAS Sickle Cell Programme Data Manager.
 6. **Ritah Mutagonda** — **SPARCO–NIH 2020/2021 fellowship concept note**: *Streptococcal pneumoniae Carriage, Serotypes and Antibiotic Resistance Profile among Children with Sickle Cell Disease Who Are Using Pneumococcal Prophylaxis in Tanzania*. The scientific name wording follows the user-supplied concept title verbatim. The concept-note record does not by itself establish an award or completion.
 7. **Upendo Masamu** — **SPARCO–NIH Small Grants, 2020**, PI: *Upgrading Biorepository to Support Genomics and Clinical Research: A Practical Approach from Sickle Cell Disease Programme at Muhimbili National Hospital*. Co-investigators Daniel Kandonga and Josephine Mgaya. Mentor Dr Raphael Sangeda.
+
+8. **Hafidhi Hussein Ntissi** — **MUHAS–Sida Antimicrobial Stewardship Grant, 2023**, *Point Prevalence Survey and Pattern of Antimicrobial Use at Muhimbili National Hospital*. Research mentee of Raphael Z. Sangeda. Based on the mentor's explicit November 2026 addition; no unverified PI role or completion date is inferred.
+9. **Liberata Alexander Mwita** — **University of California Global Health Institute (UCGHI) GloCal Health Fellowship, 2019–2020**, *Identification of Genetic Markers Associated with Anemia in Individuals Affected with Sickle Cell Disease*. Research mentee of Raphael Z. Sangeda. Based on the mentor's supplied title and fellowship years.
 
 The public section retains person-based cards with sponsor ovals and project descriptions, avoids unnecessary status badges, and does not link to private applications or expose unpublished source documents. Counts remain **48 BPharm, 3 master's and 8 PhD supervision records**.
 

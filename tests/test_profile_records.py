@@ -46,8 +46,8 @@ class ProfileTests(unittest.TestCase):
     def test_fellow_cards_and_grant_programmes(self):
         homepage = (Path(__file__).resolve().parents[1] / 'index.html').read_text(encoding='utf-8')
         section = homepage.split('<section id="fellows"', 1)[1].split('<section id="opportunities"', 1)[0]
-        self.assertEqual(section.count('class="fellow-record"'), 7)
-        self.assertEqual(section.count('class="fellow-grant"'), 9)
+        self.assertEqual(section.count('class="fellow-record"'), 9)
+        self.assertEqual(section.count('class="fellow-grant"'), 11)
         for name in (
             'Fatuma Felix Felician',
             'David Thomas Myemba',
@@ -56,12 +56,19 @@ class ProfileTests(unittest.TestCase):
             'Daniel Kandonga',
             'Ritah Mutagonda',
             'Upendo Masamu',
+            'Hafidhi Hussein Ntissi',
+            'Liberata Alexander Mwita',
         ):
             self.assertIn(name, section)
-        for funder in ('funder-sida', 'funder-rstmh', 'funder-eac', 'funder-edctp', 'funder-sparco'):
+        for funder in ('funder-sida', 'funder-rstmh', 'funder-eac', 'funder-edctp', 'funder-sparco', 'funder-glocal'):
             self.assertIn(funder, section)
         self.assertEqual(section.count('SPARCO–NIH Small Grants'), 3)
         self.assertIn('TMA2019IF-2865', section)
+        self.assertIn('Point Prevalence Survey and Pattern of Antimicrobial Use at Muhimbili National Hospital', section)
+        self.assertIn('MUHAS–Sida Antimicrobial Stewardship Grant', section)
+        self.assertIn('Identification of Genetic Markers Associated with Anemia in Individuals Affected with Sickle Cell Disease', section)
+        self.assertIn('UCGHI GloCal Health Fellowship', section)
+        self.assertIn('2019–2020', section)
         self.assertIn('Automating Migration of Consistent Sickle Cell Disease Clinical-Database', section)
         self.assertIn('Upgrading Biorepository to Support Genomics and Clinical Research', section)
         self.assertIn('Streptococcal pneumoniae', section)
