@@ -48,6 +48,18 @@ class ProfileTests(unittest.TestCase):
         section = homepage.split('<section id="fellows"', 1)[1].split('<section id="opportunities"', 1)[0]
         self.assertEqual(section.count('class="fellow-record"'), 9)
         self.assertEqual(section.count('class="fellow-grant"'), 11)
+        self.assertEqual(section.count('<a class="funder-pill '), 11)
+        self.assertNotIn('<span class="funder-pill ', section)
+        for url in (
+            'https://sida.se/en',
+            'https://www.sickleinafrica.org/',
+            'https://ucghi.universityofcalifornia.edu/fellowships/glocal-health-fellowship/',
+            'https://www.rstmh.org/grants',
+            'https://eacecs.or.tz/',
+            'https://www.edctp.org/clinical-research-and-product-development-fellowships-2019/',
+        ):
+            self.assertIn('href="'+url+'"', section)
+
         for name in (
             'Fatuma Felix Felician',
             'David Thomas Myemba',
