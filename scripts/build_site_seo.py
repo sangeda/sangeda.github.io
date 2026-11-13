@@ -24,7 +24,7 @@ def optimise_site():
     build()
     person = {'@type':'Person','@id':BASE+'#person','name':'Raphael Zozimus Sangeda',
         'alternateName':['Raphael Z. Sangeda','Prof. Raphael Sangeda'], 'honorificPrefix':'Prof.',
-        'url':BASE,'jobTitle':'Professor of Pharmaceutical Microbiology and Implementation Research',
+        'url':BASE,'jobTitle':'Professor of Pharmaceutical Microbiology and Bioinformatics',
         'affiliation':{'@id':BASE+'#muhas'},
         'sameAs':['https://orcid.org/0000-0002-6574-5308',
             'https://scholar.google.com/citations?user=FsMB_1cAAAAJ',
