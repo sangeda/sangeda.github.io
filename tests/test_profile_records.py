@@ -43,6 +43,52 @@ class ProfileTests(unittest.TestCase):
             self.assertIn('Date not recorded',text)
             self.assertIn('id="EVT0001"',text)
 
+    def test_2026_phd_defence_from_dated_cv(self):
+        students = p.load('student')
+        rows = students['records']
+        self.assertEqual(len(rows), 59)
+        phds = [row for row in rows if row['level'] == 'PhD']
+        self.assertEqual(len(phds), 8)
+        self.assertEqual(sum(row['status'] == 'Completed' for row in phds), 4)
+        self.assertEqual(sum(row['status'] == 'In Progress' for row in phds), 4)
+        aiko = next(row for row in rows if row['id'] == 'SUP0005')
+        self.assertIn('Beatrice Aiko', aiko['name'])
+        self.assertEqual(aiko['year'], '2026')
+        self.assertEqual(aiko['status'], 'Completed')
+        self.assertEqual(aiko['defence_date'], '2026-11-09')
+        self.assertEqual(students['updated_at'], '2026-11-13')
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            p.build_page('student', students, root)
+            page = (root/'supervision/index.html').read_text()
+            self.assertIn('PhD defended: 09 Nov 2026', page)
+            self.assertIn('PhD records (4 completed)', page)
+            self.assertIn('Pharm. Beatrice Aiko', page)
+
+    def test_defence_date_is_consistent_with_completed_phd(self):
+        base = dict(id='SUP0055', name='Example PhD', level='PhD',
+                    institution='MUHAS', year='2026', status='Completed',
+                    title='Research topic', defence_date='2026-11-09')
+        p.validate('student', base)
+        for change in (
+            {'defence_date': '2026-02-30'},
+            {'year': '2025'},
+            {'status': 'In Progress'},
+            {'level': 'MSc'},
+        ):
+            with self.subTest(change=change):
+                with self.assertRaises(ValueError):
+                    p.validate('student', {**base, **change})
+
+    def test_november_cv_homepage_alignment(self):
+        page = (Path(__file__).resolve().parents[1]/'index.html').read_text(encoding='utf-8')
+        self.assertIn('Professor of Pharmaceutical Microbiology and Bioinformatics', page)
+        self.assertIn('Acting Principal, MUHAS Kigoma Campus College', page)
+        self.assertIn('<h3>Acting Principal</h3>', page)
+        self.assertIn('<strong>154</strong><span>scholarly outputs in the November 2026 CV</span>', page)
+        self.assertIn('<strong>48</strong><span>BPharm supervision records</span>', page)
+        self.assertIn('<strong>8</strong><span>PhD supervision records · 4 completed</span>', page)
+
     def test_fellow_cards_and_grant_programmes(self):
         homepage = (Path(__file__).resolve().parents[1] / 'index.html').read_text(encoding='utf-8')
         section = homepage.split('<section id="fellows"', 1)[1].split('<section id="opportunities"', 1)[0]
