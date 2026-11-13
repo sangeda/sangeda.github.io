@@ -65,6 +65,17 @@ class ProfileTests(unittest.TestCase):
             self.assertIn('PhD records (4 completed)', page)
             self.assertIn('Pharm. Beatrice Aiko', page)
 
+    def test_checked_in_supervision_matches_2026_cv(self):
+        page = (Path(__file__).resolve().parents[1]/'supervision/index.html').read_text(encoding='utf-8')
+        self.assertIn('PhD records (4 completed)', page)
+        self.assertIn('PhD defended: 09 Nov 2026', page)
+        self.assertIn('Record collection updated: 2026-11-13', page)
+        records = page.split('<script type="application/json" id="record-data">', 1)[1].split('</script>', 1)[0]
+        public = json.loads(records)
+        aiko = next(r for r in public if r['id']=='SUP0005')
+        self.assertEqual((aiko['status'], aiko['year'], aiko['defence_date']),
+                         ('Completed', '2026', '2026-11-09'))
+
     def test_defence_date_is_consistent_with_completed_phd(self):
         base = dict(id='SUP0055', name='Example PhD', level='PhD',
                     institution='MUHAS', year='2026', status='Completed',
