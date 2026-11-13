@@ -11,7 +11,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 FIELDS = {
-    'student': ('name', 'level', 'institution', 'year', 'status', 'title'),
+    'student': ('name', 'level', 'institution', 'year', 'status', 'title', 'defence_date'),
     'event': ('name', 'start_date', 'end_date', 'city', 'country', 'sponsor', 'role', 'description'),
 }
 FILES = {'student': 'students', 'event': 'events'}
@@ -35,6 +35,15 @@ def validate(kind, row):
             raise ValueError('Status must be Completed, In Progress or Unknown.')
         if row.get('year') and row['year'] not in ('Ongoing', 'Unknown') and not re.fullmatch(r'(19|20)\d{2}', row['year']):
             raise ValueError('Year must be YYYY, Ongoing, Unknown or blank.')
+        if row.get('defence_date'):
+            if row.get('level') != 'PhD' or row.get('status') != 'Completed':
+                raise ValueError('A PhD defence date requires completed PhD status.')
+            try:
+                defence = dt.date.fromisoformat(row['defence_date'])
+            except (ValueError, TypeError):
+                raise ValueError('Defence date must be valid YYYY-MM-DD.') from None
+            if row.get('year') != str(defence.year):
+                raise ValueError('PhD completion year must agree with defence date.')
     else:
         for key in ('start_date', 'end_date'):
             if row.get(key):
@@ -104,7 +113,8 @@ def build_page(kind, data, root):
     lead = ('Research mentorship across pharmacy, microbiology, bioinformatics and health systems. Explore the supplied supervision record by student, research topic, degree and institution.' if student else 'Conferences, workshops, training and collaborative activities connecting research, professional practice and academic capacity building.')
     if student:
         levels = collections.Counter(r['level'] for r in rows)
-        stats = [(len(rows), 'supervision records'), (levels['PhD'], 'PhD records'), (sum(levels[k] for k in ('MSc', 'MPharm')), 'master’s records'), (levels['BPharm'], 'BPharm records')]
+        phd_completed = sum(r.get('level') == 'PhD' and r.get('status') == 'Completed' for r in rows)
+        stats = [(len(rows), 'supervision records'), (levels['PhD'], f'PhD records ({phd_completed} completed)'), (sum(levels[k] for k in ('MSc', 'MPharm')), 'master’s records'), (levels['BPharm'], 'BPharm records')]
         filters = [('level', 'Degree level'), ('status', 'Recorded status'), ('year', 'Recorded year'), ('institution', 'Institution')]
         note = 'This is a record-based list, not a verified count of unique students. Possible repeated names and project variants are retained pending review. Degree, year and status follow the supplied record; “In Progress” has not been independently reconfirmed. Master’s entries in the initial file are labelled MSc.'
     else:
@@ -127,6 +137,8 @@ def build_page(kind, data, root):
         if student:
             meta = f'<span class="record-badge">{e(r["level"])}</span><span>{e(r["status"])}</span><span>· {e(r["year"] or "Year not recorded")}</span>'
             body = f'<h2>{e(r["name"])}</h2><p class="record-details">{e(r["institution"] or "Institution not recorded")}</p><p class="project-title">{e(r["title"] or "Research title not recorded")}</p>'
+            if r.get('defence_date'):
+                body += f'<p class="record-details">PhD defended: {e(date_text(r["defence_date"]))}</p>'
         else:
             dates = date_text(r['start_date'])
             if r['end_date'] and r['end_date'] != r['start_date']:
@@ -162,8 +174,8 @@ def build_page(kind, data, root):
 
 def refine_home(text):
     highlights = """<div class="hero-stats" aria-label="Academic profile highlights">
-        <a class="highlight-link" href="/publications.html"><strong>150+</strong><span>peer-reviewed publications and book chapters</span><small>Explore publications ↗</small></a>
-        <a class="highlight-link" href="/supervision/?level=BPharm"><strong>25+</strong><span>BPharm researchers supervised</span><small>Browse BPharm supervision ↗</small></a>
+        <a class="highlight-link" href="/publications.html"><strong>154</strong><span>scholarly outputs in the November 2026 CV</span><small>Explore publications ↗</small></a>
+        <a class="highlight-link" href="/supervision/?level=BPharm"><strong>48</strong><span>BPharm supervision records</span><small>Browse BPharm supervision ↗</small></a>
         <a class="highlight-link" href="#leadership"><strong>2001–</strong><span>academic service at MUHAS</span><small>Academic service &amp; leadership ↓</small></a>
         <a class="highlight-link" href="#education"><strong>3</strong><span>continents of academic training and collaboration</span><small>Education &amp; international engagement ↓</small></a>
       </div>
@@ -195,8 +207,10 @@ def build(root=ROOT):
     if home.exists():
         text = home.read_text()
         levels = collections.Counter(r['level'] for r in students['records'])
+        phd_completed = sum(r.get('level') == 'PhD' and r.get('status') == 'Completed'
+                            for r in students['records'])
         section = f'''<!-- PROFILE-RECORDS START -->
-    <section id="mentorship" class="section split mentorship"><div><p class="section-kicker">Teaching &amp; mentorship</p><h2>Research mentorship, from question to evidence.</h2></div><div class="prose"><p>I teach and supervise undergraduate, master’s and PhD researchers and contribute to bioinformatics teaching at the African Institute for Mathematical Sciences and the University of Dar es Salaam. My mentorship links research questions with reproducible analysis, publication and practical public-health value.</p><div class="mentorship-stats"><div><strong>{levels['BPharm']}</strong><span>BPharm supervision records</span></div><div><strong>{sum(levels[k] for k in ('MSc','MPharm'))}</strong><span>master’s supervision records</span></div><div><strong>{levels['PhD']}</strong><span>PhD supervision records</span></div></div><p>Explore student research and the academic activities supporting this work. Counts describe supplied records, with possible repeats retained for review.</p><div class="profile-overview"><a href="/supervision/"><strong>Student supervision ↗</strong><span>Search names and topics; filter by degree, year, status and institution.</span></a><a href="/events/"><strong>Events &amp; engagement ↗</strong><span>{len(events['records'])} recorded activities. Explore conferences, workshops and training by year, country and role.</span></a></div></div></section>
+    <section id="mentorship" class="section split mentorship"><div><p class="section-kicker">Teaching &amp; mentorship</p><h2>Research mentorship, from question to evidence.</h2></div><div class="prose"><p>I teach and supervise undergraduate, master’s and PhD researchers and contribute to bioinformatics teaching at the African Institute for Mathematical Sciences and the University of Dar es Salaam. My mentorship links research questions with reproducible analysis, publication and practical public-health value.</p><div class="mentorship-stats"><div><strong>{levels['BPharm']}</strong><span>BPharm supervision records</span></div><div><strong>{sum(levels[k] for k in ('MSc','MPharm'))}</strong><span>master’s supervision records</span></div><div><strong>{levels['PhD']}</strong><span>PhD supervision records · {phd_completed} completed</span></div></div><p>Explore student research and the academic activities supporting this work. Counts describe supplied records, with possible repeats retained for review.</p><div class="profile-overview"><a href="/supervision/"><strong>Student supervision ↗</strong><span>Search names and topics; filter by degree, year, status and institution.</span></a><a href="/events/"><strong>Events &amp; engagement ↗</strong><span>{len(events['records'])} recorded activities. Explore conferences, workshops and training by year, country and role.</span></a></div></div></section>
     <!-- PROFILE-RECORDS END -->'''
         if '<!-- PROFILE-RECORDS START -->' in text:
             text = re.sub(r'<!-- PROFILE-RECORDS START -->.*?<!-- PROFILE-RECORDS END -->', lambda _: section, text, flags=re.S)
