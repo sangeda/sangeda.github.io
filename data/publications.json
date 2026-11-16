@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-11-09T11:32:11.731418+00:00",
+  "generated_at": "2026-11-16T11:18:10.798203+00:00",
   "orcid": "0000-0002-6574-5308",
   "scope_note": "Records linked to the ORCID iD in ORCID, Crossref, or PubMed; not a definitive bibliography.",
   "source_record_counts_before_deduplication": {
-    "ORCID": 155,
+    "ORCID": 157,
     "Crossref": 77,
     "PubMed": 30
   },
-  "unique_record_count": 161,
+  "unique_record_count": 163,
   "top_title_terms": [
     {
       "term": "sickle cell disease",
@@ -23,7 +23,7 @@
     },
     {
       "term": "hiv drug resistance",
-      "count": 12
+      "count": 14
     },
     {
       "term": "antibiotics",
@@ -78,6 +78,10 @@
       "count": 7
     },
     {
+      "term": "quality",
+      "count": 7
+    },
+    {
       "term": "devices",
       "count": 7
     },
@@ -99,10 +103,6 @@
     },
     {
       "term": "saharan",
-      "count": 6
-    },
-    {
-      "term": "quality",
       "count": 6
     },
     {
@@ -158,6 +158,10 @@
       "count": 5
     },
     {
+      "term": "patient",
+      "count": 5
+    },
+    {
       "term": "four",
       "count": 5
     },
@@ -204,10 +208,6 @@
     {
       "term": "pandemic",
       "count": 5
-    },
-    {
-      "term": "development",
-      "count": 5
     }
   ],
   "top_normalized_topics": [
@@ -217,7 +217,7 @@
     },
     {
       "term": "HIV",
-      "count": 33
+      "count": 34
     },
     {
       "term": "Dar es Salaam",
@@ -240,12 +240,12 @@
       "count": 8
     },
     {
-      "term": "Antibiotic consumption",
+      "term": "HIV drug resistance",
       "count": 7
     },
     {
-      "term": "HIV drug resistance",
-      "count": 6
+      "term": "Antibiotic consumption",
+      "count": 7
     },
     {
       "term": "Viral load",
@@ -408,10 +408,10 @@
         "Health systems and implementation": 2
       },
       "2026": {
-        "HIV and treatment": 11,
-        "AMR and antibiotic use": 6,
+        "HIV and treatment": 12,
+        "AMR and antibiotic use": 7,
         "Infections and microbiology": 3,
-        "Health systems and implementation": 2,
+        "Health systems and implementation": 3,
         "Medicines and supply systems": 2,
         "Sickle cell and genomics": 1
       }
@@ -554,6 +554,32 @@
       ]
     },
     {
+      "title": "Simulation modeling for the design and evaluation of HIV drug resistance interventions: a systematic review of literature",
+      "year": 2026,
+      "journal": "BMC Public Health",
+      "doi": "10.1186/s12889-026-27723-4",
+      "pmid": "",
+      "url": "https://doi.org/10.1186/s12889-026-27723-4",
+      "authors": [],
+      "type": "journal-article",
+      "sources": [
+        "ORCID"
+      ]
+    },
+    {
+      "title": "Quality of services and patient reported outcomes for prostate cancer in Tanzania: the role of patients' satisfaction from a cross-sectional study",
+      "year": 2026,
+      "journal": "BMC Urology",
+      "doi": "10.1186/s12894-026-02231-0",
+      "pmid": "",
+      "url": "https://doi.org/10.1186/s12894-026-02231-0",
+      "authors": [],
+      "type": "journal-article",
+      "sources": [
+        "ORCID"
+      ]
+    },
+    {
       "title": "Predictors of loss to follow-up among patients receiving antiretroviral therapy in Njombe Region, Tanzania, 2017–2021",
       "year": 2026,
       "journal": "",
@@ -618,7 +644,7 @@
       ]
     },
     {
-      "title": "Isolation and Antimicrobial Resistance of <i>Staphylococcus aureus</i> Associated with Respiratory Devices",
+      "title": "Isolation and Antimicrobial Resistance of Staphylococcus aureus Associated with Respiratory Devices",
       "year": 2026,
       "journal": "Biomedical Sciences",
       "doi": "10.11648/j.bs.20261201.13",
@@ -725,6 +751,7 @@
       "type": "journal-article",
       "sources": [
         "Crossref",
+        "ORCID",
         "PubMed"
       ]
     },
@@ -786,7 +813,7 @@
       ]
     },
     {
-      "title": "Efficacy of Antibiotics Against <i>Pseudomonas </i><i>a</i><i>eruginosa</i> Isolated from Respiratory Devices in Tanzania",
+      "title": "Efficacy of Antibiotics Against Pseudomonas a eruginosa Isolated from Respiratory Devices in Tanzania",
       "year": 2026,
       "journal": "Medicine and Health Sciences",
       "doi": "10.11648/j.mhs.20260202.13",
@@ -1097,10 +1124,9 @@
         "Daudi Ignasy Msasi",
         "Selesitine Ngoma"
       ],
-      "type": "preprint",
+      "type": "posted-content",
       "sources": [
-        "Crossref",
-        "ORCID"
+        "Crossref"
       ]
     },
     {
