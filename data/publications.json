@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-11-16T11:18:10.798203+00:00",
+  "generated_at": "2026-11-23T12:41:41.221225+00:00",
   "orcid": "0000-0002-6574-5308",
   "scope_note": "Records linked to the ORCID iD in ORCID, Crossref, or PubMed; not a definitive bibliography.",
   "source_record_counts_before_deduplication": {
-    "ORCID": 157,
-    "Crossref": 77,
+    "ORCID": 159,
+    "Crossref": 78,
     "PubMed": 30
   },
-  "unique_record_count": 163,
+  "unique_record_count": 165,
   "top_title_terms": [
     {
       "term": "sickle cell disease",
@@ -70,11 +70,19 @@
       "count": 8
     },
     {
+      "term": "longitudinal",
+      "count": 8
+    },
+    {
       "term": "genetic",
       "count": 8
     },
     {
       "term": "first",
+      "count": 7
+    },
+    {
+      "term": "healthcare",
       "count": 7
     },
     {
@@ -87,10 +95,6 @@
     },
     {
       "term": "antibiotic",
-      "count": 7
-    },
-    {
-      "term": "longitudinal",
       "count": 7
     },
     {
@@ -119,10 +123,6 @@
     },
     {
       "term": "disease",
-      "count": 6
-    },
-    {
-      "term": "healthcare",
       "count": 6
     },
     {
@@ -178,6 +178,10 @@
       "count": 5
     },
     {
+      "term": "antimicrobial",
+      "count": 5
+    },
+    {
       "term": "exploring",
       "count": 5
     },
@@ -204,10 +208,6 @@
     {
       "term": "attitude",
       "count": 5
-    },
-    {
-      "term": "pandemic",
-      "count": 5
     }
   ],
   "top_normalized_topics": [
@@ -221,7 +221,7 @@
     },
     {
       "term": "Dar es Salaam",
-      "count": 19
+      "count": 20
     },
     {
       "term": "Antiretroviral therapy",
@@ -401,10 +401,10 @@
       },
       "2025": {
         "Medicines and supply systems": 4,
-        "AMR and antibiotic use": 6,
+        "AMR and antibiotic use": 7,
         "Sickle cell and genomics": 5,
         "HIV and treatment": 3,
-        "Infections and microbiology": 3,
+        "Infections and microbiology": 4,
         "Health systems and implementation": 2
       },
       "2026": {
@@ -563,6 +563,38 @@
       "authors": [],
       "type": "journal-article",
       "sources": [
+        "ORCID"
+      ]
+    },
+    {
+      "title": "Seroprevalence and Determinants of SARS-CoV-2 Antibodies Among Healthcare Workers in Dar es Salaam, Tanzania",
+      "year": 2026,
+      "journal": "COVID",
+      "doi": "10.3390/covid6110205",
+      "pmid": "",
+      "url": "https://doi.org/10.3390/covid6110205",
+      "authors": [
+        "Erick Alexander Mboya",
+        "Claudia Hawkins",
+        "Doreen Kamori",
+        "Davis Elias Amani",
+        "Grace Shayo",
+        "Raphael Z. Sangeda",
+        "Joan Rugemalila",
+        "Faraja Chiwanga",
+        "Sabina Mugusi",
+        "Upendo Nkwera",
+        "Patricia Munseri",
+        "Mangaro Mabusi",
+        "Said Aboud",
+        "Ferdinand Mugusi",
+        "Bruno Sunguya",
+        "Muhammad Bakari",
+        "Tumaini Nagu"
+      ],
+      "type": "journal-article",
+      "sources": [
+        "Crossref",
         "ORCID"
       ]
     },
@@ -1408,6 +1440,19 @@
         "Crossref",
         "ORCID",
         "PubMed"
+      ]
+    },
+    {
+      "title": "Benchmarking Pre-National Action Plan Systemic Antimicrobial Consumption in Tanzania, 1998-2005: A Historical Longitudinal Defined Daily Dose Analysis",
+      "year": 2025,
+      "journal": "Cureus",
+      "doi": "10.7759/cureus.98729",
+      "pmid": "",
+      "url": "https://doi.org/10.7759/cureus.98729",
+      "authors": [],
+      "type": "journal-article",
+      "sources": [
+        "ORCID"
       ]
     },
     {
